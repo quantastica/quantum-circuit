@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+</head>
+
+<body>
+	<p>Program</p>
+	<textarea id="program" name="program"></textarea>
+	<button type="button" id="run">Run</button>
+	<p>Output</p>
+	<code><pre id="output"></pre></code>
+
+	<p>Help</p>
+	<p>	
+		<i>Each program line is one wire. In each line type gates separated with "-".<br /> Implemented gates: H, X, Y, Z, SRN, S, R2, R4, R8</i>
+	</p>
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/3.8.0/math.min.js" type="text/javascript"></script>
+	<script src="quantum-circuit.js"></script>
+	<script>
+		function run() {
+			clear();
+
+			let programLines = $("#program").val().split("\n");
+			let numWires = programLines.length;
+			let wires = [];
+			let maxlen = 0;
+			for(let x = 0; x < numWires; x++) {
+				wires[x] = [];
+				let program = programLines[x].split("-");
+				for(let i = 0; i < program.length; i++) {
+					let gate = program[i];
+					wires[x].push(gate);
+					if(wires[x].length > maxlen) {
+						maxlen = wires[x].length;
+					}
+				}
+			}
+
+			let q = new QuantumCircuit(numWires);
+			for(let col = 0; col < maxlen; col++) {
+				for(let wire = 0; wire < numWires; wire++) {
+					let gate = wires[wire][col];
+					if(gate) {
+						q.applyGate(gate, wire);
+					}
+				}
+			}
+
+			show(q.asString());
+		}
+
+		function clear() {
+			$("#output").text("");
+		}
+
+		function show(s) {
+			$("#output").text($("#output").text() + "\n" + s);
+		}
+
+		$("#run").click(function () {
+			run();
+		});
+
+		$("#program").on("input", function() {
+			run();
+		});
+
+		run();
+
+	</script>
+</body>
