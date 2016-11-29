@@ -1,7 +1,7 @@
 /*
 	Quantum Circuit Emulator
 
-	Original code by Petar Korponaić <petar.korponaic@gmail.com>
+	Petar Korponaić <petar.korponaic@gmail.com>
 
 	November 2016
 */
@@ -97,13 +97,13 @@ var basicGates = {
 		[0, 0, 1, 0],
 		[0, 1, 0, 0],
 		[0, 0, 0, 1]
-	]/*,
+	],
 	srswap: [
 		[1, 0, 0, 0],
-		[0, math.multiply(0.5, 1 + math.i), math.multiply(0.5, 1 - math.i), 0],
-		[0, math.multiply(0.5, 1 - math.i), math.multiply(0.5, 1 + math.i), 0],
+		[0, math.multiply(0.5, math.add(1, math.i)), math.multiply(0.5, math.subtract(1, math.i)), 0],
+		[0, math.multiply(0.5, math.subtract(1, math.i)), math.multiply(0.5, math.add(1, math.i)), 0],
 		[0, 0, 0, 1]
-	]*/
+	]
 };
 
 basicGates.cx = makeControlled(basicGates.x);
@@ -118,7 +118,11 @@ basicGates.cr8 = makeControlled(basicGates.r8);
 
 class QuantumCircuit {
 	constructor(numQubits = 1) {
-		this.numQubits = numQubits;
+		this.init();
+	}
+
+	init(numQubits = 1) {
+		this.numQubits = numQubits || 1;
 		this.customGates = {};
 		this.clear();
 	}
@@ -285,19 +289,57 @@ class QuantumCircuit {
 		this.state = math.multiply(this.T, this.state);
 	}
 
-	decompile(obj) {
+	decompose(obj) {
+		if(!obj.gates.length) {
+			return obj;
+		}
+
+		function injectArray(a1, a2, pos) {
+			return a1.slice( 0, pos ).concat( a2 ).concat( a1.slice( pos ) );
+		}
+
+		for(let column = 0; column < obj.gates[0].length; column++) {
+			for(let wire = 0; wire < obj.numQubits; wire++) {
+				let gate = obj.gates[wire][column];
+				if(gate && gate.connector == 0 && !basicGates[gate.name]) {
+					let tmp = new QuantumCircuit();
+					let custom = obj.customGates[gate.name];
+					if(custom) {
+						tmp.load(custom);
+						let decomposed = tmp.save(true);
+						let empty = [];
+						for(let i = 0; i < decomposed.gates[0].length - 1; i++) {
+							empty.push(null);
+						}
+						// shift columns right
+						for(let w = 0; w < obj.numQubits; w++) {
+							let g = obj.gates[w][column];
+							if(g && g.id == gate.id) {
+								obj.gates[w].splice(column, 1);
+								obj.gates[w] = injectArray(obj.gates[w], decomposed.gates[g.connector], column);
+							} else {
+								obj.gates[w] = injectArray(obj.gates[w], empty, column + 1);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		obj.customGates = [];
+
 		return obj;
 	}
 
-	save(decompile) {
+	save(decompose) {
 		let data = {
 			numQubits: this.numQubits,
 			gates: JSON.parse(JSON.stringify(this.gates)),
 			customGates: JSON.parse(JSON.stringify(this.customGates))
 		}
 
-		if(decompile) {
-			return this.decompile(data);
+		if(decompose) {
+			return this.decompose(data);
 		} else {
 			return data;			
 		}
@@ -310,29 +352,8 @@ class QuantumCircuit {
 		this.customGates = JSON.parse(JSON.stringify(obj.customGates));
 	}
 
-	addCustomGate(name, obj) {
+	registerGate(name, obj) {
 		this.customGates[name] = obj;
-	}
-
-	stateAsString() {
-		function formatComplex(complex) {
-			let re = math.round(complex.re, 8);
-			let im = math.round(complex.im, 8);
-			return re + (im >= 0 ? "+" : "-") + math.abs(im) + "i";
-		}
-
-		let s = "";
-		let numAmplitudes = this.numAmplitudes();
-		for(let i = 0; i < numAmplitudes; i++) {
-			if(i) { s += "\n"; }
-			let m = math.round(math.pow(math.abs(this.state[i]), 2) * 100, 2);
-			let bin = i.toString(2);
-			while(bin.length < this.numQubits) {
-				bin = "0" + bin;
-			}
-			s += formatComplex(this.state[i]) + "|" + bin + "> " + m + "%";
-		}
-		return s;
 	}
 
 	getGateAt(column, wire) {
@@ -368,18 +389,39 @@ class QuantumCircuit {
 			}
 		}
 
-		let decompiled = new QuantumCircuit();
-		decompiled.load(this.save(true));
+		let decomposed = new QuantumCircuit();
+		decomposed.load(this.save(true));
 
-		let numCols = decompiled.numCols();
+		let numCols = decomposed.numCols();
 		for(let column = 0; column < numCols; column++) {
 			for(let wire = 0; wire < this.numQubits; wire++) {
-				let gate = decompiled.getGateAt(column, wire);
+				let gate = decomposed.getGateAt(column, wire);
 				if(gate && gate.connector == 0) {
 					this.applyGate(gate.name, gate.wires);
 				}
 			}
 		}
+	}
+
+	stateAsString() {
+		function formatComplex(complex) {
+			let re = math.round(complex.re, 8);
+			let im = math.round(complex.im, 8);
+			return re + (im >= 0 ? "+" : "-") + math.abs(im) + "i";
+		}
+
+		let s = "";
+		let numAmplitudes = this.numAmplitudes();
+		for(let i = 0; i < numAmplitudes; i++) {
+			if(i) { s += "\n"; }
+			let m = math.round(math.pow(math.abs(this.state[i]), 2) * 100, 2);
+			let bin = i.toString(2);
+			while(bin.length < this.numQubits) {
+				bin = "0" + bin;
+			}
+			s += formatComplex(this.state[i]) + "|" + bin + "> " + m + "%";
+		}
+		return s;
 	}
 
 	print() {
