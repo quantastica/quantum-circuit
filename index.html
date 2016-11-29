@@ -20,33 +20,21 @@
 	<script>
 		function run() {
 			clear();
+			let q = new QuantumCircuit();
 
 			let programLines = $("#program").val().split("\n");
 			let numWires = programLines.length;
-			let wires = [];
-			let maxlen = 0;
 			for(let x = 0; x < numWires; x++) {
-				wires[x] = [];
 				let program = programLines[x].split("-");
 				for(let i = 0; i < program.length; i++) {
 					let gate = program[i];
-					wires[x].push(gate);
-					if(wires[x].length > maxlen) {
-						maxlen = wires[x].length;
-					}
-				}
-			}
-
-			let q = new QuantumCircuit(numWires);
-			for(let col = 0; col < maxlen; col++) {
-				for(let wire = 0; wire < numWires; wire++) {
-					let gate = wires[wire][col];
 					if(gate) {
-						q.applyGate(gate, wire);
+						q.addGate(x, i, gate);
 					}
 				}
 			}
 
+			q.run();
 			show(q.asString());
 		}
 
@@ -65,7 +53,6 @@
 		$("#program").on("input", function() {
 			run();
 		});
-
 		run();
 
 	</script>

@@ -21,16 +21,12 @@ var gates = {
 
 class QuantumCircuit {
 	constructor(numQubits = 1) {
-		this.resize(numQubits);
+		this.numQubits = numQubits;
+		this.clear();
 	}
 
 	numAmplitudes() {
 		return math.pow(2, this.numQubits);
-	}
-
-	resize(numQubits = 1) {
-		this.numQubits = numQubits;
-		this.resetState();
 	}
 
 	resetState() {
@@ -52,6 +48,44 @@ class QuantumCircuit {
 				this.T[i][j] = 0;
 			}
 		}
+	}
+
+	clear() {
+		this.gates = [];
+		for(let i = 0; i < this.numQubits; i++) {
+			this.gates.push([]);
+		}
+	}
+
+	numCols() {
+		return this.gates.length ? this.gates[0].length : 0;
+	}
+
+	addGate(wire, column, gateName) {
+		if((wire + 1) > this.numQubits) {
+			this.numQubits = wire + 1;
+		}
+
+		while(this.gates.length < this.numQubits) {
+			this.gates.push([]);
+		}
+
+		let numCols = this.numCols();
+		if((column + 1) > numCols) {
+			numCols = column + 1;
+		}
+
+		for(let i = 0; i < this.gates.length; i++) {
+			while(this.gates[i].length < numCols) {
+				this.gates[i].push("");
+			}
+		}
+
+		this.gates[wire][column] = gateName;
+	}
+
+	removeGate(wire, column) {
+		addGate(wire, column, "");
 	}
 
 	createTransform(U, qubits) {
@@ -96,6 +130,18 @@ class QuantumCircuit {
 		}
 	}
 
+	makeControlled(gateName) {
+		var U = gates[gateName.toLowerCase()];
+		var m = U.length;
+		var C = this.identityMatrix(m * 2);
+		for (var i = 0; i < m; i++) {
+			for (var j = 0; j < m; j++) {
+				C[i + m][j + m] = U[i][j];
+			}
+		}
+		return C;
+	}
+
 	applyGate(gateName, wire) {
 		let gate = gates[gateName.toLowerCase()];
 		if(!gate) {
@@ -127,8 +173,41 @@ class QuantumCircuit {
 		return s;
 	}
 
+	run() {
+		this.resetState();
+		let numCols = this.numCols();
+		for(let col = 0; col < numCols; col++) {
+			for(let wire = 0; wire < this.numQubits; wire++) {
+				let gate = this.gates[wire][col];
+				this.applyGate(gate, wire);
+			}
+		}
+	}
+
 	print() {
 		console.log(this.asString());
+	}
+
+	zeroesMatrix(n) {
+		let matrix = [];
+		for(var i = 0; i < n; i++) {
+			matrix[i] = [];
+			for(var j = 0; j < n; j++) {
+				matrix[i][j] = 0;
+			}
+		}
+		return matrix;
+	}
+
+	identityMatrix(n) {
+		let matrix = [];
+		for(var i = 0; i < n; i++) {
+			matrix[i] = [];
+			for(var j = 0; j < n; j++) {
+				matrix[i][j] = j == i ? 1 : 0;
+			}
+		}
+		return matrix;
 	}
 
 };
