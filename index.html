@@ -11,7 +11,7 @@
 
 	<p>Help</p>
 	<p>	
-		<i>Each program line is one wire. In each line type gates separated with "-".<br /> Implemented gates: H, X, Y, Z, SRN, S, R2, R4, R8</i>
+		<i>Each program line is one wire. In each line type gates separated with "-".<br /> Implemented gates: H, X, Y, Z, SRN, S, R2, R4, R8, SWAP, SRSWAP, CH, CX, CY, CZ, CSRN, CS, CR2, CR4, CR8</i>
 	</p>
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -19,8 +19,59 @@
 	<script src="quantum-circuit.js"></script>
 	<script>
 		function run() {
-			clear();
-			let q = new QuantumCircuit();
+			clearLog();
+
+/* 
+let q = new QuantumCircuit();
+
+
+BELL GATE
+q.addGate("h", 0, 0);
+q.addGate("cx", 1, [0, 1]);
+*/
+
+/* 
+// TOFFOLI
+q.addGate("h", 0, 2);
+q.addGate("cs", 1, [1, 2]);
+q.addGate("cx", 2, [0, 1]);
+q.addGate("cs", 3, [1, 2]);
+q.addGate("cs", 4, [1, 2]);
+q.addGate("cs", 5, [1, 2]);
+q.addGate("cx", 6, [0, 1]);
+q.addGate("cs", 7, [0, 2]);
+q.addGate("h", 8, 2);
+*/
+
+/*
+2 Q-Bit QFT
+q.addGate("h", 0, 0);
+q.addGate("cr2", 1, [1, 0]);
+q.addGate("h", 2, 1);
+q.addGate("swap", 3, [0, 1]);
+*/
+
+/*
+4 QUBIT QFT
+q.addGate("h", 0, 0);
+q.addGate("cr2", 1, [1, 0]);
+q.addGate("cr4", 2, [2, 0]);
+q.addGate("cr8", 3, [3, 0]);
+q.addGate("h", 4, 1);
+q.addGate("cr2", 5, [2, 1]);
+q.addGate("cr4", 6, [3, 1]);
+q.addGate("h", 7, 2);
+q.addGate("cr2", 8, [3, 2]);
+q.addGate("h", 9, 3);
+q.addGate("swap", 10, [1, 2]);
+q.addGate("swap", 11, [0, 3]);
+
+let saved = q.save();
+*/
+			let circuit = new QuantumCircuit();
+//circuit.load(saved);
+//			circuit.addCustomGate("test");
+//			circuit.addGate("test", 0, [0, 1, 2, 3]);
 
 			let programLines = $("#program").val().split("\n");
 			let numWires = programLines.length;
@@ -29,16 +80,15 @@
 				for(let i = 0; i < program.length; i++) {
 					let gate = program[i];
 					if(gate) {
-						q.addGate(x, i, gate);
+						circuit.addGate(gate, i, x);
 					}
 				}
 			}
-
-			q.run();
-			show(q.asString());
+			circuit.run([]);
+			show(circuit.stateAsString());
 		}
 
-		function clear() {
+		function clearLog() {
 			$("#output").text("");
 		}
 
