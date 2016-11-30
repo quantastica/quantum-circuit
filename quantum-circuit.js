@@ -1,5 +1,5 @@
 /*
-	Quantum Circuit Emulator
+	Quantum Circuit Simulator
 
 	Petar Korponaić <petar.korponaic@gmail.com>
 

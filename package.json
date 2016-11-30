@@ -1,7 +1,7 @@
 {
   "name": "quantum-circuit",
-  "version": "0.9.0",
-  "description": "Quantum Circuit Emulator",
+  "version": "0.9.1",
+  "description": "Quantum Circuit Simulator",
   "main": "quantum-circuit.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
