@@ -1,0 +1,27 @@
+{
+  "name": "quantum-circuit",
+  "version": "0.9.0",
+  "description": "Quantum Circuit Emulator",
+  "main": "quantum-circuit.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/perak/quantum-circuit.git"
+  },
+  "keywords": [
+    "quantum",
+    "qbit",
+    "qubit"
+  ],
+  "author": "Petar Korponaić",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/perak/quantum-circuit/issues"
+  },
+  "homepage": "https://github.com/perak/quantum-circuit#readme",
+  "dependencies": {
+    "mathjs": "^3.8.0"
+  }
+}

@@ -6,12 +6,19 @@
 	November 2016
 */
 
+if(typeof require == "undefined") {
+	require = function(s) { console.log(s + " is required."); };
+}
+
+var math = math || require("mathjs");
+
+
 var randomString = function(len) {
 	len = len || 17;
 
-	let text = "";
-	// let first char to be letter
-	let charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	var text = "";
+	// var first char to be letter
+	var charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	text += charset.charAt(Math.floor(Math.random() * charset.length));
 
 	// other chars can be numbers
@@ -24,7 +31,7 @@ var randomString = function(len) {
 };
 
 var zeroesMatrix = function(n) {
-	let matrix = [];
+	var matrix = [];
 	for(var i = 0; i < n; i++) {
 		matrix[i] = [];
 		for(var j = 0; j < n; j++) {
@@ -35,7 +42,7 @@ var zeroesMatrix = function(n) {
 }
 
 var identityMatrix = function(n) {
-	let matrix = [];
+	var matrix = [];
 	for(var i = 0; i < n; i++) {
 		matrix[i] = [];
 		for(var j = 0; j < n; j++) {
@@ -116,316 +123,319 @@ basicGates.cr2 = makeControlled(basicGates.r2);
 basicGates.cr4 = makeControlled(basicGates.r4);
 basicGates.cr8 = makeControlled(basicGates.r8);
 
-class QuantumCircuit {
-	constructor(numQubits = 1) {
-		this.init();
-	}
+var QuantumCircuit = function(numQubits) {
+	this.init();
+}
 
-	init(numQubits = 1) {
-		this.numQubits = numQubits || 1;
-		this.customGates = {};
-		this.clear();
-	}
+QuantumCircuit.prototype.init = function(numQubits) {
+	this.numQubits = numQubits || 1;
+	this.customGates = {};
+	this.clear();
+}
 
-	numAmplitudes() {
-		return math.pow(2, this.numQubits);
-	}
+QuantumCircuit.prototype.numAmplitudes = function() {
+	return math.pow(2, this.numQubits);
+}
 
-	resetState() {
-		this.state = [];
-		this.resetTransform();
-	}
+QuantumCircuit.prototype.resetState = function() {
+	this.state = [];
+	this.resetTransform();
+}
 
-	initState() {
-		this.resetState();
-		this.state.push(math.complex(1, 0));
-		let numAmplitudes = this.numAmplitudes();
-		for(let i = 1; i < numAmplitudes; i++) {
-			this.state.push(math.complex(0, 0));
-		}
-		this.initTransform();
+QuantumCircuit.prototype.initState = function() {
+	this.resetState();
+	this.state.push(math.complex(1, 0));
+	var numAmplitudes = this.numAmplitudes();
+	for(var i = 1; i < numAmplitudes; i++) {
+		this.state.push(math.complex(0, 0));
 	}
+	this.initTransform();
+}
 
-	resetTransform() {
-		this.T = [];
-	}
+QuantumCircuit.prototype.resetTransform = function() {
+	this.T = [];
+}
 
-	initTransform() {
-		this.resetTransform();
-		let n = math.pow(2, this.numQubits);
-		for(var i = 0; i < n; i++) {
-			this.T[i] = [];
-			for(var j = 0; j < n; j++) {
-				this.T[i][j] = 0;
-			}
+QuantumCircuit.prototype.initTransform = function() {
+	this.resetTransform();
+	var n = math.pow(2, this.numQubits);
+	for(var i = 0; i < n; i++) {
+		this.T[i] = [];
+		for(var j = 0; j < n; j++) {
+			this.T[i][j] = 0;
 		}
 	}
+}
 
-	clear() {
-		this.gates = [];
-		for(let i = 0; i < this.numQubits; i++) {
+QuantumCircuit.prototype.clear = function() {
+	this.gates = [];
+	for(var i = 0; i < this.numQubits; i++) {
+		this.gates.push([]);
+	}
+	this.resetState();
+}
+
+QuantumCircuit.prototype.numCols = function() {
+	return this.gates.length ? this.gates[0].length : 0;
+}
+
+QuantumCircuit.prototype.addGate = function(gateName, column, wires) {
+	var wireList = [];
+	if(Array.isArray(wires)) {
+		for(var i = 0; i < wires.length; i++) {
+			wireList.push(wires[i]);
+		}
+	} else {
+		wireList.push(wires);
+	}
+
+	var numConnectors = wireList.length;
+	var id = randomString();
+	for(var connector = 0; connector < numConnectors; connector++) {
+		var wire = wireList[connector];
+
+		if((wire + 1) > this.numQubits) {
+			this.numQubits = wire + 1;
+		}
+
+		while(this.gates.length < this.numQubits) {
 			this.gates.push([]);
 		}
-		this.resetState();
-	}
 
-	numCols() {
-		return this.gates.length ? this.gates[0].length : 0;
-	}
-
-	addGate(gateName, column, wires) {
-		let wireList = [];
-		if(Array.isArray(wires)) {
-			for(let i = 0; i < wires.length; i++) {
-				wireList.push(wires[i]);
-			}
-		} else {
-			wireList.push(wires);
+		var numCols = this.numCols();
+		if((column + 1) > numCols) {
+			numCols = column + 1;
 		}
 
-		let numConnectors = wireList.length;
-		let id = randomString();
-		for(let connector = 0; connector < numConnectors; connector++) {
-			let wire = wireList[connector];
-
-			if((wire + 1) > this.numQubits) {
-				this.numQubits = wire + 1;
+		for(var i = 0; i < this.gates.length; i++) {
+			while(this.gates[i].length < numCols) {
+				this.gates[i].push(null);
 			}
+		}
 
-			while(this.gates.length < this.numQubits) {
-				this.gates.push([]);
-			}
+		var gate = {
+			id: id,
+			name: gateName.toLowerCase(),
+			connector: connector
+		}
 
-			let numCols = this.numCols();
-			if((column + 1) > numCols) {
-				numCols = column + 1;
-			}
+		this.gates[wire][column] = gate;
+	}
+}
 
-			for(let i = 0; i < this.gates.length; i++) {
-				while(this.gates[i].length < numCols) {
-					this.gates[i].push(null);
+QuantumCircuit.prototype.removeGate = function(column, wire) {
+	if(!this.gates[wire]) {
+		return;
+	}
+
+	var gate = this.gates[wire][column];
+	if(!gate) {
+		return;
+	}
+
+	var id = gate.id;
+
+	var numWires = this.gates[0].length;
+	for(var wire = 0; wire < numWires; wire++) {
+		if(this.gates[wire][column].id == id) {
+			this.gates[wire][column] = null;
+		}
+	}
+}
+
+QuantumCircuit.prototype.createTransform = function(U, qubits) {
+	this.initTransform();
+
+	var _qubits = [];
+	qubits = qubits.slice(0);
+	for (var i = 0; i < qubits.length; i++) {
+		qubits[i] = (this.numQubits - 1) - qubits[i];
+	}
+	qubits.reverse();
+	for (var i = 0; i < this.numQubits; i++) {
+		if (qubits.indexOf(i) == -1) {
+			_qubits.push(i);
+		}
+	}
+
+	var n = math.pow(2, this.numQubits);
+	var i = n;
+	while (i--) {
+		var j = n;
+		while (j--) {
+			var bitsEqual = true;
+			var k = _qubits.length;
+			while (k--) {
+				if ((i & (1 << _qubits[k])) != (j & (1 << _qubits[k]))) {
+					bitsEqual = false;
+					break;
 				}
 			}
-
-			let gate = {
-				id: id,
-				name: gateName.toLowerCase(),
-				connector: connector
-			}
-
-			this.gates[wire][column] = gate;
-		}
-	}
-
-	removeGate(column, wire) {
-		if(!this.gates[wire]) {
-			return;
-		}
-
-		let gate = this.gates[wire][column];
-		if(!gate) {
-			return;
-		}
-
-		let id = gate.id;
-
-		let numWires = this.gates[0].length;
-		for(let wire = 0; wire < numWires; wire++) {
-			if(this.gates[wire][column].id == id) {
-				this.gates[wire][column] = null;
-			}
-		}
-	}
-
-	createTransform(U, qubits) {
-		this.initTransform();
-
-		var _qubits = [];
-		qubits = qubits.slice(0);
-		for (var i = 0; i < qubits.length; i++) {
-			qubits[i] = (this.numQubits - 1) - qubits[i];
-		}
-		qubits.reverse();
-		for (var i = 0; i < this.numQubits; i++) {
-			if (qubits.indexOf(i) == -1) {
-				_qubits.push(i);
-			}
-		}
-
-		var n = math.pow(2, this.numQubits);
-		var i = n;
-		while (i--) {
-			var j = n;
-			while (j--) {
-				var bitsEqual = true;
-				var k = _qubits.length;
+			if (bitsEqual) {
+				var istar = 0, jstar = 0;
+				k = qubits.length;
 				while (k--) {
-					if ((i & (1 << _qubits[k])) != (j & (1 << _qubits[k]))) {
-						bitsEqual = false;
-						break;
-					}
+					var q = qubits[k];
+					istar |= ((i & (1 << q)) >> q) << k;
+					jstar |= ((j & (1 << q)) >> q) << k;
 				}
-				if (bitsEqual) {
-					var istar = 0, jstar = 0;
-					k = qubits.length;
-					while (k--) {
-						var q = qubits[k];
-						istar |= ((i & (1 << q)) >> q) << k;
-						jstar |= ((j & (1 << q)) >> q) << k;
-					}
-					this.T[i][j] = U[istar][jstar];
-				}
+				this.T[i][j] = U[istar][jstar];
 			}
 		}
 	}
+}
 
-	applyGate(gateName, wires) {
-		let gate = basicGates[gateName.toLowerCase()];
-		if(!gate) {
-			console.log("Unknown gate \"" + gateName + "\".");
-			return;
-		}
-		this.createTransform(gate, wires);
-		this.state = math.multiply(this.T, this.state);
+QuantumCircuit.prototype.applyGate = function(gateName, wires) {
+	var gate = basicGates[gateName.toLowerCase()];
+	if(!gate) {
+		console.log("Unknown gate \"" + gateName + "\".");
+		return;
 	}
+	this.createTransform(gate, wires);
+	this.state = math.multiply(this.T, this.state);
+}
 
-	decompose(obj) {
-		if(!obj.gates.length) {
-			return obj;
-		}
-
-		function injectArray(a1, a2, pos) {
-			return a1.slice( 0, pos ).concat( a2 ).concat( a1.slice( pos ) );
-		}
-
-		for(let column = 0; column < obj.gates[0].length; column++) {
-			for(let wire = 0; wire < obj.numQubits; wire++) {
-				let gate = obj.gates[wire][column];
-				if(gate && gate.connector == 0 && !basicGates[gate.name]) {
-					let tmp = new QuantumCircuit();
-					let custom = obj.customGates[gate.name];
-					if(custom) {
-						tmp.load(custom);
-						let decomposed = tmp.save(true);
-						let empty = [];
-						for(let i = 0; i < decomposed.gates[0].length - 1; i++) {
-							empty.push(null);
-						}
-						// shift columns right
-						for(let w = 0; w < obj.numQubits; w++) {
-							let g = obj.gates[w][column];
-							if(g && g.id == gate.id) {
-								obj.gates[w].splice(column, 1);
-								obj.gates[w] = injectArray(obj.gates[w], decomposed.gates[g.connector], column);
-							} else {
-								obj.gates[w] = injectArray(obj.gates[w], empty, column + 1);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		obj.customGates = [];
-
+QuantumCircuit.prototype.decompose = function(obj) {
+	if(!obj.gates.length) {
 		return obj;
 	}
 
-	save(decompose) {
-		let data = {
-			numQubits: this.numQubits,
-			gates: JSON.parse(JSON.stringify(this.gates)),
-			customGates: JSON.parse(JSON.stringify(this.customGates))
-		}
-
-		if(decompose) {
-			return this.decompose(data);
-		} else {
-			return data;			
-		}
+	function injectArray(a1, a2, pos) {
+		return a1.slice( 0, pos ).concat( a2 ).concat( a1.slice( pos ) );
 	}
 
-	load(obj) {
-		this.numQubits = obj.numQubits || 1;
-		this.clear();
-		this.gates = JSON.parse(JSON.stringify(obj.gates));
-		this.customGates = JSON.parse(JSON.stringify(obj.customGates));
-	}
-
-	registerGate(name, obj) {
-		this.customGates[name] = obj;
-	}
-
-	getGateAt(column, wire) {
-		if(!this.gates[wire]) {
-			return null;
-		}
-
-		let gate = JSON.parse(JSON.stringify(this.gates[wire][column]));
-		if(!gate) {
-			return null;
-		}
-		gate.wires = [];
-
-		let id = gate.id;
-		let numWires = this.gates.length;
-		for(let wire = 0; wire < numWires; wire++) {
-			let g = this.gates[wire][column];
-			if(g && g.id == id) {
-				gate.wires[g.connector] = wire;
-			}
-		}
-		return gate;
-	}
-
-	run(initialValues) {
-		this.initState();
-
-		if(initialValues) {
-			for(let wire = 0; wire < this.numQubits; wire++) {
-				if(initialValues[wire]) {
-					this.applyGate("x", [wire]);
-				}
-			}
-		}
-
-		let decomposed = new QuantumCircuit();
-		decomposed.load(this.save(true));
-
-		let numCols = decomposed.numCols();
-		for(let column = 0; column < numCols; column++) {
-			for(let wire = 0; wire < this.numQubits; wire++) {
-				let gate = decomposed.getGateAt(column, wire);
-				if(gate && gate.connector == 0) {
-					this.applyGate(gate.name, gate.wires);
+	for(var column = 0; column < obj.gates[0].length; column++) {
+		for(var wire = 0; wire < obj.numQubits; wire++) {
+			var gate = obj.gates[wire][column];
+			if(gate && gate.connector == 0 && !basicGates[gate.name]) {
+				var tmp = new QuantumCircuit();
+				var custom = obj.customGates[gate.name];
+				if(custom) {
+					tmp.load(custom);
+					var decomposed = tmp.save(true);
+					var empty = [];
+					for(var i = 0; i < decomposed.gates[0].length - 1; i++) {
+						empty.push(null);
+					}
+					// shift columns right
+					for(var w = 0; w < obj.numQubits; w++) {
+						var g = obj.gates[w][column];
+						if(g && g.id == gate.id) {
+							obj.gates[w].splice(column, 1);
+							obj.gates[w] = injectArray(obj.gates[w], decomposed.gates[g.connector], column);
+						} else {
+							obj.gates[w] = injectArray(obj.gates[w], empty, column + 1);
+						}
+					}
 				}
 			}
 		}
 	}
 
-	stateAsString() {
-		function formatComplex(complex) {
-			let re = math.round(complex.re, 8);
-			let im = math.round(complex.im, 8);
-			return re + (im >= 0 ? "+" : "-") + math.abs(im) + "i";
-		}
+	obj.customGates = [];
 
-		let s = "";
-		let numAmplitudes = this.numAmplitudes();
-		for(let i = 0; i < numAmplitudes; i++) {
-			if(i) { s += "\n"; }
-			let m = math.round(math.pow(math.abs(this.state[i]), 2) * 100, 2);
-			let bin = i.toString(2);
-			while(bin.length < this.numQubits) {
-				bin = "0" + bin;
+	return obj;
+}
+
+QuantumCircuit.prototype.save = function(decompose) {
+	var data = {
+		numQubits: this.numQubits,
+		gates: JSON.parse(JSON.stringify(this.gates)),
+		customGates: JSON.parse(JSON.stringify(this.customGates))
+	}
+
+	if(decompose) {
+		return this.decompose(data);
+	} else {
+		return data;			
+	}
+}
+
+QuantumCircuit.prototype.load = function(obj) {
+	this.numQubits = obj.numQubits || 1;
+	this.clear();
+	this.gates = JSON.parse(JSON.stringify(obj.gates));
+	this.customGates = JSON.parse(JSON.stringify(obj.customGates));
+}
+
+QuantumCircuit.prototype.registerGate = function(name, obj) {
+	this.customGates[name] = obj;
+}
+
+QuantumCircuit.prototype.getGateAt = function(column, wire) {
+	if(!this.gates[wire]) {
+		return null;
+	}
+
+	var gate = JSON.parse(JSON.stringify(this.gates[wire][column]));
+	if(!gate) {
+		return null;
+	}
+	gate.wires = [];
+
+	var id = gate.id;
+	var numWires = this.gates.length;
+	for(var wire = 0; wire < numWires; wire++) {
+		var g = this.gates[wire][column];
+		if(g && g.id == id) {
+			gate.wires[g.connector] = wire;
+		}
+	}
+	return gate;
+}
+
+QuantumCircuit.prototype.run = function(initialValues) {
+	this.initState();
+
+	if(initialValues) {
+		for(var wire = 0; wire < this.numQubits; wire++) {
+			if(initialValues[wire]) {
+				this.applyGate("x", [wire]);
 			}
-			s += formatComplex(this.state[i]) + "|" + bin + "> " + m + "%";
 		}
-		return s;
 	}
 
-	print() {
-		console.log(this.stateAsString());
-	}
-};
+	var decomposed = new QuantumCircuit();
+	decomposed.load(this.save(true));
 
+	var numCols = decomposed.numCols();
+	for(var column = 0; column < numCols; column++) {
+		for(var wire = 0; wire < this.numQubits; wire++) {
+			var gate = decomposed.getGateAt(column, wire);
+			if(gate && gate.connector == 0) {
+				this.applyGate(gate.name, gate.wires);
+			}
+		}
+	}
+}
+
+QuantumCircuit.prototype.stateAsString = function() {
+	function formatComplex(complex) {
+		var re = math.round(complex.re, 8);
+		var im = math.round(complex.im, 8);
+		return re + (im >= 0 ? "+" : "-") + math.abs(im) + "i";
+	}
+
+	var s = "";
+	var numAmplitudes = this.numAmplitudes();
+	for(var i = 0; i < numAmplitudes; i++) {
+		if(i) { s += "\n"; }
+		var m = math.round(math.pow(math.abs(this.state[i]), 2) * 100, 2);
+		var bin = i.toString(2);
+		while(bin.length < this.numQubits) {
+			bin = "0" + bin;
+		}
+		s += formatComplex(this.state[i]) + "|" + bin + "> " + m + "%";
+	}
+	return s;
+}
+
+QuantumCircuit.prototype.print = function() {
+	console.log(this.stateAsString());
+}
+
+
+// Export for npm
+if(typeof module != "undefined" && module.exports) {
+	module.exports = QuantumCircuit;
+}
