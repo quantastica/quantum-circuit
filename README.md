@@ -1,7 +1,7 @@
 Quantum Circuit Simulator
 =========================
 
-Quantum computer simulator implemented in javascript. Can run in browser or at server (nodejs).
+Quantum circuit simulator implemented in javascript. Can run in browser or at server (nodejs).
 
 Using in browser
 ----------------
@@ -65,7 +65,7 @@ var circuit = new QuantumCircuit(3);
 ```
 *Note: number of qubits is optional argument - circuit will expand automatically if you add gates to non-existing wires*
 
-Add single qubit gates
+Add single-qubit gates
 ----------------------
 
 Call `addGate` method passing gate name, column index and qubit (wire) index. For example, to add Hadamard as a first gate (column 0) at first qubit (wire 0) type:
@@ -184,6 +184,21 @@ anotherCircuit.registerGate("my_gate", obj);
 anotherCircuit.addGate("my_gate", 0, [2, 3, 4]);
 
 ```
+
+Decompose circuit
+-----------------
+
+If your circuit contains custom gates (created from another circuit), you can decompose it into equivalent circuit containing only basic gates.
+
+If you pass `true` as argument to function `save`, you'll get decomposed circuit.
+
+Example:
+```
+var obj = circuit.save(true);
+// now obj contains decomposed circuit. You can load it:
+circuit.load(obj);
+```
+
 
 API docs
 ========

@@ -30,6 +30,12 @@ var randomString = function(len) {
 	return text;
 };
 
+function formatComplex(complex) {
+	var re = math.round(complex.re, 8);
+	var im = math.round(complex.im, 8);
+	return re + (im >= 0 ? "+" : "-") + math.abs(im) + "i";
+}
+
 var zeroesMatrix = function(n) {
 	var matrix = [];
 	for(var i = 0; i < n; i++) {
@@ -124,7 +130,7 @@ basicGates.cr4 = makeControlled(basicGates.r4);
 basicGates.cr8 = makeControlled(basicGates.r8);
 
 var QuantumCircuit = function(numQubits) {
-	this.init();
+	this.init(numQubits);
 }
 
 QuantumCircuit.prototype.init = function(numQubits) {
@@ -410,14 +416,13 @@ QuantumCircuit.prototype.run = function(initialValues) {
 }
 
 QuantumCircuit.prototype.stateAsString = function() {
-	function formatComplex(complex) {
-		var re = math.round(complex.re, 8);
-		var im = math.round(complex.im, 8);
-		return re + (im >= 0 ? "+" : "-") + math.abs(im) + "i";
+
+	var numAmplitudes = this.numAmplitudes();
+	if(!this.state || this.state.length < numAmplitudes) {
+		return "Error: circuit is not initialized. Please call initState() or run() method.";
 	}
 
 	var s = "";
-	var numAmplitudes = this.numAmplitudes();
 	for(var i = 0; i < numAmplitudes; i++) {
 		if(i) { s += "\n"; }
 		var m = math.round(math.pow(math.abs(this.state[i]), 2) * 100, 2);
