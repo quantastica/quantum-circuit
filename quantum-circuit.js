@@ -17,7 +17,7 @@ var randomString = function(len) {
 	len = len || 17;
 
 	var text = "";
-	// var first char to be letter
+	// let first char to be letter
 	var charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	text += charset.charAt(Math.floor(Math.random() * charset.length));
 
@@ -30,11 +30,17 @@ var randomString = function(len) {
 	return text;
 };
 
-function formatComplex(complex) {
+var formatComplex = function(complex) {
 	var re = math.round(complex.re, 8);
 	var im = math.round(complex.im, 8);
 	return re + (im >= 0 ? "+" : "-") + math.abs(im) + "i";
-}
+};
+
+var formatComplex2 = function(re, im) {
+	var re = math.round(re, 8);
+	var im = math.round(im, 8);
+	return re + (im >= 0 ? "+" : "-") + math.abs(im) + "i";
+};
 
 var zeroesMatrix = function(n) {
 	var matrix = [];
@@ -45,7 +51,7 @@ var zeroesMatrix = function(n) {
 		}
 	}
 	return matrix;
-}
+};
 
 var identityMatrix = function(n) {
 	var matrix = [];
@@ -72,10 +78,11 @@ var makeControlled = function(U) {
 
 var basicGates = {
 	x: [
-		[0, 1], [1, 0]
+		[0, 1], 
+		[1, 0]
 	],
 	y: [
-		[0, math.multiply(-1, math.i) ], 
+		[0, math.multiply(-1, math.i)],
 		[math.i, 0]
 	],
 	z: [
@@ -86,13 +93,12 @@ var basicGates = {
 		[1 / math.sqrt(2),  1 / math.sqrt(2)], 
 		[1 / math.sqrt(2), 0 - (1 / math.sqrt(2))]
 	],
+
 	srn: [
-		[1 / math.sqrt(2),  0 - (1 / math.sqrt(2)) ], 
-		[1 / math.sqrt(2),  1 / math.sqrt(2) ]
+		[1 / math.sqrt(2),  -1 / math.sqrt(2) ],
+		[-1 / math.sqrt(2),  1 / math.sqrt(2) ]
 	],
-	s: [
-		[1, 0], [0, math.pow(math.e, math.multiply(math.i, math.PI / 2))]
-	],
+
 	r2: [
 		[1, 0], 
 		[0, math.pow(math.e, math.multiply(math.i, math.PI / 2))]
@@ -104,6 +110,13 @@ var basicGates = {
 	r8: [
 		[1, 0], 
 		[0, math.pow(math.e, math.multiply(math.i, math.PI / 8))]
+	],
+	s: [
+		[1, 0], [0, math.pow(math.e, math.multiply(math.i, math.PI / 2))]
+	],
+	t: [
+		[1, 0],
+		[0, math.pow(math.e, math.multiply(math.i, math.PI / 4))]
 	],
 	swap: [
 		[1, 0, 0, 0],
@@ -124,29 +137,30 @@ basicGates.cy = makeControlled(basicGates.y);
 basicGates.cz = makeControlled(basicGates.z);
 basicGates.ch = makeControlled(basicGates.h);
 basicGates.csrn = makeControlled(basicGates.srn);
-basicGates.cs = makeControlled(basicGates.s);
 basicGates.cr2 = makeControlled(basicGates.r2);
 basicGates.cr4 = makeControlled(basicGates.r4);
 basicGates.cr8 = makeControlled(basicGates.r8);
+basicGates.cs = makeControlled(basicGates.s);
+basicGates.ct = makeControlled(basicGates.t);
 
 var QuantumCircuit = function(numQubits) {
 	this.init(numQubits);
-}
+};
 
 QuantumCircuit.prototype.init = function(numQubits) {
 	this.numQubits = numQubits || 1;
 	this.customGates = {};
 	this.clear();
-}
+};
 
 QuantumCircuit.prototype.numAmplitudes = function() {
 	return math.pow(2, this.numQubits);
-}
+};
 
 QuantumCircuit.prototype.resetState = function() {
 	this.state = [];
 	this.resetTransform();
-}
+};
 
 QuantumCircuit.prototype.initState = function() {
 	this.resetState();
@@ -156,11 +170,11 @@ QuantumCircuit.prototype.initState = function() {
 		this.state.push(math.complex(0, 0));
 	}
 	this.initTransform();
-}
+};
 
 QuantumCircuit.prototype.resetTransform = function() {
 	this.T = [];
-}
+};
 
 QuantumCircuit.prototype.initTransform = function() {
 	this.resetTransform();
@@ -171,7 +185,7 @@ QuantumCircuit.prototype.initTransform = function() {
 			this.T[i][j] = 0;
 		}
 	}
-}
+};
 
 QuantumCircuit.prototype.clear = function() {
 	this.gates = [];
@@ -179,11 +193,11 @@ QuantumCircuit.prototype.clear = function() {
 		this.gates.push([]);
 	}
 	this.resetState();
-}
+};
 
 QuantumCircuit.prototype.numCols = function() {
 	return this.gates.length ? this.gates[0].length : 0;
-}
+};
 
 QuantumCircuit.prototype.addGate = function(gateName, column, wires) {
 	var wireList = [];
@@ -227,7 +241,7 @@ QuantumCircuit.prototype.addGate = function(gateName, column, wires) {
 
 		this.gates[wire][column] = gate;
 	}
-}
+};
 
 QuantumCircuit.prototype.removeGate = function(column, wire) {
 	if(!this.gates[wire]) {
@@ -247,7 +261,7 @@ QuantumCircuit.prototype.removeGate = function(column, wire) {
 			this.gates[wire][column] = null;
 		}
 	}
-}
+};
 
 QuantumCircuit.prototype.createTransform = function(U, qubits) {
 	this.initTransform();
@@ -289,7 +303,7 @@ QuantumCircuit.prototype.createTransform = function(U, qubits) {
 			}
 		}
 	}
-}
+};
 
 QuantumCircuit.prototype.applyGate = function(gateName, wires) {
 	var gate = basicGates[gateName.toLowerCase()];
@@ -299,7 +313,7 @@ QuantumCircuit.prototype.applyGate = function(gateName, wires) {
 	}
 	this.createTransform(gate, wires);
 	this.state = math.multiply(this.T, this.state);
-}
+};
 
 QuantumCircuit.prototype.decompose = function(obj) {
 	if(!obj.gates.length) {
@@ -341,7 +355,7 @@ QuantumCircuit.prototype.decompose = function(obj) {
 	obj.customGates = [];
 
 	return obj;
-}
+};
 
 QuantumCircuit.prototype.save = function(decompose) {
 	var data = {
@@ -355,18 +369,18 @@ QuantumCircuit.prototype.save = function(decompose) {
 	} else {
 		return data;			
 	}
-}
+};
 
 QuantumCircuit.prototype.load = function(obj) {
 	this.numQubits = obj.numQubits || 1;
 	this.clear();
 	this.gates = JSON.parse(JSON.stringify(obj.gates));
 	this.customGates = JSON.parse(JSON.stringify(obj.customGates));
-}
+};
 
 QuantumCircuit.prototype.registerGate = function(name, obj) {
 	this.customGates[name] = obj;
-}
+};
 
 QuantumCircuit.prototype.getGateAt = function(column, wire) {
 	if(!this.gates[wire]) {
@@ -388,7 +402,7 @@ QuantumCircuit.prototype.getGateAt = function(column, wire) {
 		}
 	}
 	return gate;
-}
+};
 
 QuantumCircuit.prototype.run = function(initialValues) {
 	this.initState();
@@ -413,7 +427,61 @@ QuantumCircuit.prototype.run = function(initialValues) {
 			}
 		}
 	}
-}
+};
+
+QuantumCircuit.prototype.test = function(name, gates, expectedState) {
+
+	console.log("TEST: " + name);
+
+	this.clear();
+
+	if(!gates || !gates.length) {
+		console.log("Invalid input");
+		return false;
+	}
+
+	for(var i = 0; i < gates.length; i++) {
+		var gate = gates[i];
+		if(!gate || !gate.length || gate.length < 3) {
+			console.log("Invalid input");
+			return false;
+		}
+		this.addGate(gate[0], gate[1], gate[2]);
+	}
+
+	this.run();
+
+	var numRes = this.numAmplitudes();
+	if(numRes > expectedState.length) {
+		console.log("Warning: expected state is incomplette.");
+		numRes = expectedState.length;
+	}
+
+	var gotError = false;
+	for(var i = 0; i < numRes; i++) {
+		var expected = expectedState[i];
+		var state = this.state[i];
+
+		if(math.round(expected[0], 5) != math.round(state.re, 5) || math.round(expected[1], 5) != math.round(state.im, 5)) {
+			if(!gotError) {
+				gotError = true;
+				console.log("ERROR");
+			}
+
+			var bin = i.toString(2);
+			while(bin.length < this.numQubits) {
+				bin = "0" + bin;
+			}
+
+			console.log("|" + bin + "> Expected: " + formatComplex2(expected[0], expected[1]) + " Got: " + formatComplex(this.state[i]));
+		}
+	}
+
+	console.log(gotError ? "Didn't pass." : "Passed.");
+	console.log("");
+
+	return !gotError;
+};
 
 QuantumCircuit.prototype.stateAsString = function() {
 
@@ -433,11 +501,11 @@ QuantumCircuit.prototype.stateAsString = function() {
 		s += formatComplex(this.state[i]) + "|" + bin + "> " + m + "%";
 	}
 	return s;
-}
+};
 
 QuantumCircuit.prototype.print = function() {
 	console.log(this.stateAsString());
-}
+};
 
 
 // Export for npm

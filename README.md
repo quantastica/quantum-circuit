@@ -68,49 +68,82 @@ var circuit = new QuantumCircuit(3);
 Add single-qubit gates
 ----------------------
 
-Call `addGate` method passing gate name, column index and qubit (wire) index. For example, to add Hadamard as a first gate (column 0) at first qubit (wire 0) type:
+Call `addGate` method passing gate name, column index and qubit (wire) index. For example, to add Hadamard as a first gate (column 0) at second qubit (wire 1) type:
 
 ```javascript
-circuit.addGate("h", 0, 0);
+circuit.addGate("h", 0, 1);
 ```
+
+Result is:
+
+```
+                  
+         Column 0 
+                  
+Wire 0 ----...----
+                  
+          |---|   
+Wire 1 ---| H |---
+          |---|   
+                  
+```
+
 
 Add multi-qubit gates
 ---------------------
 
-Call `addGate` method passing gate name, column index and array of connected qubits (wires). For example, to add CNOT as a second gate (column 1) at second qubit (wire 1) controlled by first qubit (wire 0) do:
+Call `addGate` method passing gate name, column index and array of connected qubits (wires). For example, to add CNOT as a second gate (column 1) controlled by first qubit (wire 1) at third qubit (wire 2) do:
 
 ```javascript
-circuit.addGate("cx", 1, [0, 1]);
+circuit.addGate("cx", 1, [1, 2]);
 ```
+
+```
+                             
+         Column 0   Column 1 
+                             
+Wire 0 ----...--------...----
+                             
+                             
+Wire 1 ----...---------o-----
+                       |     
+                     |---|   
+Wire 2 ----...-------| H |---
+                     |---|   
+                             
+```
+
 
 Implemented gates
 -----------------
 
 **Single-qubit gates**
 
-- `h`   Hadamard
-- `x`   Pauli X (NOT)
-- `y`   Pauli Y
-- `z`   Pauli Z
+- `h`   Hadamard gate
+- `x`   Pauli X (PI rotation over X-axis) aka "NOT" gate
+- `y`   Pauli Y (PI rotation over Y-axis)
+- `z`   Pauli Z (PI rotation over Z-axis)
+- `r2`  PI/2 rotation over Z-axis aka "Phase PI/2"
+- `r4`  PI/4 rotation over Z-axis aka "Phase PI/4"
+- `r8`  PI/8 rotation over Z-axis aka "Phase PI/8"
+- `s`   PI/2 rotation over Z-axis (synonym for `r2`)
+- `t`   PI/4 rotation over Z-axis (synonym for `r4`)
 - `srn` Square root of NOT
-- `s`   Phase shift (the same as `r2`)
-- `r2`  Rotate PI/2
-- `r4`  Rotate PI/4
-- `r8`  Rotate PI/8
 
 **Two-qubit gates**
 
 - `swap` Swap
 - `srswap` Square root of Swap
-- `ch`   Controlled Hadamard
-- `cx`   Controlled Pauli X (CNOT)
-- `cy`   Controlled Pauli Y
-- `cz`   Controlled Pauli Z
+- `ch`   Controlled Hadamard gate
+- `cx`   Controlled Pauli X (PI rotation over X-axis) aka "NOT" gate
+- `cy`   Controlled Pauli Y (PI rotation over Y-axis)
+- `cz`   Controlled Pauli Z (PI rotation over Z-axis)
+- `cr2`  Controlled PI/2 rotation over Z-axis aka "Phase PI/2"
+- `cr4`  Controlled PI/4 rotation over Z-axis aka "Phase PI/4"
+- `cr8`  Controlled PI/8 rotation over Z-axis aka "Phase PI/8"
+- `cs`   Controlled PI/2 rotation over Z-axis (synonym for `r2`)
+- `ct`   Controlled PI/4 rotation over Z-axis (synonym for `r4`)
 - `csrn` Controlled Square root of NOT
-- `cs`   Controlled Phase shift (the same as `cr2`)
-- `cr2`  Controlled Rotate PI/2
-- `cr4`  Controlled Rotate PI/4
-- `cr8`  Controlled Rotate PI/8
 
 
 Run circuit
