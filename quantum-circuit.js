@@ -30,17 +30,16 @@ var randomString = function(len) {
 	return text;
 };
 
-var formatComplex = function(complex) {
-	var re = math.round(complex.re, 8);
-	var im = math.round(complex.im, 8);
-	return re + (im >= 0 ? "+" : "-") + math.abs(im) + "i";
-};
-
 var formatComplex2 = function(re, im) {
 	var re = math.round(re, 8);
 	var im = math.round(im, 8);
-	return re + (im >= 0 ? "+" : "-") + math.abs(im) + "i";
+	return re.toFixed(8) + (im >= 0 ? "+" : "-") + math.abs(im).toFixed(8) + "i";
 };
+
+var formatComplex = function(complex) {
+	return formatComplex2(complex.re, complex.im);
+};
+
 
 var zeroesMatrix = function(n) {
 	var matrix = [];
@@ -112,12 +111,24 @@ var basicGates = {
 		[0, math.pow(math.e, math.multiply(math.i, math.PI / 8))]
 	],
 	s: [
-		[1, 0], [0, math.pow(math.e, math.multiply(math.i, math.PI / 2))]
+		[1, 0],
+		[0, math.pow(math.e, math.multiply(math.i, math.PI / 2))]
 	],
 	t: [
 		[1, 0],
 		[0, math.pow(math.e, math.multiply(math.i, math.PI / 4))]
 	],
+
+	sdg: [
+		[1, 0],
+		[0, math.pow(math.e, math.multiply(math.i, (-1 * math.PI) / 2))]
+	],
+
+	tdg: [
+		[1, 0],
+		[0, math.pow(math.e, math.multiply(math.i, (-1 * math.PI) / 4))]
+	],
+
 	swap: [
 		[1, 0, 0, 0],
 		[0, 0, 1, 0],
@@ -142,6 +153,12 @@ basicGates.cr4 = makeControlled(basicGates.r4);
 basicGates.cr8 = makeControlled(basicGates.r8);
 basicGates.cs = makeControlled(basicGates.s);
 basicGates.ct = makeControlled(basicGates.t);
+basicGates.csdg = makeControlled(basicGates.sdg);
+basicGates.ctdg = makeControlled(basicGates.tdg);
+basicGates.ccx = makeControlled(basicGates.cx);
+basicGates.cswap = makeControlled(basicGates.swap);
+basicGates.csrswap = makeControlled(basicGates.srswap);
+
 
 var QuantumCircuit = function(numQubits) {
 	this.init(numQubits);
@@ -403,6 +420,47 @@ QuantumCircuit.prototype.getGateAt = function(column, wire) {
 	}
 	return gate;
 };
+
+QuantumCircuit.prototype.exportQASM = function(comment) {
+	// decompose
+	var decomposed = new QuantumCircuit();
+	decomposed.load(this.save(true));
+
+	var qasm = "";
+
+	var comm = (comment || "").split("\n");
+	comm.map(function(cline) {
+		if(cline.length >= 2 && cline[0] != "/" && cline[1] != "/") {
+			qasm += "// ";
+		}
+		qasm += cline;
+		qasm += "\n";
+	});
+
+	qasm += "OPENQASM 2.0;\n";
+	qasm += "include \"qelib1.inc\";\n";
+	qasm += "qreg q[" + decomposed.numQubits + "];\n";
+
+	var numCols = decomposed.numCols();
+	for(var column = 0; column < numCols; column++) {
+		for(var wire = 0; wire < this.numQubits; wire++) {
+			var gate = decomposed.getGateAt(column, wire);
+			if(gate && gate.connector == 0) {
+				qasm += gate.name;
+				for(var w = 0; w < gate.wires.length; w++) {
+					if(w > 0) {
+						qasm += ",";
+					}
+					qasm += " q[" + w + "]";
+				}
+				qasm += ";\n";
+			}
+		}
+	}
+
+	return qasm;
+};
+
 
 QuantumCircuit.prototype.run = function(initialValues) {
 	this.initState();

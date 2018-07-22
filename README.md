@@ -128,6 +128,8 @@ Implemented gates
 - `r8`  PI/8 rotation over Z-axis aka "Phase PI/8"
 - `s`   PI/2 rotation over Z-axis (synonym for `r2`)
 - `t`   PI/4 rotation over Z-axis (synonym for `r4`)
+- `sdg` (-PI/2) rotation over Z-axis
+- `tdg` (-PI/4) rotation over Z-axis
 - `srn` Square root of NOT
 
 **Two-qubit gates**
@@ -143,7 +145,16 @@ Implemented gates
 - `cr8`  Controlled PI/8 rotation over Z-axis aka "Phase PI/8"
 - `cs`   Controlled PI/2 rotation over Z-axis (synonym for `r2`)
 - `ct`   Controlled PI/4 rotation over Z-axis (synonym for `r4`)
+- `csdg` Controlled (-PI/2) rotation over Z-axis
+- `ctdg` Controlled (-PI/4) rotation over Z-axis
 - `csrn` Controlled Square root of NOT
+
+**Three-qubit gates**
+
+- `ccx` Toffoli aka "CCNOT" gate
+- `cswap` Controlled Swap aka Fredkin gate
+- `cswap` Controlled Square root of Swap
+
 
 
 Run circuit
