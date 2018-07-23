@@ -451,7 +451,7 @@ QuantumCircuit.prototype.exportQASM = function(comment) {
 					if(w > 0) {
 						qasm += ",";
 					}
-					qasm += " q[" + w + "]";
+					qasm += " q[" + gate.wires[w] + "]";
 				}
 				qasm += ";\n";
 			}
@@ -541,7 +541,7 @@ QuantumCircuit.prototype.test = function(name, gates, expectedState) {
 	return !gotError;
 };
 
-QuantumCircuit.prototype.stateAsString = function() {
+QuantumCircuit.prototype.stateAsString = function(onlyPossible) {
 
 	var numAmplitudes = this.numAmplitudes();
 	if(!this.state || this.state.length < numAmplitudes) {
@@ -549,20 +549,24 @@ QuantumCircuit.prototype.stateAsString = function() {
 	}
 
 	var s = "";
+	var count = 0;
 	for(var i = 0; i < numAmplitudes; i++) {
-		if(i) { s += "\n"; }
-		var m = math.round(math.pow(math.abs(this.state[i]), 2) * 100, 2);
-		var bin = i.toString(2);
-		while(bin.length < this.numQubits) {
-			bin = "0" + bin;
+		if(!onlyPossible || (this.state[i].re || this.state[i].im)) {
+			if(count) { s += "\n"; }
+			var m = math.round(math.pow(math.abs(this.state[i]), 2) * 100, 2);
+			var bin = i.toString(2);
+			while(bin.length < this.numQubits) {
+				bin = "0" + bin;
+			}
+			s += formatComplex(this.state[i]) + "|" + bin + "> " + m + "%";
+			count++;
 		}
-		s += formatComplex(this.state[i]) + "|" + bin + "> " + m + "%";
 	}
 	return s;
 };
 
-QuantumCircuit.prototype.print = function() {
-	console.log(this.stateAsString());
+QuantumCircuit.prototype.print = function(onlyPossible) {
+	console.log(this.stateAsString(onlyPossible));
 };
 
 
