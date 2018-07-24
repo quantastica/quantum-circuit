@@ -1,6 +1,6 @@
 {
   "name": "quantum-circuit",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "description": "Quantum Circuit Simulator",
   "main": "quantum-circuit.js",
   "scripts": {
@@ -12,8 +12,10 @@
   },
   "keywords": [
     "quantum",
+    "qubit",
     "qbit",
-    "qubit"
+    "QASM",
+    "OpenQASM"
   ],
   "author": "Petar Korponaić",
   "license": "MIT",

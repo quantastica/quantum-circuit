@@ -1,7 +1,8 @@
 Quantum Circuit Simulator
 =========================
 
-Quantum circuit simulator implemented in javascript. Can run in browser or at server (nodejs).
+Quantum circuit simulator implemented in javascript. Can run in browser or at server (node.js). No UI - you can use it in your program to run quantum simulations. Circuit can be exported to OpenQASM.
+
 
 Using in browser
 ----------------
@@ -28,8 +29,8 @@ Simply include [quantum-circuit.js](quantum-circuit.js) and <a href="http://math
 
 See [example.html](example.html) for more info.
 
-Using at server with nodejs
----------------------------
+Using at server with node.js
+----------------------------
 
 Install <a href="https://www.npmjs.com/package/quantum-circuit">quantum-circuit</a> npm module:
 
@@ -68,7 +69,13 @@ var circuit = new QuantumCircuit(3);
 Add single-qubit gates
 ----------------------
 
-Call `addGate` method passing gate name, column index and qubit (wire) index. For example, to add Hadamard as a first gate (column 0) at second qubit (wire 1) type:
+Call `addGate` method passing gate name, column index and qubit (wire) index:
+
+```javascript
+circuit.addGate(gateName, column, wire);
+```
+
+For example, to add Hadamard gate as a first gate (column 0) at second qubit (wire 1) type:
 
 ```javascript
 circuit.addGate("h", 0, 1);
@@ -92,25 +99,31 @@ Wire 1 ---| H |---
 Add multi-qubit gates
 ---------------------
 
-Call `addGate` method passing gate name, column index and array of connected qubits (wires). For example, to add CNOT as a second gate (column 1) controlled by first qubit (wire 1) at third qubit (wire 2) do:
+Call `addGate` method passing gate name, column index and array of connected qubits (wires):
+
+```javascript
+circuit.addGate(gateName, column, arrayOfWires);
+```
+
+For example, to add CNOT as a second gate (column 1) controlled by second qubit (wire 1) at third qubit as target (wire 2) do:
 
 ```javascript
 circuit.addGate("cx", 1, [1, 2]);
 ```
 
 ```
-                             
-         Column 0   Column 1 
-                             
-Wire 0 ----...--------...----
-                             
-                             
-Wire 1 ----...---------o-----
-                       |     
-                     |---|   
-Wire 2 ----...-------| H |---
-                     |---|   
-                             
+                                
+         Column 0    Column 1   
+                               
+Wire 0 ----...---------...-----
+                               
+                               
+Wire 1 ----...----------o------
+                        |      
+                     |-----|   
+Wire 2 ----...-------| CX  |---
+                     |-----|   
+                               
 ```
 
 
@@ -153,7 +166,7 @@ Implemented gates
 
 - `ccx` Toffoli aka "CCNOT" gate
 - `cswap` Controlled Swap aka Fredkin gate
-- `cswap` Controlled Square root of Swap
+- `csrswap` Controlled Square root of Swap
 
 
 
@@ -175,20 +188,32 @@ By default, initial state of each qubit is `|0>`. You can pass initial values as
 circuit.run([1, 1]);
 ```
 
-View/print final state
-----------------------
+View/print final amplitudes
+---------------------------
 
-You can get state as string with method `stateAsString()`:
-
-```javascript
-var s = circuit.stateAsString();
-```
-
-Or, you can print state to javascript console:
+You can get state as string with method `stateAsString(onlyPossible)`:
 
 ```javascript
-circuit.print();
+var s = circuit.stateAsString(false);
 ```
+
+If you want only possible values (only values with probability > 0) then pass `true`:
+```javascript
+var s = circuit.stateAsString(true);
+```
+
+
+Or, you can print state to javascript console with method `print(onlyPossible)`:
+
+```javascript
+circuit.print(false);
+```
+
+If you want to print only possible values (only values with probability > 0) then pass `true`:
+```javascript
+var s = circuit.print(true);
+```
+
 
 Export/Import circuit
 ---------------------
@@ -237,11 +262,34 @@ If your circuit contains custom gates (created from another circuit), you can de
 If you pass `true` as argument to function `save`, you'll get decomposed circuit.
 
 Example:
-```
+```javascript
 var obj = circuit.save(true);
 // now obj contains decomposed circuit. You can load it:
 circuit.load(obj);
 ```
+
+Export to QASM
+--------------
+
+Circuit can be exported to [OpenQASM](https://github.com/Qiskit/openqasm) with following limitations:
+
+- at the moment, gates not directly supported by QASM and qelib1.inc are exported as-is - their definition is not generated. **TODO**
+
+- circuit containing custom gates is decomposed to basic gates before export instead exporting custom gate definition. See [node.js example](example.js): we defined "majority" and "unmaj" custom gates used in "adder" circuit, but when we export to QASM we get circuit decomposed to basic gates (but still functional - tested in [IBM Q Composer](https://quantumexperience.ng.bluemix.net/qx/editor)). **TODO**
+
+To export circuit to OpenQASM use `exportQASM(comment)` method:
+
+Example:
+```javascript
+var qasm = circuit.exportQASM("Comment to insert at the beginning.\nCan be multi-line comment as this one.");
+```
+
+
+Import from QASM
+----------------
+
+**TODO**
+
 
 
 API docs
