@@ -1,6 +1,6 @@
 {
   "name": "quantum-circuit",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "description": "Quantum Circuit Simulator",
   "main": "quantum-circuit.js",
   "scripts": {

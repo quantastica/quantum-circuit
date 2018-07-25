@@ -216,6 +216,28 @@ QuantumCircuit.prototype.numCols = function() {
 	return this.gates.length ? this.gates[0].length : 0;
 };
 
+QuantumCircuit.prototype.lastNonEmptyCell = function(wire) {
+	if(wire >= this.numQubits) {
+		return -1;
+	}
+	var numCols = this.numCols();
+	var cell = numCols - 1;
+	while(!!this.gates[wire][cell]) {
+		cell--;
+	}
+	return cell;
+};
+
+QuantumCircuit.prototype.lastNonEmptyPlace = function(wires) {
+	var self = this;
+	var cells = [];
+	wires.map(function(wire) {
+		cells.push(self.lastNonEmptyCell(wire));
+	});
+	return Math.max.apply(null, cells);
+};
+
+
 QuantumCircuit.prototype.addGate = function(gateName, column, wires) {
 	var wireList = [];
 	if(Array.isArray(wires)) {
@@ -224,6 +246,10 @@ QuantumCircuit.prototype.addGate = function(gateName, column, wires) {
 		}
 	} else {
 		wireList.push(wires);
+	}
+
+	if(column < 0) {
+		column = this.lastNonEmptyPlace(wireList) + 1;
 	}
 
 	var numConnectors = wireList.length;
@@ -421,41 +447,84 @@ QuantumCircuit.prototype.getGateAt = function(column, wire) {
 	return gate;
 };
 
-QuantumCircuit.prototype.exportQASM = function(comment) {
+QuantumCircuit.prototype.exportQASM = function(comment, decompose, exportAsGateName) {
+	var circuit = null;
+
 	// decompose
-	var decomposed = new QuantumCircuit();
-	decomposed.load(this.save(true));
+	if(decompose) {
+		circuit = new QuantumCircuit();
+		circuit.load(this.save(true));
+	} else {
+		circuit = this;
+	}
 
 	var qasm = "";
 
-	var comm = (comment || "").split("\n");
-	comm.map(function(cline) {
-		if(cline.length >= 2 && cline[0] != "/" && cline[1] != "/") {
-			qasm += "// ";
+	// comment
+	if(comment) {
+		var comm = (comment || "").split("\n");
+		comm.map(function(cline) {
+			if(cline.length >= 2 && cline[0] != "/" && cline[1] != "/") {
+				qasm += "// ";
+			}
+			qasm += cline;
+			qasm += "\n";
+		});
+	}
+
+	if(exportAsGateName) {
+		qasm += "gate " + exportAsGateName;
+		for(var i = 0; i < circuit.numQubits; i++) {
+			if(i == 0) {
+				qasm += " ";
+			}
+			if(i > 0) {
+				qasm += ",";
+			}
+			qasm += String.fromCharCode(97 + i);
 		}
-		qasm += cline;
-		qasm += "\n";
-	});
+		qasm += "\n{\n";
+	} else {
+		qasm += "OPENQASM 2.0;\n";
+		qasm += "include \"qelib1.inc\";\n";
+		qasm += "qreg q[" + circuit.numQubits + "];\n";
 
-	qasm += "OPENQASM 2.0;\n";
-	qasm += "include \"qelib1.inc\";\n";
-	qasm += "qreg q[" + decomposed.numQubits + "];\n";
+		if(!decompose) {
+			for(var customGateName in this.customGates) {
+				var customGate = this.customGates[customGateName];
+				var customCircuit = new QuantumCircuit();
+				customCircuit.load(customGate);
+				qasm += customCircuit.exportQASM("", true, customGateName);
+			}
+		}
+	}
 
-	var numCols = decomposed.numCols();
+	var numCols = circuit.numCols();
 	for(var column = 0; column < numCols; column++) {
 		for(var wire = 0; wire < this.numQubits; wire++) {
-			var gate = decomposed.getGateAt(column, wire);
+			var gate = circuit.getGateAt(column, wire);
 			if(gate && gate.connector == 0) {
+				if(exportAsGateName) {
+					qasm += "  ";
+				}
 				qasm += gate.name;
 				for(var w = 0; w < gate.wires.length; w++) {
 					if(w > 0) {
 						qasm += ",";
 					}
-					qasm += " q[" + gate.wires[w] + "]";
+					if(exportAsGateName) {
+						qasm += " " + String.fromCharCode(97 + gate.wires[w]);
+					} else {
+						qasm += " q[" + gate.wires[w] + "]";
+					}
 				}
 				qasm += ";\n";
 			}
 		}
+	}
+
+	if(exportAsGateName) {
+		qasm += "}\n\n";
 	}
 
 	return qasm;

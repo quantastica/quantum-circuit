@@ -95,6 +95,8 @@ Wire 1 ---| H |---
                   
 ```
 
+*Note: if `column` is negative integer then gate will be added to the end of the wire*
+
 
 Add multi-qubit gates
 ---------------------
@@ -125,6 +127,8 @@ Wire 2 ----...-------| CX  |---
                      |-----|   
                                
 ```
+
+*Note: if `column` is negative integer then gate will be added to the end*
 
 
 Implemented gates
@@ -271,18 +275,22 @@ circuit.load(obj);
 Export to QASM
 --------------
 
-Circuit can be exported to [OpenQASM](https://github.com/Qiskit/openqasm) with following limitations:
+Circuit can be exported to [OpenQASM](https://github.com/Qiskit/openqasm) with following limitation:
 
 - at the moment, gates not directly supported by QASM and qelib1.inc are exported as-is - their definition is not generated. **TODO**
 
-- circuit containing custom gates is decomposed to basic gates before export instead exporting custom gate definition. See [node.js example](example.js): we defined "majority" and "unmaj" custom gates used in "adder" circuit, but when we export to QASM we get circuit decomposed to basic gates (but still functional - tested in [IBM Q Composer](https://quantumexperience.ng.bluemix.net/qx/editor)). **TODO**
-
-To export circuit to OpenQASM use `exportQASM(comment)` method:
+To export circuit to OpenQASM use `exportQASM(comment, decompose, exportAsGateName)` method:
 
 Example:
 ```javascript
-var qasm = circuit.exportQASM("Comment to insert at the beginning.\nCan be multi-line comment as this one.");
+var qasm = circuit.exportQASM("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false);
 ```
+
+- `comment` - comment to insert at the beginning of the file
+
+- `decompose` - if set to `true` and circuit contains custom gates then it will be decomposed to basic gates and then exported. If set to `false` then custom gates will be exported as user defined gates.
+
+- `exportAsGateName` - internally used by export method. Default is `false`. if `true` then circuit is exported as user defined gate.
 
 
 Import from QASM
