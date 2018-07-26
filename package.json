@@ -14,8 +14,10 @@
     "quantum",
     "qubit",
     "qbit",
-    "QASM",
-    "OpenQASM"
+    "simulator",
+    "emulator",
+    "qasm",
+    "openqasm"
   ],
   "author": "Petar Korponaić",
   "license": "MIT",

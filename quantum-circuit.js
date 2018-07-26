@@ -222,7 +222,7 @@ QuantumCircuit.prototype.lastNonEmptyCell = function(wire) {
 	}
 	var numCols = this.numCols();
 	var cell = numCols - 1;
-	while(!!this.gates[wire][cell]) {
+	while(!this.gates[wire][cell] && cell >= 0) {
 		cell--;
 	}
 	return cell;

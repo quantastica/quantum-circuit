@@ -154,14 +154,14 @@ Implemented gates
 - `swap` Swap
 - `srswap` Square root of Swap
 - `ch`   Controlled Hadamard gate
-- `cx`   Controlled Pauli X (PI rotation over X-axis) aka "NOT" gate
+- `cx`   Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate
 - `cy`   Controlled Pauli Y (PI rotation over Y-axis)
 - `cz`   Controlled Pauli Z (PI rotation over Z-axis)
 - `cr2`  Controlled PI/2 rotation over Z-axis aka "Phase PI/2"
 - `cr4`  Controlled PI/4 rotation over Z-axis aka "Phase PI/4"
 - `cr8`  Controlled PI/8 rotation over Z-axis aka "Phase PI/8"
-- `cs`   Controlled PI/2 rotation over Z-axis (synonym for `r2`)
-- `ct`   Controlled PI/4 rotation over Z-axis (synonym for `r4`)
+- `cs`   Controlled PI/2 rotation over Z-axis (synonym for `cr2`)
+- `ct`   Controlled PI/4 rotation over Z-axis (synonym for `cr4`)
 - `csdg` Controlled (-PI/2) rotation over Z-axis
 - `ctdg` Controlled (-PI/4) rotation over Z-axis
 - `csrn` Controlled Square root of NOT
