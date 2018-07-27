@@ -1,33 +1,32 @@
 Quantum Circuit Simulator
 =========================
 
-Quantum circuit simulator implemented in javascript. Can run in browser or at server (node.js). No UI - you can use it in your program to run quantum simulations. Circuit can be exported to OpenQASM.
+Quantum circuit simulator implemented in javascript. Can run in browser or at server (node.js). No UI - you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm).
 
 
 Using in browser
 ----------------
 
-Simply include [quantum-circuit.js](quantum-circuit.js) and <a href="http://mathjs.org/" target="_blank">mathjs</a> into your html page:
+Simply include [quantum-circuit.js](dist/quantum-circuit.min.js) into your html page:
 
 ```html
 <!doctype html>
 <html>
     <head>
-      <title>Quantum Circuit Simulator Example</title>
+        <title>Quantum Circuit Simulator Example</title>
     </head>
 
     <body>
-		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/3.8.0/math.min.js"></script>
-		<script type="text/javascript" src="quantum-circuit.js"></script>
+        <script type="text/javascript" src="quantum-circuit.min.js"></script>
 
-		<script type="text/javascript">
-		    // Your code here
-		</script>
-	</body>
+        <script type="text/javascript">
+            // Your code here
+        </script>
+    </body>
 </html>
 ```
 
-See [example.html](example.html) for more info.
+See [example.html](./example/example.html) for more info.
 
 Using at server with node.js
 ----------------------------
@@ -35,13 +34,7 @@ Using at server with node.js
 Install <a href="https://www.npmjs.com/package/quantum-circuit">quantum-circuit</a> npm module:
 
 ```bash
-npm install quantum-circuit
-```
-
-Or, you can install it globally:
-
-```bash
-npm install -g quantum-circuit
+npm install --save quantum-circuit
 ```
 
 And then import it into your program:
@@ -296,8 +289,22 @@ var qasm = circuit.exportQASM("Comment to insert at the beginning.\nCan be multi
 Import from QASM
 ----------------
 
-**TODO**
+Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) with few limitations:
 
+- `import` directive is ignored (but most of gates defined in `qelib1.inc` are supported)
+
+- Operations on entire registers cannot be imported at the moment (e.g. `x q;` will not be imported but `x q[1];` will). **TODO**
+
+- Integer registers and measure gates are ignored. **TODO**
+
+
+To import circuit from OpenQASM use `importQASM(input)` method:
+
+```javascript
+circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\ncx q[0],q[1];\n");
+```
+
+- `input` is string containing QASM source code.
 
 
 API docs

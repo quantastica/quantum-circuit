@@ -1,4 +1,13 @@
-var QuantumCircuit = require("../src/quantum-circuit.js");
+/**
+ * @license
+ *
+ * Copyright (c) 2016, Petar Korponaić <petar.korponaic@gmail.com>
+ *
+ * This source code is licensed under the MIT License, found in
+ * the LICENSE.txt file in the root directory of this source tree.
+ */
+
+var QuantumCircuit = require("../lib/quantum-circuit.js");
 
 var circuit = new QuantumCircuit();
 

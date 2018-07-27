@@ -1,11 +1,14 @@
 {
   "name": "quantum-circuit",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "description": "Quantum Circuit Simulator",
-  "main": "quantum-circuit.js",
+  "main": "lib/quantum-circuit.js",
   "scripts": {
     "test": "node ./test/test.js",
-    "browserify": "browserify ./src/quantum-circuit.js -o ./browser/quantum-circuit.js --standalone QuantumCircuit && browserify ./src/quantum-circuit.js --standalone QuantumCircuit| uglifyjs > ./browser/quantum-circuit.min.js"
+    "browserify-debug": "browserify ./lib/quantum-circuit.js -o ./dist/quantum-circuit.js -d -s QuantumCircuit",
+    "browserify-min": "browserify ./lib/quantum-circuit.js -s QuantumCircuit | uglifyjs --source-map -c -b beautify=false,ascii_only=true -o ./dist/quantum-circuit.min.js",
+    "build": "npm run browserify-debug && npm run browserify-min",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Quantum Circuit Simulator Example</title>
+	</head>
+
+	<body>
+		<h5>Examples</h5>
+		<button type="button" id="bell">Bell state</button>
+		<button type="button" id="toffoli">Toffoli gate</button>
+		<button type="button" id="qft2">2 qubit QFT</button>
+		<button type="button" id="qft4">4 qubit QFT</button>
+		<pre><code id="output"></code></pre>
+
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+		<script src="../../dist/quantum-circuit.min.js"></script>
+
+		<script>
+
+			let circuit = new QuantumCircuit();
+
+			function bell() {
+				clearLog();
+
+				circuit.init();
+
+				circuit.addGate("h",  0, 0);
+				circuit.addGate("cx", 1, [0, 1]);
+
+				let input = randomizeInput();
+
+				circuit.run(input);
+
+				LogOutput();
+
+				ShowCircuit();
+			}
+
+			function qft2() {
+				clearLog();
+
+				circuit.init();
+
+				circuit.addGate("h",    0, 0);
+				circuit.addGate("cr2",  1, [1, 0]);
+				circuit.addGate("h",    2, 1);
+				circuit.addGate("swap", 3, [0, 1]);
+
+				let input = randomizeInput();
+
+				circuit.run(input);
+
+				LogOutput();
+
+				ShowCircuit();
+			}
+
+			function qft4() {
+				clearLog();
+
+				circuit.init();
+
+				circuit.addGate("h",     0, 0);
+				circuit.addGate("cr2",   1, [1, 0]);
+				circuit.addGate("cr4",   2, [2, 0]);
+				circuit.addGate("cr8",   3, [3, 0]);
+				circuit.addGate("h",     4, 1);
+				circuit.addGate("cr2",   5, [2, 1]);
+				circuit.addGate("cr4",   6, [3, 1]);
+				circuit.addGate("h",     7, 2);
+				circuit.addGate("cr2",   8, [3, 2]);
+				circuit.addGate("h",     9, 3);
+				circuit.addGate("swap", 10, [1, 2]);
+				circuit.addGate("swap", 11, [0, 3]);
+
+				let input = randomizeInput();
+
+				circuit.run(input);
+
+				LogOutput();
+
+				ShowCircuit();
+			}
+
+			function toffoli() {
+				clearLog();
+
+				circuit.init();
+
+				circuit.addGate("h",  0, 2);
+				circuit.addGate("cs", 1, [1, 2]);
+				circuit.addGate("cx", 2, [0, 1]);
+				circuit.addGate("cs", 3, [1, 2]);
+				circuit.addGate("cs", 4, [1, 2]);
+				circuit.addGate("cs", 5, [1, 2]);
+				circuit.addGate("cx", 6, [0, 1]);
+				circuit.addGate("cs", 7, [0, 2]);
+				circuit.addGate("h",  8, 2);
+
+				let input = randomizeInput();
+
+				circuit.run(input);
+
+				LogOutput();
+
+				ShowCircuit();
+			}
+
+			function clearLog() {
+				$("#output").text("");
+			}
+
+			function Log(s) {
+				$("#output").text($("#output").text() + "\n" + s);
+			}
+
+			function randomizeInput() {
+				Log("Input:");
+				Log("-----");
+				input = [];
+				for(var i = 0; i < circuit.numQubits; i++) {
+					var x = !!Math.round(Math.random());
+					input.push(x);
+					Log(i + ": " + (x ? "|1>" : "|0>"));
+				}
+				Log("");
+				return input;
+			}
+
+			function LogOutput() {
+				Log("Final state:");
+				Log("-----------");
+				Log(circuit.stateAsString());
+				Log("");
+			}
+
+			function ShowCircuit() {
+				Log("Circuit:");
+				Log("-------");
+				Log(circuit.exportQASM(""));
+			}
+
+			$("#bell").click(function () {
+				bell();
+			});
+
+			$("#toffoli").click(function () {
+				toffoli();
+			});
+
+			$("#qft2").click(function () {
+				qft2();
+			});
+
+			$("#qft4").click(function () {
+				qft4();
+			});
+		</script>
+	</body>
+</html>
