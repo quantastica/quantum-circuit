@@ -7,7 +7,7 @@ Quantum circuit simulator implemented in javascript. Can run in browser or at se
 Using in browser
 ----------------
 
-Simply include [quantum-circuit.js](dist/quantum-circuit.min.js) into your html page:
+Simply include [quantum-circuit.min.js](dist/quantum-circuit.min.js) into your html page:
 
 ```html
 <!doctype html>
@@ -26,7 +26,7 @@ Simply include [quantum-circuit.js](dist/quantum-circuit.min.js) into your html 
 </html>
 ```
 
-See [example.html](./example/example.html) for more info.
+See [example.html](./example/browser/example.html) for more info.
 
 Using at server with node.js
 ----------------------------
@@ -314,4 +314,4 @@ API docs
 
 License
 =======
-[MIT](LICENSE)
+[MIT](LICENSE.txt)
