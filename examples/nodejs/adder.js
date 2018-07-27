@@ -4,7 +4,7 @@
 //   Output: qubits 5, 6, 7, 8, 9
 //
 
-var QuantumCircuit = require("./quantum-circuit.js");
+var QuantumCircuit = require("../../src/quantum-circuit.js");
 
 
 var majority = new QuantumCircuit();

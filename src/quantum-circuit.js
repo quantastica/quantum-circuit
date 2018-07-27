@@ -6,11 +6,15 @@
 	November 2016
 */
 
+/*
 if(typeof require == "undefined") {
 	require = function(s) { console.log(s + " is required."); };
 }
+*/
 
-var math = math || require("mathjs");
+var math = require("mathjs");
+
+var QASMImport = require("./qasm_import/QASMImport.js").QASMImport;
 
 
 var randomString = function(len) {
@@ -531,6 +535,12 @@ QuantumCircuit.prototype.exportQASM = function(comment, decompose, exportAsGateN
 };
 
 
+QuantumCircuit.prototype.importQASM = function(input) {
+	this.init();
+	QASMImport(this, input);
+};
+
+
 QuantumCircuit.prototype.run = function(initialValues) {
 	this.initState();
 
@@ -639,7 +649,4 @@ QuantumCircuit.prototype.print = function(onlyPossible) {
 };
 
 
-// Export for npm
-if(typeof module != "undefined" && module.exports) {
-	module.exports = QuantumCircuit;
-}
+module.exports = QuantumCircuit;

@@ -1,4 +1,4 @@
-var QuantumCircuit = require("./quantum-circuit.js");
+var QuantumCircuit = require("../src/quantum-circuit.js");
 
 var circuit = new QuantumCircuit();
 

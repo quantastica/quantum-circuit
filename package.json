@@ -4,7 +4,8 @@
   "description": "Quantum Circuit Simulator",
   "main": "quantum-circuit.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "node ./test/test.js",
+    "browserify": "browserify ./src/quantum-circuit.js -o ./browser/quantum-circuit.js --standalone QuantumCircuit && browserify ./src/quantum-circuit.js --standalone QuantumCircuit| uglifyjs > ./browser/quantum-circuit.min.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,11 @@
   },
   "homepage": "https://github.com/perak/quantum-circuit#readme",
   "dependencies": {
+    "antlr4": "^4.7.1",
     "mathjs": "^3.8.0"
+  },
+  "devDependencies": {
+    "browserify": "^16.2.2",
+    "uglify-js": "^3.4.5"
   }
 }
