@@ -3,6 +3,7 @@
   "version": "0.9.9",
   "description": "Quantum Circuit Simulator",
   "main": "lib/quantum-circuit.js",
+  "unpkg": "dist/quantum-circuit.min.js",
   "scripts": {
     "test": "node ./test/test.js",
     "browserify-debug": "browserify ./lib/quantum-circuit.js -o ./dist/quantum-circuit.js -d -s QuantumCircuit",

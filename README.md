@@ -7,7 +7,7 @@ Quantum circuit simulator implemented in javascript. Can run in browser or at se
 Using in browser
 ----------------
 
-Simply include [quantum-circuit.min.js](dist/quantum-circuit.min.js) into your html page:
+Simply include [quantum-circuit.min.js](dist/) into your html page:
 
 ```html
 <!doctype html>
@@ -31,7 +31,7 @@ See [example.html](./example/browser/example.html) for more info.
 Using at server with node.js
 ----------------------------
 
-Install <a href="https://www.npmjs.com/package/quantum-circuit">quantum-circuit</a> npm module:
+Install [quantum-circuit](https://www.npmjs.com/package/quantum-circuit) npm module:
 
 ```bash
 npm install --save quantum-circuit
@@ -292,8 +292,6 @@ Import from QASM
 Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) with few limitations:
 
 - `import` directive is ignored (but most of gates defined in `qelib1.inc` are supported)
-
-- Operations on entire registers cannot be imported at the moment (e.g. `x q;` will not be imported but `x q[1];` will). **TODO**
 
 - Integer registers and measure gates are ignored. **TODO**
 
