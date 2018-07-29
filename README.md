@@ -298,6 +298,7 @@ Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) with
 
 To import circuit from OpenQASM use `importQASM(input)` method:
 
+Example:
 ```javascript
 circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\ncx q[0],q[1];\n");
 ```
