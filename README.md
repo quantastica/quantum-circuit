@@ -7,7 +7,7 @@ Quantum circuit simulator implemented in javascript. Can run in browser or at se
 Using in browser
 ----------------
 
-Simply include [quantum-circuit.min.js](dist/) into your html page:
+Simply include [quantum-circuit.min.js](dist/) into your html page (available via unpkg CDN [https://unpkg.com/quantum-circuit](https://unpkg.com/quantum-circuit))
 
 ```html
 <!doctype html>
@@ -17,7 +17,7 @@ Simply include [quantum-circuit.min.js](dist/) into your html page:
     </head>
 
     <body>
-        <script type="text/javascript" src="quantum-circuit.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/quantum-circuit"></script>
 
         <script type="text/javascript">
             // Your code here
