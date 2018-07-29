@@ -1,6 +1,6 @@
 {
   "name": "quantum-circuit",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "description": "Quantum Circuit Simulator",
   "main": "lib/quantum-circuit.js",
   "unpkg": "dist/quantum-circuit.min.js",
@@ -32,7 +32,7 @@
   "homepage": "https://github.com/perak/quantum-circuit#readme",
   "dependencies": {
     "antlr4": "^4.7.1",
-    "mathjs": "^3.8.0"
+    "mathjs": "^3.20.2"
   },
   "devDependencies": {
     "browserify": "^16.2.2",
