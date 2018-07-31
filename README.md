@@ -185,6 +185,18 @@ By default, initial state of each qubit is `|0>`. You can pass initial values as
 circuit.run([1, 1]);
 ```
 
+
+Measure
+-------
+
+Method `measure(wire)` returns chance of being 1 for given qubit:
+
+Example:
+```javascript
+console.log(circuit.measure(0));
+```
+
+
 View/print final amplitudes
 ---------------------------
 

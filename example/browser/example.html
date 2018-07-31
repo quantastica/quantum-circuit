@@ -73,7 +73,6 @@
 				circuit.addGate("h",     9, 3);
 				circuit.addGate("swap", 10, [1, 2]);
 				circuit.addGate("swap", 11, [0, 3]);
-
 				let input = randomizeInput();
 
 				circuit.run(input);
@@ -129,6 +128,13 @@
 			}
 
 			function LogOutput() {
+				Log("Chance:");
+				Log("-----------");
+				for(var i = 0; i < circuit.numQubits; i++) {
+					Log("Q" + i + ": " + circuit.measure(i) * 100 + "%");					
+				}
+				Log("");
+
 				Log("Final state:");
 				Log("-----------");
 				Log(circuit.stateAsString());

@@ -39,9 +39,20 @@ console.log("Calculating...");
 
 adder.run([0,  1, 0, 0, 0,    1, 1, 1, 1,   0]);
 
+
+console.log("");
+console.log("Answer:");
+
+console.log(
+	adder.measure(5), // all qregs are combined into single large qreg (TODO: implement named registers)
+	adder.measure(6),
+	adder.measure(7),
+	adder.measure(8),
+	adder.measure(9)
+);
+
+
 console.log("");
 console.log("Final amplitudes:");
 
 adder.print(true);
-
-console.log("(Result of addition is stored in last 5 bits)");
