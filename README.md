@@ -141,6 +141,7 @@ Implemented gates
 - `sdg` (-PI/2) rotation over Z-axis
 - `tdg` (-PI/4) rotation over Z-axis
 - `srn` Square root of NOT
+- `measure` Measures qubit and stores chance (0 or 1) into classical bit
 
 **Two-qubit gates**
 
@@ -186,8 +187,8 @@ circuit.run([1, 1]);
 ```
 
 
-Measure
--------
+Measurement
+-----------
 
 Method `measure(wire)` returns chance of being 1 for given qubit:
 
@@ -195,6 +196,74 @@ Example:
 ```javascript
 console.log(circuit.measure(0));
 ```
+
+*Note: method `measure` will return real number betwen 0 and 1. It's up to you how to deal with 0.5*
+
+
+You can store measurement into classical register. For example, to measure first qubit (wire 0) and store result into classical register named `c` as fourth bit (bit 3):
+
+```javascript
+circuit.measure(0, "c", 3);
+```
+
+Also, you can add `measure` gate to circuit and then measurement will be done automatically and result will be stored into classical register:
+
+```javascript
+circuit.addGate("measure", -1, 0, { "creg": { name: "c", bit: 3 } });
+```
+
+Short form of writing this is `addMeasure(wire, creg, cbit)`:
+
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
+*Note:*
+
+- *If specified classical register doesn't exists - it will be created automatically.*
+
+- *Equal probability (0.5) will be stored as random 0 or 1*
+
+
+Classical registers
+-------------------
+
+**Create register**
+
+Classical registers are created automatically if you add measurement gate to the circuit but you can also manually create registers by calling `createCreg(name, len)`.
+
+Example: create classical 5-bit register named `ans`:
+```javascript
+circuit.createCreg("ans", 5);
+```
+
+**Read register**
+
+To get register value as integer, call `getCregValue(name)`.
+
+Example:
+```javascript
+var value = circuit.getCregValue("ans");
+```
+
+**Read single bit**
+
+Example: get bit 3 from register named `ans`:
+
+```
+console.log(circuit.getCregBit("ans", 3));
+```
+*Returns integer: 0 or 1*
+
+
+**Set single bit**
+
+Example: set bit 3 to `1` in register named `ans`:
+
+```
+circuit.setCregBit("ans", 3, 1);
+```
+
 
 
 View/print final amplitudes
@@ -301,11 +370,17 @@ var qasm = circuit.exportQASM("Comment to insert at the beginning.\nCan be multi
 Import from QASM
 ----------------
 
-Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) with few limitations:
+Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) with following limitations:
 
-- `import` directive is ignored (but most of gates defined in `qelib1.inc` are supported)
+- `import` directive is ignored (but most of gates defined in `qelib1.inc` are supported) **TODO**
 
-- Integer registers and measure gates are ignored. **TODO**
+- Gates with params like `U(theta, phi, lambda)` are ignored. **TODO**
+
+- `if` statement is ignored. **TODO**
+
+- `barrier` is ignored. **TODO**
+
+- `reset` is ignored. **TODO**
 
 
 To import circuit from OpenQASM use `importQASM(input)` method:

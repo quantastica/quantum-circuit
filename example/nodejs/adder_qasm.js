@@ -53,15 +53,8 @@ console.log("Calculating...");
 adder.run();
 
 console.log("");
-console.log("Answer:");
+console.log("Answer:", adder.getCregValue("ans"));
 
-console.log(
-	adder.measure(5), // all qregs are combined into single large qreg (TODO: implement named registers)
-	adder.measure(6),
-	adder.measure(7),
-	adder.measure(8),
-	adder.measure(9)
-);
 
 console.log("");
 console.log("Final amplitudes:");

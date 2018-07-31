@@ -31,6 +31,12 @@ adder.addGate("unmaj",    6, [2, 7, 3]);
 adder.addGate("unmaj",    7, [1, 6, 2]);
 adder.addGate("unmaj",    8, [0, 5, 1]);
 
+adder.addMeasure(5, "ans", 0);
+adder.addMeasure(6, "ans", 1);
+adder.addMeasure(7, "ans", 2);
+adder.addMeasure(8, "ans", 3);
+adder.addMeasure(9, "ans", 4);
+
 console.log("");
 console.log(adder.exportQASM("Sum two numbers"));
 
@@ -41,15 +47,7 @@ adder.run([0,  1, 0, 0, 0,    1, 1, 1, 1,   0]);
 
 
 console.log("");
-console.log("Answer:");
-
-console.log(
-	adder.measure(5), // all qregs are combined into single large qreg (TODO: implement named registers)
-	adder.measure(6),
-	adder.measure(7),
-	adder.measure(8),
-	adder.measure(9)
-);
+console.log("Answer:", adder.getCregValue("ans"));
 
 
 console.log("");
