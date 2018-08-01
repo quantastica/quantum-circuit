@@ -10,6 +10,7 @@
 		<button type="button" id="toffoli">Toffoli gate</button>
 		<button type="button" id="qft2">2 qubit QFT</button>
 		<button type="button" id="qft4">4 qubit QFT</button>
+		<div id="drawing"></div>
 		<pre><code id="output"></code></pre>
 
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -142,6 +143,9 @@
 			}
 
 			function ShowCircuit() {
+				var drawing = document.getElementById("drawing");
+				drawing.innerHTML = circuit.exportSVG(true);
+
 				Log("QASM:");
 				Log("-------");
 				Log(circuit.exportQASM(""));
@@ -151,6 +155,11 @@
 				Log("JSON:");
 				Log("-------");
 				Log(JSON.stringify(circuit.save(), null, 4));
+				Log("");
+
+				Log("SVG:");
+				Log("-------");
+				Log(circuit.exportSVG(false));
 				Log("");
 			}
 
