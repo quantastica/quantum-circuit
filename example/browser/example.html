@@ -142,9 +142,16 @@
 			}
 
 			function ShowCircuit() {
-				Log("Circuit:");
+				Log("QASM:");
 				Log("-------");
 				Log(circuit.exportQASM(""));
+				Log("");
+
+
+				Log("JSON:");
+				Log("-------");
+				Log(JSON.stringify(circuit.save(), null, 4));
+				Log("");
 			}
 
 			$("#bell").click(function () {
