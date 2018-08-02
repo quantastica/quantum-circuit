@@ -1,7 +1,7 @@
 Quantum Circuit Simulator
 =========================
 
-Quantum circuit simulator implemented in javascript. Can run in browser or at server (node.js). No UI - you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). Circuit can be exported to [svg](https://www.w3.org/Graphics/SVG/) to vector image.
+Quantum circuit simulator implemented in javascript. Can run in browser or at server (node.js). No UI - you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). Circuit drawing can be exported to [svg](https://www.w3.org/Graphics/SVG/) vector image.
 
 
 Using in browser
