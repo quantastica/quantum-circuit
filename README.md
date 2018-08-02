@@ -1,7 +1,7 @@
 Quantum Circuit Simulator
 =========================
 
-Quantum circuit simulator implemented in javascript. Can run in browser or at server (node.js). No UI - you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm).
+Quantum circuit simulator implemented in javascript. Can run in browser or at server (node.js). No UI - you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). Circuit can be exported to [svg](https://www.w3.org/Graphics/SVG/) to vector image.
 
 
 Using in browser
@@ -197,7 +197,7 @@ Example:
 console.log(circuit.measure(0));
 ```
 
-*Note: method `measure` will return real number betwen 0 and 1. It's up to you how to deal with 0.5*
+*Note: method `measure` will return real number betwen 0 and 1.*
 
 
 You can store measurement into classical register. For example, to measure first qubit (wire 0) and store result into classical register named `c` as fourth bit (bit 3):
@@ -391,6 +391,56 @@ circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\n
 ```
 
 - `input` is string containing QASM source code.
+
+
+Export to SVG
+=============
+
+Vector `.svg` image of circuit can be created with `exportSVG(embedded)` function with following limitations:
+
+- Integer registers are not drawn. **TODO**
+
+- Gate symbols are non-standard. **TODO** *(BTW, do we have standard?)*
+
+- Not yet tested well. **TODO**
+
+
+**Example 1**
+
+Show circuit in browser:
+
+```javascript
+
+// Assuming we have <div id="drawing"></div> somewhere in HTML
+var container = document.getElementById("drawing");
+
+// SVG is returned as string
+var svg = circuit.exportSVG(true);
+
+// add SVG into container
+container.innerHTML = svg;
+
+```
+
+**Example 2**
+
+Generate standalone SVG image at server with node.js:
+
+```javascript
+
+// export as standalone SVG
+var svg = circuit.exportSVG(false);
+
+// do something with svg string (e.g. save to file)
+...
+
+// Or, export as embedded SVG for use in browser
+svg = circuit.exportSVG(true);
+
+// do something with svg string (e.g. serve via HTTP)
+...
+
+``` 
 
 
 API docs
