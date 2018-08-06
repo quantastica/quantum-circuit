@@ -1,7 +1,24 @@
 Quantum Circuit Simulator
 =========================
 
-Quantum circuit simulator implemented in javascript. Can run in browser or at server (node.js). No UI - you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). Circuit drawing can be exported to [svg](https://www.w3.org/Graphics/SVG/) vector image.
+Quantum circuit simulator implemented in javascript. Optimized for memory usage, but CPU intensive. Smoothly runs 20-qubit simulations on your laptop. Can run in browser or at server (node.js). No UI - you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). Circuit drawing can be exported to [svg](https://www.w3.org/Graphics/SVG/) vector image.
+
+
+About algorithm
+---------------
+
+**Optimized for memory usage, but CPU intensive.**
+
+
+Memory usage: up to `2 * (2^numQubits) * sizeOfComplexNumber`
+
+
+- Naive implementation stores entire state vector in an array of size `2^numQubits`. We are storing state in a "map", and only amplitudes with non-zero probabilities are stored. So, in worst case, size of state map is `2^n`, but it's much less most of the time because we don't store zeroes.
+
+- Naive implementation creates transformation matrix and multiplies it with state vector. We are not creating and not storing entire transformation matrix in memory. Instead, elements of transformation matrix are calculated one by one and state is multiplied and stored in new state map on the fly. This way, memory usage is minimal (in worst case we have two `2^n` state vectors at a time, but it's much less than `2^n` most of the time because we are not storing zeroes).
+
+- Algorithm is parallelizable so it could use GPU, but GPU support is not implemented yet (work in progress).
+
 
 
 Using in browser
