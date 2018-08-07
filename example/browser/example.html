@@ -10,6 +10,8 @@
 		<button type="button" id="toffoli">Toffoli gate</button>
 		<button type="button" id="qft2">2 qubit QFT</button>
 		<button type="button" id="qft4">4 qubit QFT</button>
+		<button type="button" id="adder">4-bit Adder</button>
+		<button type="button" id="bigadder">8-bit Adder</button>
 		<div id="drawing"></div>
 		<pre><code id="output"></code></pre>
 
@@ -107,6 +109,139 @@
 				ShowCircuit();
 			}
 
+			function adder() {
+				var qasm = "";
+				qasm += "// quantum ripple-carry adder from Cuccaro et al, quant-ph/0410184\n";
+				qasm += "OPENQASM 2.0;\n";
+				qasm += "include \"qelib1.inc\";\n";
+
+				qasm += "gate majority a,b,c\n";
+				qasm += "{\n";
+				qasm += "  cx c,b;\n";
+				qasm += "  cx c,a;\n";
+				qasm += "  ccx a,b,c;\n";
+				qasm += "}\n";
+
+				qasm += "gate unmaj a,b,c\n";
+				qasm += "{\n";
+				qasm += "  ccx a,b,c;\n";
+				qasm += "  cx c,a;\n";
+				qasm += "  cx a,b;\n";
+				qasm += "}\n";
+
+				qasm += "qreg cin[1];\n";
+				qasm += "qreg a[4];\n";
+				qasm += "qreg b[4];\n";
+				qasm += "qreg cout[1];\n";
+				qasm += "creg ans[5];\n";
+
+				qasm += "// set input states\n";
+				qasm += "x a[0]; // a = 0001\n";
+				qasm += "x b; // b = 1111\n";
+
+				qasm += "// add a to b, storing result in b\n";
+				qasm += "majority cin[0],b[0],a[0];\n";
+				qasm += "majority a[0],b[1],a[1];\n";
+				qasm += "majority a[1],b[2],a[2];\n";
+				qasm += "majority a[2],b[3],a[3];\n";
+				qasm += "cx a[3],cout[0];\n";
+				qasm += "unmaj a[2],b[3],a[3];\n";
+				qasm += "unmaj a[1],b[2],a[2];\n";
+				qasm += "unmaj a[0],b[1],a[1];\n";
+				qasm += "unmaj cin[0],b[0],a[0];\n";
+
+				qasm += "measure b[0] -> ans[0];\n";
+				qasm += "measure b[1] -> ans[1];\n";
+				qasm += "measure b[2] -> ans[2];\n";
+				qasm += "measure b[3] -> ans[3];\n";
+				qasm += "measure cout[0] -> ans[4];\n";
+
+				clearLog();
+
+				circuit.init();
+
+				circuit.importQASM(qasm);
+
+				circuit.run();
+
+				LogOutput();
+
+				ShowCircuit();
+			}
+
+			function bigAdder() {
+				var qasm = "\n";
+				qasm += "// quantum ripple-carry adder\n";
+				qasm += "// 8-bit adder made out of 2 4-bit adders from adder.qasm\n";
+				qasm += "// Cuccaro et al, quant-ph/0410184\n";
+				qasm += "OPENQASM 2.0;\n";
+				qasm += "include \"qelib1.inc\";\n";
+
+				qasm += "gate majority a,b,c\n";
+				qasm += "{\n";
+				qasm += "  cx c,b;\n"; 
+				qasm += "  cx c,a;\n"; 
+				qasm += "  ccx a,b,c;\n"; 
+				qasm += "}\n";
+				qasm += "gate unmaj a,b,c\n";
+				qasm += "{\n";
+				qasm += "  ccx a,b,c;\n";
+				qasm += "  cx c,a;\n"; 
+				qasm += "  cx a,b;\n"; 
+				qasm += "}\n";
+
+				qasm += "// add a to b, storing result in b\n";
+				qasm += "gate add4 a0,a1,a2,a3,b0,b1,b2,b3,cin,cout\n";
+				qasm += "{\n";
+				qasm += "  majority cin,b0,a0;\n";
+				qasm += "  majority a0,b1,a1;\n";
+				qasm += "  majority a1,b2,a2;\n";
+				qasm += "  majority a2,b3,a3;\n";
+				qasm += "  cx a3,cout;\n";
+				qasm += "  unmaj a2,b3,a3;\n";
+				qasm += "  unmaj a1,b2,a2;\n";
+				qasm += "  unmaj a0,b1,a1;\n";
+				qasm += "  unmaj cin,b0,a0;\n";
+				qasm += "}\n";
+
+				qasm += "// add two 8-bit numbers by calling the 4-bit ripple-carry adder\n";
+				qasm += "qreg carry[2];\n";
+				qasm += "qreg a[8];\n";
+				qasm += "qreg b[8];\n";
+				qasm += "creg ans[8];\n";
+				qasm += "creg carryout[1];\n";
+				qasm += "// set input states\n";
+				qasm += "x a[0];\n"; // a = 00000001
+				qasm += "x b;\n";
+				qasm += "x b[6];\n"; // b = 10111111
+
+				qasm += "// output should be 11000000 0\n";
+				qasm += "add4 a[0],a[1],a[2],a[3],b[0],b[1],b[2],b[3],carry[0],carry[1];\n";
+				qasm += "add4 a[4],a[5],a[6],a[7],b[4],b[5],b[6],b[7],carry[1],carry[0];\n";
+
+				qasm += "measure b[0] -> ans[0];\n";
+				qasm += "measure b[1] -> ans[1];\n";
+				qasm += "measure b[2] -> ans[2];\n";
+				qasm += "measure b[3] -> ans[3];\n";
+				qasm += "measure b[4] -> ans[4];\n";
+				qasm += "measure b[5] -> ans[5];\n";
+				qasm += "measure b[6] -> ans[6];\n";
+				qasm += "measure b[7] -> ans[7];\n";
+				qasm += "measure carry[0] -> carryout[0];\n";
+
+				clearLog();
+
+				circuit.init();
+
+				circuit.importQASM(qasm);
+
+				circuit.run();
+
+				LogOutput();
+
+				ShowCircuit();
+			}
+
 			function clearLog() {
 				$("#output").text("");
 			}
@@ -138,7 +273,7 @@
 
 				Log("Final state:");
 				Log("-----------");
-				Log(circuit.stateAsString());
+				Log(circuit.stateAsString(true));
 				Log("");
 			}
 
@@ -177,6 +312,14 @@
 
 			$("#qft4").click(function () {
 				qft4();
+			});
+
+			$("#adder").click(function () {
+				adder();
+			});
+
+			$("#bigadder").click(function () {
+				bigAdder();
 			});
 		</script>
 	</body>

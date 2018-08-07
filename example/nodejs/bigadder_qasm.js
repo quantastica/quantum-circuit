@@ -7,19 +7,6 @@ input += "// Cuccaro et al, quant-ph/0410184\n";
 input += "OPENQASM 2.0;\n";
 input += "include \"qelib1.inc\";\n";
 
-/*
-input += "gate toffoli a,b,c\n";
-input += "{\n";
-input += "  h c;\n";
-input += "  cx b,c; tdg c;\n";
-input += "  cx a,c; t c;\n";
-input += "  cx b,c; tdg c;\n";
-input += "  cx a,c; t b; t c; h c;\n";
-input += "  cx a,b; t a; tdg b;\n";
-input += "  cx a,b;\n";
-input += "}\n";
-*/
-
 input += "gate majority a,b,c\n";
 input += "{\n";
 input += "  cx c,b;\n"; 
@@ -93,6 +80,4 @@ console.log("");
 console.log("Final amplitudes:");
 
 adder.print(true);
-
-//console.log(adder.exportQASM(false));
 
