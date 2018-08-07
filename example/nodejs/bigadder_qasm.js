@@ -67,14 +67,13 @@ console.log("Importing QASM...");
 adder.importQASM(input);
 
 console.log("");
-console.log("Calculating...");
+console.log(new Date().toISOString(), "Calculating...");
 
 adder.run();
 
-
 var answer = adder.getCregValue("ans");
 console.log("");
-console.log("Answer:", answer, " (" + answer.toString(2) + ")");
+console.log(new Date().toISOString(), "Answer:", answer, " (" + answer.toString(2) + ")");
 
 console.log("");
 console.log("Final amplitudes:");
