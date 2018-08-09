@@ -1,7 +1,7 @@
 Quantum Circuit Simulator
 =========================
 
-Quantum circuit simulator implemented in javascript. Optimized memory usage but CPU intensive. Smoothly runs 20-qubit simulations on laptop. Can run in browser or at server (node.js). No UI: you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). Circuit drawing can be exported to [svg](https://www.w3.org/Graphics/SVG/) vector image.
+Quantum circuit simulator implemented in javascript. Optimized memory usage but CPU intensive. Smoothly runs 20-qubit simulations on laptop. Can run in browser or at server (node.js). No UI: you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
 About algorithm
@@ -47,8 +47,6 @@ Simply include [quantum-circuit.min.js](dist/) into your html page (available vi
 
 See [live example](https://quantum-circuit.com/example.html)
 
-Example page source code is [here](./example/browser/example.html)
-
 
 Using at server with node.js
 ----------------------------
@@ -67,8 +65,6 @@ var QuantumCircuit = require("quantum-circuit");
 // Your code here
 
 ```
-
-See node.js [examples](./example/nodejs/)
 
 
 Getting started
