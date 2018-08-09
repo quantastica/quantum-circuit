@@ -12,6 +12,10 @@
 		<button type="button" id="qft4">4 qubit QFT</button>
 		<button type="button" id="adder">4-bit Adder</button>
 		<button type="button" id="bigadder">8-bit Adder</button>
+		<br />
+		<br />
+		<a id="quirk" style="display: none" href="#" target="_blank">Open Quirk</a>
+		<br />
 		<div id="drawing"></div>
 		<pre><code id="output"></code></pre>
 
@@ -280,6 +284,11 @@
 			function ShowCircuit() {
 				var drawing = document.getElementById("drawing");
 				drawing.innerHTML = circuit.exportSVG(true);
+
+				var quirkLink = document.getElementById("quirk");
+				quirkLink.setAttribute("href", "http://algassert.com/quirk#circuit=" + JSON.stringify(circuit.exportQuirk(false)));
+
+				quirkLink.setAttribute("style", "display: inline-block");
 
 				Log("QASM:");
 				Log("-------");

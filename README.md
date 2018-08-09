@@ -374,7 +374,7 @@ Circuit can be exported to [OpenQASM](https://github.com/Qiskit/openqasm) with f
 
 - at the moment, gates not directly supported by QASM and qelib1.inc are exported as-is - their definition is not generated. **TODO**
 
-To export circuit to OpenQASM use `exportQASM(comment, decompose, exportAsGateName)` method:
+To export circuit to OpenQASM use `exportQASM(comment, decompose)` method:
 
 Example:
 ```javascript
@@ -384,8 +384,6 @@ var qasm = circuit.exportQASM("Comment to insert at the beginning.\nCan be multi
 - `comment` - comment to insert at the beginning of the file
 
 - `decompose` - if set to `true` and circuit contains custom gates then it will be decomposed to basic gates and then exported. If set to `false` then custom gates will be exported as user defined gates.
-
-- `exportAsGateName` - internally used by export method. Default is `false`. if `true` then circuit is exported as user defined gate.
 
 
 Import from QASM
