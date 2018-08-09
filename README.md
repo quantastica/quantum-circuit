@@ -45,7 +45,10 @@ Simply include [quantum-circuit.min.js](dist/) into your html page (available vi
 </html>
 ```
 
-See [example.html](./example/browser/example.html) for more info.
+See [live example](https://quantum-circuit.com/example.html)
+
+Example page source code is [here](./example/browser/example.html)
+
 
 Using at server with node.js
 ----------------------------
@@ -64,6 +67,9 @@ var QuantumCircuit = require("quantum-circuit");
 // Your code here
 
 ```
+
+See node.js [examples](./example/nodejs/)
+
 
 Getting started
 ===============
@@ -413,7 +419,7 @@ circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\n
 
 
 Export to SVG
-=============
+-------------
 
 Vector `.svg` image of circuit can be created with `exportSVG(embedded)` function with following limitations:
 
