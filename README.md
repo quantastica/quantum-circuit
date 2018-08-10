@@ -461,6 +461,32 @@ svg = circuit.exportSVG(true);
 
 ``` 
 
+Export to Quirk
+---------------
+
+Circuit can be exported to popular open-source drag-and-drop quantum circuit simulator [Quirk](https://algassert.com/quirk) with following limitations:
+
+- Quirk doesn't support more than 16 qubits.
+
+- Quirk can possibly incorrectly interpret circuit if we have multiple controlled gates in the same column.
+
+- Quirk doesn't support non-sequentially positioned multi-qubit user-defined gates (for example gate on wires [3, 0, 1]) so it's best to export decomposed circuit.
+
+
+Example:
+
+```javascript
+
+var quirkData = circuit.exportQuirk(true);
+
+var quirkURL = "http://algassert.com/quirk#circuit=" + JSON.stringify(quirkData);
+
+// Now do something with quirkURL. Assuming this code runs in browser and we have <a id="quirk"></a> somewhere, you can:
+var quirkLink = document.getElementById("quirk");
+quirkLink.setAttr("href", quirkLink);
+
+```
+
 
 API docs
 ========

@@ -286,9 +286,14 @@
 				drawing.innerHTML = circuit.exportSVG(true);
 
 				var quirkLink = document.getElementById("quirk");
-				quirkLink.setAttribute("href", "http://algassert.com/quirk#circuit=" + JSON.stringify(circuit.exportQuirk(false)));
+				if(circuit.numQubits <= 16) {
+					quirkLink.setAttribute("href", "http://algassert.com/quirk#circuit=" + JSON.stringify(circuit.exportQuirk(true)));
 
-				quirkLink.setAttribute("style", "display: inline-block");
+					quirkLink.setAttribute("style", "display: inline");
+				} else {
+					quirkLink.setAttribute("href", "#");
+					quirkLink.setAttribute("style", "display: none");
+				}
 
 				Log("QASM:");
 				Log("-------");
