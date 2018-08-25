@@ -155,6 +155,7 @@ Implemented gates
 - `r2`  PI/2 rotation over Z-axis aka "Phase PI/2"
 - `r4`  PI/4 rotation over Z-axis aka "Phase PI/4"
 - `r8`  PI/8 rotation over Z-axis aka "Phase PI/8"
+- `u1`  Custom angle rotation over Z-axis (receives one parameter)
 - `s`   PI/2 rotation over Z-axis (synonym for `r2`)
 - `t`   PI/4 rotation over Z-axis (synonym for `r4`)
 - `sdg` (-PI/2) rotation over Z-axis
@@ -173,6 +174,7 @@ Implemented gates
 - `cr2`  Controlled PI/2 rotation over Z-axis aka "Phase PI/2"
 - `cr4`  Controlled PI/4 rotation over Z-axis aka "Phase PI/4"
 - `cr8`  Controlled PI/8 rotation over Z-axis aka "Phase PI/8"
+- `u1`   Controlled Custom angle rotation over Z-axis (receives one parameter)
 - `cs`   Controlled PI/2 rotation over Z-axis (synonym for `cr2`)
 - `ct`   Controlled PI/4 rotation over Z-axis (synonym for `cr4`)
 - `csdg` Controlled (-PI/2) rotation over Z-axis
