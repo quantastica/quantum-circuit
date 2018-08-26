@@ -17,9 +17,14 @@ Memory usage: up to `2 * (2^numQubits) * sizeOfComplexNumber`
 - Algorithm is parallelizable so it could use GPU, but GPU support is not implemented yet (work in progress).
 
 
+### Benchmark
+
 ![Benchmark 1](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark1.png)
 
 ![Benchmark 2](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark2.png)
+
+![Benchmark 3](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark3.png)
+
 
 Using in browser
 ----------------
