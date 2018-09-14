@@ -23,12 +23,16 @@ input += "h q[3];\n";
 input += "measure q -> c;\n";
 
 
+
 var qft = new QuantumCircuit();
 
 console.log("");
 console.log("Importing QASM...");
 
 qft.importQASM(input);
+
+console.log("");
+console.log(qft.exportQASM());
 
 console.log("");
 console.log("Calculating...");
@@ -39,3 +43,10 @@ console.log("");
 console.log("Final amplitudes:");
 
 qft.print(true);
+
+console.log("");
+
+console.log("Q0:", qft.measure(0));
+console.log("Q1:", qft.measure(1));
+console.log("Q2:", qft.measure(2));
+console.log("Q3:", qft.measure(3));
