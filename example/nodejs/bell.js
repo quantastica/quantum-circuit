@@ -2,10 +2,6 @@ var QuantumCircuit = require("../../lib/quantum-circuit.js");
 
 var circ = new QuantumCircuit();
 
-circ.addGate("x", -1, 0);
-circ.addGate("x", -1, 1);
-
-
 circ.addGate("h", -1, 0);
 circ.addGate("cx", -1, [0, 1]);
 
