@@ -1,7 +1,7 @@
 Quantum Circuit Simulator
 =========================
 
-Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). No UI: you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
+Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). No UI: you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html) so it can be used for QASM to pyQuil conversion. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
 About algorithm
@@ -406,8 +406,6 @@ Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) with
 
 - `import` directive is ignored (but most of gates defined in `qelib1.inc` are supported) **TODO**
 
-- Gates with params like `U(theta, phi, lambda)` are ignored. **TODO**
-
 - `if` statement is ignored. **TODO**
 
 - `barrier` is ignored. **TODO**
@@ -423,6 +421,23 @@ circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\n
 ```
 
 - `input` is string containing QASM source code.
+
+
+Export to pyQuil
+----------------
+
+Circuit can be exported to [pyQuil](http://docs.rigetti.com/en/latest/index.html)
+
+To export circuit to pyQuil use `exportQASM(comment, decompose)` method:
+
+Example:
+```javascript
+var pyquil = circuit.exportPyquil("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false);
+```
+
+- `comment` - comment to insert at the beginning of the file
+
+- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will defined as subroutines.
 
 
 Export to SVG
