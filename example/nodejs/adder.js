@@ -41,6 +41,9 @@ console.log("");
 console.log(adder.exportQASM("Sum two numbers"));
 
 console.log("");
+console.log(adder.exportPyquil("Sum two numbers"));
+
+console.log("");
 console.log("Calculating...");
 
 adder.run([0,  1, 0, 0, 0,    1, 1, 1, 1,   0]);

@@ -32,7 +32,11 @@ console.log("Importing QASM...");
 qft.importQASM(input);
 
 console.log("");
-console.log(qft.exportQASM());
+console.log(qft.exportQASM("4-bit QFT"));
+
+
+console.log("");
+console.log(qft.exportPyquil("4-bit QFT"));
 
 console.log("");
 console.log("Calculating...");
