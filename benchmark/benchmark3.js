@@ -16,7 +16,9 @@ for(var qubits = 2; qubits <= 25; qubits++) {
 		for(var x = i + 1; x < qubits; x++) {
 			rcount++;
 			circ.addGate("cu1", -1, [x, i], { 
-				params: ["PI/" + (1 << rcount)]
+				params: { 
+					theta: "PI/" + (1 << rcount) 
+				}
 			});
 		}
 	}

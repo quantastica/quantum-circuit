@@ -7,6 +7,14 @@ circ.addGate("cx", -1, [0, 1]);
 
 circ.run();
 
+console.log("");
+console.log(circ.exportQASM());
+
+console.log("");
+console.log(circ.exportPyquil());
+
+console.log("");
+console.log("Chance:");
 console.log("Q0: " + circ.measure(0));
 console.log("Q1: " + circ.measure(1));
 
