@@ -155,51 +155,54 @@ Wire 2 ----...-------| CX  |---
 Implemented gates
 -----------------
 
-**Single-qubit gates**
+| Name | Quil | Params | Description |
+| --- | --- | --- | --- |
+| **id** | I |  |  |
+| **x** | X |  |  |
+| **y** | Y |  |  |
+| **z** | Z |  |  |
+| **h** | H |  |  |
+| **srn** |  |  |  |
+| **r2** |  |  |  |
+| **r4** |  |  |  |
+| **r8** |  |  |  |
+| **rx** | RX | theta |  |
+| **ry** | RY | theta |  |
+| **rz** | RZ | phi |  |
+| **u1** | PHASE | lambda |  |
+| **u2** |  | phi, lambda |  |
+| **u3** |  | theta, phi, lambda |  |
+| **s** | S |  |  |
+| **t** | T |  |  |
+| **sdg** |  |  |  |
+| **tdg** |  |  |  |
+| **swap** | SWAP |  |  |
+| **srswap** |  |  |  |
+| **cx** | CNOT |  |  |
+| **cy** |  |  |  |
+| **cz** | CZ |  |  |
+| **ch** |  |  |  |
+| **csrn** |  |  |  |
+| **cr2** |  |  |  |
+| **cr4** |  |  |  |
+| **cr8** |  |  |  |
+| **crx** |  |  |  |
+| **cry** |  |  |  |
+| **crz** | CPHASE | phi |  |
+| **cu1** | CPHASE | lambda |  |
+| **cu2** |  | phi, lambda |  |
+| **cu3** |  | theta, phi, lambda |  |
+| **cs** |  |  |  |
+| **ct** |  |  |  |
+| **csdg** |  |  |  |
+| **ctdg** |  |  |  |
+| **ccx** | CCNOT |  |  |
+| **cswap** |  |  |  |
+| **csrswap** |  |  |  |
+| **measure** | MEASURE |  |  |
 
-- `h`   Hadamard gate
-- `x`   Pauli X (PI rotation over X-axis) aka "NOT" gate
-- `y`   Pauli Y (PI rotation over Y-axis)
-- `z`   Pauli Z (PI rotation over Z-axis)
-- `r2`  PI/2 rotation over Z-axis aka "Phase PI/2"
-- `r4`  PI/4 rotation over Z-axis aka "Phase PI/4"
-- `r8`  PI/8 rotation over Z-axis aka "Phase PI/8"
-- `u1`  Custom angle rotation over Z-axis (requires one parameter: `lambda`)
-- `u2`  Two parameter single-qubit gate (parameters: `phi` and `lambda`)
-- `u3`  Three-parameter single-qubit gate (parameters: `theta`, `phi` and `lambda`)
-- `s`   PI/2 rotation over Z-axis (synonym for `r2`)
-- `t`   PI/4 rotation over Z-axis (synonym for `r4`)
-- `sdg` (-PI/2) rotation over Z-axis
-- `tdg` (-PI/4) rotation over Z-axis
-- `srn` Square root of NOT
-- `measure` Measures qubit and stores chance (0 or 1) into classical bit
 
-**Two-qubit gates**
-
-- `swap` Swap
-- `srswap` Square root of Swap
-- `ch`   Controlled Hadamard gate
-- `cx`   Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate
-- `cy`   Controlled Pauli Y (PI rotation over Y-axis)
-- `cz`   Controlled Pauli Z (PI rotation over Z-axis)
-- `cr2`  Controlled PI/2 rotation over Z-axis aka "Phase PI/2"
-- `cr4`  Controlled PI/4 rotation over Z-axis aka "Phase PI/4"
-- `cr8`  Controlled PI/8 rotation over Z-axis aka "Phase PI/8"
-- `cu1`  Controlled Custom angle rotation over Z-axis (requires one parameter: `lambda`)
-- `cu2`  Controlled U2 gate (requires two parameters: `phi` and `lambda`)
-- `cu3`  Controlled U3 gate (requires three parameters: `theta`, `phi` and `lambda`)
-- `cs`   Controlled PI/2 rotation over Z-axis (synonym for `cr2`)
-- `ct`   Controlled PI/4 rotation over Z-axis (synonym for `cr4`)
-- `csdg` Controlled (-PI/2) rotation over Z-axis
-- `ctdg` Controlled (-PI/4) rotation over Z-axis
-- `csrn` Controlled Square root of NOT
-
-**Three-qubit gates**
-
-- `ccx` Toffoli aka "CCNOT" gate
-- `cswap` Controlled Swap aka Fredkin gate
-- `csrswap` Controlled Square root of Swap
-
+*For more details see [reference](#gates)*
 
 
 Run circuit
@@ -515,11 +518,672 @@ quirkLink.setAttr("href", quirkLink);
 
 ```
 
+Gates
+=====
+
+## id
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0]
+    [0,1]
+]
+```
+
+## x
+
+
+
+
+*Matrix:*
+```
+[
+    [0,1]
+    [1,0]
+]
+```
+
+## y
+
+
+
+
+*Matrix:*
+```
+[
+    [0,"multiply(-1, i)"]
+    ["i",0]
+]
+```
+
+## z
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0]
+    [0,-1]
+]
+```
+
+## h
+
+
+
+
+*Matrix:*
+```
+[
+    ["1 / sqrt(2)","1 / sqrt(2)"]
+    ["1 / sqrt(2)","0 - (1 / sqrt(2))"]
+]
+```
+
+## srn
+
+
+
+
+*Matrix:*
+```
+[
+    ["1 / sqrt(2)","-1 / sqrt(2)"]
+    ["-1 / sqrt(2)","1 / sqrt(2)"]
+]
+```
+
+## r2
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0]
+    [0,"pow(e, multiply(i, PI / 2))"]
+]
+```
+
+## r4
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0]
+    [0,"pow(e, multiply(i, PI / 4))"]
+]
+```
+
+## r8
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0]
+    [0,"pow(e, multiply(i, PI / 8))"]
+]
+```
+
+## rx
+
+
+
+*Parameters:*
+
+- *theta*
+
+
+*Matrix:*
+```
+[
+    ["cos(theta / 2)","multiply(-i, sin(theta / 2))"]
+    ["multiply(-i, sin(theta / 2))","cos(theta / 2)"]
+]
+```
+
+## ry
+
+
+
+*Parameters:*
+
+- *theta*
+
+
+*Matrix:*
+```
+[
+    ["cos(theta / 2)","multiply(-1, sin(theta / 2))"]
+    ["sin(theta / 2)","cos(theta / 2)"]
+]
+```
+
+## rz
+
+
+
+*Parameters:*
+
+- *phi*
+
+
+*Matrix:*
+```
+[
+    [1,0]
+    [0,"pow(e, multiply(i, phi))"]
+]
+```
+
+## u1
+
+
+
+*Parameters:*
+
+- *lambda*
+
+
+*Matrix:*
+```
+[
+    [1,0]
+    [0,"pow(e, multiply(i, lambda))"]
+]
+```
+
+## u2
+
+
+
+*Parameters:*
+
+- *phi*
+- *lambda*
+
+
+*Matrix:*
+```
+[
+    ["1 / sqrt(2)","pow(-e, multiply(i, lambda)) / sqrt(2)"]
+    ["pow(e, multiply(i, phi)) / sqrt(2)","pow(e, multiply(i, lambda) + multiply(i, phi)) / sqrt(2)"]
+]
+```
+
+## u3
+
+
+
+*Parameters:*
+
+- *theta*
+- *phi*
+- *lambda*
+
+
+*Matrix:*
+```
+[
+    ["cos(theta / 2)","pow(-e, multiply(i, lambda)) * sin(theta / 2)"]
+    ["pow(e, multiply(i, phi)) * sin(theta / 2)","pow(e, multiply(i, lambda) + multiply(i, phi)) * cos(theta / 2)"]
+]
+```
+
+## s
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0]
+    [0,"pow(e, multiply(i, PI / 2))"]
+]
+```
+
+## t
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0]
+    [0,"pow(e, multiply(i, PI / 4))"]
+]
+```
+
+## sdg
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0]
+    [0,"pow(e, multiply(i, (-1 * PI) / 2))"]
+]
+```
+
+## tdg
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0]
+    [0,"pow(e, multiply(i, (-1 * PI) / 4))"]
+]
+```
+
+## swap
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,0,1,0]
+    [0,1,0,0]
+    [0,0,0,1]
+]
+```
+
+## srswap
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,"multiply(0.5, add(1, i))","multiply(0.5, subtract(1, i))",0]
+    [0,"multiply(0.5, subtract(1, i))","multiply(0.5, add(1, i))",0]
+    [0,0,0,1]
+]
+```
+
+## cx
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,0,1]
+    [0,0,1,0]
+]
+```
+
+## cy
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,0,"multiply(-1, i)"]
+    [0,0,"i",0]
+]
+```
+
+## cz
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,1,0]
+    [0,0,0,-1]
+]
+```
+
+## ch
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,"1 / sqrt(2)","1 / sqrt(2)"]
+    [0,0,"1 / sqrt(2)","0 - (1 / sqrt(2))"]
+]
+```
+
+## csrn
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,"1 / sqrt(2)","-1 / sqrt(2)"]
+    [0,0,"-1 / sqrt(2)","1 / sqrt(2)"]
+]
+```
+
+## cr2
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,1,0]
+    [0,0,0,"pow(e, multiply(i, PI / 2))"]
+]
+```
+
+## cr4
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,1,0]
+    [0,0,0,"pow(e, multiply(i, PI / 4))"]
+]
+```
+
+## cr8
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,1,0]
+    [0,0,0,"pow(e, multiply(i, PI / 8))"]
+]
+```
+
+## crx
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,"cos(theta / 2)","multiply(-i, sin(theta / 2))"]
+    [0,0,"multiply(-i, sin(theta / 2))","cos(theta / 2)"]
+]
+```
+
+## cry
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,"cos(theta / 2)","multiply(-1, sin(theta / 2))"]
+    [0,0,"sin(theta / 2)","cos(theta / 2)"]
+]
+```
+
+## crz
+
+
+
+*Parameters:*
+
+- *phi*
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,1,0]
+    [0,0,0,"pow(e, multiply(i, phi))"]
+]
+```
+
+## cu1
+
+
+
+*Parameters:*
+
+- *lambda*
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,1,0]
+    [0,0,0,"pow(e, multiply(i, lambda))"]
+]
+```
+
+## cu2
+
+
+
+*Parameters:*
+
+- *phi*
+- *lambda*
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,"1 / sqrt(2)","pow(-e, multiply(i, lambda)) / sqrt(2)"]
+    [0,0,"pow(e, multiply(i, phi)) / sqrt(2)","pow(e, multiply(i, lambda) + multiply(i, phi)) / sqrt(2)"]
+]
+```
+
+## cu3
+
+
+
+*Parameters:*
+
+- *theta*
+- *phi*
+- *lambda*
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,"cos(theta / 2)","pow(-e, multiply(i, lambda)) * sin(theta / 2)"]
+    [0,0,"pow(e, multiply(i, phi)) * sin(theta / 2)","pow(e, multiply(i, lambda) + multiply(phi, lambda)) * cos(theta / 2)"]
+]
+```
+
+## cs
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,1,0]
+    [0,0,0,"pow(e, multiply(i, PI / 2))"]
+]
+```
+
+## ct
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,1,0]
+    [0,0,0,"pow(e, multiply(i, PI / 4))"]
+]
+```
+
+## csdg
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,1,0]
+    [0,0,0,"pow(e, multiply(i, (-1 * PI) / 2))"]
+]
+```
+
+## ctdg
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0]
+    [0,1,0,0]
+    [0,0,1,0]
+    [0,0,0,"pow(e, multiply(i, (-1 * PI) / 4))"]
+]
+```
+
+## ccx
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0,0,0,0,0]
+    [0,1,0,0,0,0,0,0]
+    [0,0,1,0,0,0,0,0]
+    [0,0,0,1,0,0,0,0]
+    [0,0,0,0,1,0,0,0]
+    [0,0,0,0,0,1,0,0]
+    [0,0,0,0,0,0,0,1]
+    [0,0,0,0,0,0,1,0]
+]
+```
+
+## cswap
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0,0,0,0,0]
+    [0,1,0,0,0,0,0,0]
+    [0,0,1,0,0,0,0,0]
+    [0,0,0,1,0,0,0,0]
+    [0,0,0,0,1,0,0,0]
+    [0,0,0,0,0,0,1,0]
+    [0,0,0,0,0,1,0,0]
+    [0,0,0,0,0,0,0,1]
+]
+```
+
+## csrswap
+
+
+
+
+*Matrix:*
+```
+[
+    [1,0,0,0,0,0,0,0]
+    [0,1,0,0,0,0,0,0]
+    [0,0,1,0,0,0,0,0]
+    [0,0,0,1,0,0,0,0]
+    [0,0,0,0,1,0,0,0]
+    [0,0,0,0,0,"multiply(0.5, add(1, i))","multiply(0.5, subtract(1, i))",0]
+    [0,0,0,0,0,"multiply(0.5, subtract(1, i))","multiply(0.5, add(1, i))",0]
+    [0,0,0,0,0,0,0,1]
+]
+```
+
+## measure
+
+
+
+
+
+
 
 API docs
 ========
 
-*To be written...*
+{API_DOCS}
+
 
 License
 =======

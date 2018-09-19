@@ -155,51 +155,9 @@ Wire 2 ----...-------| CX  |---
 Implemented gates
 -----------------
 
-**Single-qubit gates**
+{GATE_INDEX}
 
-- `h`   Hadamard gate
-- `x`   Pauli X (PI rotation over X-axis) aka "NOT" gate
-- `y`   Pauli Y (PI rotation over Y-axis)
-- `z`   Pauli Z (PI rotation over Z-axis)
-- `r2`  PI/2 rotation over Z-axis aka "Phase PI/2"
-- `r4`  PI/4 rotation over Z-axis aka "Phase PI/4"
-- `r8`  PI/8 rotation over Z-axis aka "Phase PI/8"
-- `u1`  Custom angle rotation over Z-axis (requires one parameter: `lambda`)
-- `u2`  Two parameter single-qubit gate (parameters: `phi` and `lambda`)
-- `u3`  Three-parameter single-qubit gate (parameters: `theta`, `phi` and `lambda`)
-- `s`   PI/2 rotation over Z-axis (synonym for `r2`)
-- `t`   PI/4 rotation over Z-axis (synonym for `r4`)
-- `sdg` (-PI/2) rotation over Z-axis
-- `tdg` (-PI/4) rotation over Z-axis
-- `srn` Square root of NOT
-- `measure` Measures qubit and stores chance (0 or 1) into classical bit
-
-**Two-qubit gates**
-
-- `swap` Swap
-- `srswap` Square root of Swap
-- `ch`   Controlled Hadamard gate
-- `cx`   Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate
-- `cy`   Controlled Pauli Y (PI rotation over Y-axis)
-- `cz`   Controlled Pauli Z (PI rotation over Z-axis)
-- `cr2`  Controlled PI/2 rotation over Z-axis aka "Phase PI/2"
-- `cr4`  Controlled PI/4 rotation over Z-axis aka "Phase PI/4"
-- `cr8`  Controlled PI/8 rotation over Z-axis aka "Phase PI/8"
-- `cu1`  Controlled Custom angle rotation over Z-axis (requires one parameter: `lambda`)
-- `cu2`  Controlled U2 gate (requires two parameters: `phi` and `lambda`)
-- `cu3`  Controlled U3 gate (requires three parameters: `theta`, `phi` and `lambda`)
-- `cs`   Controlled PI/2 rotation over Z-axis (synonym for `cr2`)
-- `ct`   Controlled PI/4 rotation over Z-axis (synonym for `cr4`)
-- `csdg` Controlled (-PI/2) rotation over Z-axis
-- `ctdg` Controlled (-PI/4) rotation over Z-axis
-- `csrn` Controlled Square root of NOT
-
-**Three-qubit gates**
-
-- `ccx` Toffoli aka "CCNOT" gate
-- `cswap` Controlled Swap aka Fredkin gate
-- `csrswap` Controlled Square root of Swap
-
+*For more details see [reference](#gates)*
 
 
 Run circuit
@@ -514,6 +472,11 @@ var quirkLink = document.getElementById("quirk");
 quirkLink.setAttr("href", quirkLink);
 
 ```
+
+Gates
+=====
+
+{GATE_REFERENCE}
 
 
 API docs
