@@ -373,9 +373,9 @@ Example:
 var qasm = circuit.exportQASM("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false);
 ```
 
-- `comment` - comment to insert at the beginning of the file
+- `comment` - comment to insert at the beginning of the file.
 
-- `decompose` - if set to `true` and circuit contains custom gates then it will be decomposed to basic gates and then exported. If set to `false` then custom gates will be exported as user defined gates.
+- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
 
 
 Import from QASM
@@ -405,18 +405,21 @@ circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\n
 Export to pyQuil
 ----------------
 
-Circuit can be exported to [pyQuil](http://docs.rigetti.com/en/latest/index.html)
+Circuit can be exported to [pyQuil](http://docs.rigetti.com/en/latest/index.html) with following limitation:
 
-To export circuit to pyQuil use `exportQASM(comment, decompose)` method:
+- at the moment, gates not directly supported by pyQuil are exported as-is - their definition is not generated. **TODO**
+
+
+To export circuit to pyQuil use `exportPyquil(comment, decompose)` method:
 
 Example:
 ```javascript
 var pyquil = circuit.exportPyquil("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false);
 ```
 
-- `comment` - comment to insert at the beginning of the file
+- `comment` - comment to insert at the beginning of the file.
 
-- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will defined as subroutines.
+- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
 
 
 Export to SVG
