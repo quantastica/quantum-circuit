@@ -4,32 +4,6 @@ Quantum Circuit Simulator
 Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). No UI: you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html) so it can be used for QASM to pyQuil conversion. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
-About algorithm
----------------
-
-Memory usage: up to `2 * (2^numQubits) * sizeOfComplexNumber`
-
-
-- Naive implementation stores entire state vector in an array of size `2^numQubits`. We are storing state in a "map", and only amplitudes with non-zero probabilities are stored. So, in worst case, size of state map is `2^n`, but it's less most of the time because we don't store zeroes.
-
-- Naive implementation creates transformation matrix and multiplies it with state vector. We are not creating and not storing entire transformation matrix in memory. Instead, elements of transformation matrix are calculated one by one and state is multiplied and stored in new state map on the fly. This way, memory usage is minimal (in worst case we have two `2^n` state vectors at a time).
-
-- Algorithm is parallelizable so it could use GPU, but GPU support is not implemented yet (work in progress).
-
-
-### Benchmark
-
-*Performance is measured on MacBook Pro MJLT2 mid-2015 (Core i7 2.5 GHz, 16GB RAM)*
-
-![Benchmark 1](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark1.png)
-
-![Benchmark 2](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark2.png)
-
-![Benchmark 3](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark3.png)
-
-*You can find scripts in [/benchmark](benchmark/) directory.*
-
-
 Using in browser
 ----------------
 
@@ -201,7 +175,7 @@ circuit.measure(0, "c", 3);
 Also, you can add `measure` gate to circuit and then measurement will be done automatically and result will be stored into classical register:
 
 ```javascript
-circuit.addGate("measure", -1, 0, { "creg": { name: "c", bit: 3 } });
+circuit.addGate("measure", -1, 0, { creg: { name: "c", bit: 3 } });
 ```
 
 Short form of writing this is `addMeasure(wire, creg, cbit)`:
@@ -257,7 +231,6 @@ circuit.setCregBit("ans", 3, 1);
 ```
 
 
-
 View/print final amplitudes
 ---------------------------
 
@@ -306,6 +279,7 @@ circuit.load(obj);
 
 ```
 
+
 Use circuit as a gate in another circuit
 ----------------------------------------
 
@@ -324,6 +298,7 @@ anotherCircuit.addGate("my_gate", 0, [2, 3, 4]);
 
 ```
 
+
 Decompose circuit
 -----------------
 
@@ -337,6 +312,7 @@ var obj = circuit.save(true);
 // now obj contains decomposed circuit. You can load it:
 circuit.load(obj);
 ```
+
 
 Export to QASM
 --------------
@@ -447,6 +423,7 @@ svg = circuit.exportSVG(true);
 
 ``` 
 
+
 Export to Quirk
 ---------------
 
@@ -472,6 +449,34 @@ var quirkLink = document.getElementById("quirk");
 quirkLink.setAttr("href", quirkLink);
 
 ```
+
+
+About algorithm
+===============
+
+Memory usage: up to `2 * (2^numQubits) * sizeOfComplexNumber`
+
+
+- Naive implementation stores entire state vector in an array of size `2^numQubits`. We are storing state in a "map", and only amplitudes with non-zero probabilities are stored. So, in worst case, size of state map is `2^n`, but it's less most of the time because we don't store zeroes.
+
+- Naive implementation creates transformation matrix and multiplies it with state vector. We are not creating and not storing entire transformation matrix in memory. Instead, elements of transformation matrix are calculated one by one and state is multiplied and stored in new state map on the fly. This way, memory usage is minimal (in worst case we have two `2^n` state vectors at a time).
+
+- Algorithm is parallelizable so it could use GPU, but GPU support is not implemented yet (work in progress).
+
+
+Benchmark
+---------
+
+*Performance is measured on MacBook Pro MJLT2 mid-2015 (Core i7 2.5 GHz, 16GB RAM)*
+
+![Benchmark 1](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark1.png)
+
+![Benchmark 2](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark2.png)
+
+![Benchmark 3](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark3.png)
+
+*You can find scripts in [/benchmark](benchmark/) directory.*
+
 
 Gates
 =====

@@ -4,32 +4,6 @@ Quantum Circuit Simulator
 Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). No UI: you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html) so it can be used for QASM to pyQuil conversion. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
-About algorithm
----------------
-
-Memory usage: up to `2 * (2^numQubits) * sizeOfComplexNumber`
-
-
-- Naive implementation stores entire state vector in an array of size `2^numQubits`. We are storing state in a "map", and only amplitudes with non-zero probabilities are stored. So, in worst case, size of state map is `2^n`, but it's less most of the time because we don't store zeroes.
-
-- Naive implementation creates transformation matrix and multiplies it with state vector. We are not creating and not storing entire transformation matrix in memory. Instead, elements of transformation matrix are calculated one by one and state is multiplied and stored in new state map on the fly. This way, memory usage is minimal (in worst case we have two `2^n` state vectors at a time).
-
-- Algorithm is parallelizable so it could use GPU, but GPU support is not implemented yet (work in progress).
-
-
-### Benchmark
-
-*Performance is measured on MacBook Pro MJLT2 mid-2015 (Core i7 2.5 GHz, 16GB RAM)*
-
-![Benchmark 1](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark1.png)
-
-![Benchmark 2](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark2.png)
-
-![Benchmark 3](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark3.png)
-
-*You can find scripts in [/benchmark](benchmark/) directory.*
-
-
 Using in browser
 ----------------
 
@@ -155,51 +129,51 @@ Wire 2 ----...-------| CX  |---
 Implemented gates
 -----------------
 
-| Name | Quil | Params | Description |
-| --- | --- | --- | --- |
-| **id** | I |  |  |
-| **x** | X |  |  |
-| **y** | Y |  |  |
-| **z** | Z |  |  |
-| **h** | H |  |  |
-| **srn** |  |  |  |
-| **r2** |  |  |  |
-| **r4** |  |  |  |
-| **r8** |  |  |  |
-| **rx** | RX | theta |  |
-| **ry** | RY | theta |  |
-| **rz** | RZ | phi |  |
-| **u1** | PHASE | lambda |  |
-| **u2** |  | phi, lambda |  |
-| **u3** |  | theta, phi, lambda |  |
-| **s** | S |  |  |
-| **t** | T |  |  |
-| **sdg** |  |  |  |
-| **tdg** |  |  |  |
-| **swap** | SWAP |  |  |
-| **srswap** |  |  |  |
-| **cx** | CNOT |  |  |
-| **cy** |  |  |  |
-| **cz** | CZ |  |  |
-| **ch** |  |  |  |
-| **csrn** |  |  |  |
-| **cr2** |  |  |  |
-| **cr4** |  |  |  |
-| **cr8** |  |  |  |
-| **crx** |  |  |  |
-| **cry** |  |  |  |
-| **crz** | CPHASE | phi |  |
-| **cu1** | CPHASE | lambda |  |
-| **cu2** |  | phi, lambda |  |
-| **cu3** |  | theta, phi, lambda |  |
-| **cs** |  |  |  |
-| **ct** |  |  |  |
-| **csdg** |  |  |  |
-| **ctdg** |  |  |  |
-| **ccx** | CCNOT |  |  |
-| **cswap** |  |  |  |
-| **csrswap** |  |  |  |
-| **measure** | MEASURE |  |  |
+| Name | pyQuil | Qubits | Params | Description |
+| --- | --- | --- | --- | --- |
+| **id** | I | 1 |  |  |
+| **x** | X | 1 |  |  |
+| **y** | Y | 1 |  |  |
+| **z** | Z | 1 |  |  |
+| **h** | H | 1 |  |  |
+| **srn** |  | 1 |  |  |
+| **r2** |  | 1 |  |  |
+| **r4** |  | 1 |  |  |
+| **r8** |  | 1 |  |  |
+| **rx** | RX | 1 | theta |  |
+| **ry** | RY | 1 | theta |  |
+| **rz** | RZ | 1 | phi |  |
+| **u1** | PHASE | 1 | lambda |  |
+| **u2** |  | 1 | phi, lambda |  |
+| **u3** |  | 1 | theta, phi, lambda |  |
+| **s** | S | 1 |  |  |
+| **t** | T | 1 |  |  |
+| **sdg** |  | 1 |  |  |
+| **tdg** |  | 1 |  |  |
+| **swap** | SWAP | 2 |  |  |
+| **srswap** |  | 2 |  |  |
+| **cx** | CNOT | 2 |  |  |
+| **cy** |  | 2 |  |  |
+| **cz** | CZ | 2 |  |  |
+| **ch** |  | 2 |  |  |
+| **csrn** |  | 2 |  |  |
+| **cr2** |  | 2 |  |  |
+| **cr4** |  | 2 |  |  |
+| **cr8** |  | 2 |  |  |
+| **crx** |  | 2 |  |  |
+| **cry** |  | 2 |  |  |
+| **crz** | CPHASE | 2 | phi |  |
+| **cu1** | CPHASE | 2 | lambda |  |
+| **cu2** |  | 2 | phi, lambda |  |
+| **cu3** |  | 2 | theta, phi, lambda |  |
+| **cs** |  | 2 |  |  |
+| **ct** |  | 2 |  |  |
+| **csdg** |  | 2 |  |  |
+| **ctdg** |  | 2 |  |  |
+| **ccx** | CCNOT | 3 |  |  |
+| **cswap** |  | 3 |  |  |
+| **csrswap** |  | 3 |  |  |
+| **measure** | MEASURE | 1 |  |  |
 
 
 *For more details see [reference](#gates)*
@@ -246,7 +220,7 @@ circuit.measure(0, "c", 3);
 Also, you can add `measure` gate to circuit and then measurement will be done automatically and result will be stored into classical register:
 
 ```javascript
-circuit.addGate("measure", -1, 0, { "creg": { name: "c", bit: 3 } });
+circuit.addGate("measure", -1, 0, { creg: { name: "c", bit: 3 } });
 ```
 
 Short form of writing this is `addMeasure(wire, creg, cbit)`:
@@ -302,7 +276,6 @@ circuit.setCregBit("ans", 3, 1);
 ```
 
 
-
 View/print final amplitudes
 ---------------------------
 
@@ -351,6 +324,7 @@ circuit.load(obj);
 
 ```
 
+
 Use circuit as a gate in another circuit
 ----------------------------------------
 
@@ -369,6 +343,7 @@ anotherCircuit.addGate("my_gate", 0, [2, 3, 4]);
 
 ```
 
+
 Decompose circuit
 -----------------
 
@@ -382,6 +357,7 @@ var obj = circuit.save(true);
 // now obj contains decomposed circuit. You can load it:
 circuit.load(obj);
 ```
+
 
 Export to QASM
 --------------
@@ -492,6 +468,7 @@ svg = circuit.exportSVG(true);
 
 ``` 
 
+
 Export to Quirk
 ---------------
 
@@ -518,129 +495,238 @@ quirkLink.setAttr("href", quirkLink);
 
 ```
 
+
+About algorithm
+===============
+
+Memory usage: up to `2 * (2^numQubits) * sizeOfComplexNumber`
+
+
+- Naive implementation stores entire state vector in an array of size `2^numQubits`. We are storing state in a "map", and only amplitudes with non-zero probabilities are stored. So, in worst case, size of state map is `2^n`, but it's less most of the time because we don't store zeroes.
+
+- Naive implementation creates transformation matrix and multiplies it with state vector. We are not creating and not storing entire transformation matrix in memory. Instead, elements of transformation matrix are calculated one by one and state is multiplied and stored in new state map on the fly. This way, memory usage is minimal (in worst case we have two `2^n` state vectors at a time).
+
+- Algorithm is parallelizable so it could use GPU, but GPU support is not implemented yet (work in progress).
+
+
+Benchmark
+---------
+
+*Performance is measured on MacBook Pro MJLT2 mid-2015 (Core i7 2.5 GHz, 16GB RAM)*
+
+![Benchmark 1](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark1.png)
+
+![Benchmark 2](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark2.png)
+
+![Benchmark 3](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark3.png)
+
+*You can find scripts in [/benchmark](benchmark/) directory.*
+
+
 Gates
 =====
 
 ## id
 
-
-
+*Qubits:* 1
 
 *Matrix:*
-```
+```javascript
 [
     [1,0]
     [0,1]
 ]
+```
+
+*Example:*
+```javascript
+circuit.addGate("id", 0, 0);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
 ```
 
 ## x
 
-
-
+*Qubits:* 1
 
 *Matrix:*
-```
+```javascript
 [
     [0,1]
     [1,0]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("x", 0, 0);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## y
 
-
-
+*Qubits:* 1
 
 *Matrix:*
-```
+```javascript
 [
     [0,"multiply(-1, i)"]
     ["i",0]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("y", 0, 0);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## z
 
-
-
+*Qubits:* 1
 
 *Matrix:*
-```
+```javascript
 [
     [1,0]
     [0,-1]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("z", 0, 0);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## h
 
-
-
+*Qubits:* 1
 
 *Matrix:*
-```
+```javascript
 [
     ["1 / sqrt(2)","1 / sqrt(2)"]
     ["1 / sqrt(2)","0 - (1 / sqrt(2))"]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("h", 0, 0);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## srn
 
-
-
+*Qubits:* 1
 
 *Matrix:*
-```
+```javascript
 [
     ["1 / sqrt(2)","-1 / sqrt(2)"]
     ["-1 / sqrt(2)","1 / sqrt(2)"]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("srn", 0, 0);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## r2
 
-
-
+*Qubits:* 1
 
 *Matrix:*
-```
+```javascript
 [
     [1,0]
     [0,"pow(e, multiply(i, PI / 2))"]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("r2", 0, 0);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## r4
 
-
-
+*Qubits:* 1
 
 *Matrix:*
-```
+```javascript
 [
     [1,0]
     [0,"pow(e, multiply(i, PI / 4))"]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("r4", 0, 0);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## r8
 
-
-
+*Qubits:* 1
 
 *Matrix:*
-```
+```javascript
 [
     [1,0]
     [0,"pow(e, multiply(i, PI / 8))"]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("r8", 0, 0);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## rx
 
-
+*Qubits:* 1
 
 *Parameters:*
 
@@ -648,16 +734,30 @@ Gates
 
 
 *Matrix:*
-```
+```javascript
 [
     ["cos(theta / 2)","multiply(-i, sin(theta / 2))"]
     ["multiply(-i, sin(theta / 2))","cos(theta / 2)"]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("rx", 0, 0, {
+    params: {
+        theta: "pi/2"
+    }
+});
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## ry
 
-
+*Qubits:* 1
 
 *Parameters:*
 
@@ -665,16 +765,30 @@ Gates
 
 
 *Matrix:*
-```
+```javascript
 [
     ["cos(theta / 2)","multiply(-1, sin(theta / 2))"]
     ["sin(theta / 2)","cos(theta / 2)"]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("ry", 0, 0, {
+    params: {
+        theta: "pi/2"
+    }
+});
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## rz
 
-
+*Qubits:* 1
 
 *Parameters:*
 
@@ -682,16 +796,30 @@ Gates
 
 
 *Matrix:*
-```
+```javascript
 [
     [1,0]
     [0,"pow(e, multiply(i, phi))"]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("rz", 0, 0, {
+    params: {
+        phi: "pi/2"
+    }
+});
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## u1
 
-
+*Qubits:* 1
 
 *Parameters:*
 
@@ -699,16 +827,30 @@ Gates
 
 
 *Matrix:*
-```
+```javascript
 [
     [1,0]
     [0,"pow(e, multiply(i, lambda))"]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("u1", 0, 0, {
+    params: {
+        lambda: "pi/2"
+    }
+});
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## u2
 
-
+*Qubits:* 1
 
 *Parameters:*
 
@@ -717,16 +859,31 @@ Gates
 
 
 *Matrix:*
-```
+```javascript
 [
     ["1 / sqrt(2)","pow(-e, multiply(i, lambda)) / sqrt(2)"]
     ["pow(e, multiply(i, phi)) / sqrt(2)","pow(e, multiply(i, lambda) + multiply(i, phi)) / sqrt(2)"]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("u2", 0, 0, {
+    params: {
+        phi: "pi/2",
+        lambda: "pi/2"
+    }
+});
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## u3
 
-
+*Qubits:* 1
 
 *Parameters:*
 
@@ -736,72 +893,123 @@ Gates
 
 
 *Matrix:*
-```
+```javascript
 [
     ["cos(theta / 2)","pow(-e, multiply(i, lambda)) * sin(theta / 2)"]
     ["pow(e, multiply(i, phi)) * sin(theta / 2)","pow(e, multiply(i, lambda) + multiply(i, phi)) * cos(theta / 2)"]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("u3", 0, 0, {
+    params: {
+        theta: "pi/2",
+        phi: "pi/2",
+        lambda: "pi/2"
+    }
+});
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## s
 
-
-
+*Qubits:* 1
 
 *Matrix:*
-```
+```javascript
 [
     [1,0]
     [0,"pow(e, multiply(i, PI / 2))"]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("s", 0, 0);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## t
 
-
-
+*Qubits:* 1
 
 *Matrix:*
-```
+```javascript
 [
     [1,0]
     [0,"pow(e, multiply(i, PI / 4))"]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("t", 0, 0);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## sdg
 
-
-
+*Qubits:* 1
 
 *Matrix:*
-```
+```javascript
 [
     [1,0]
     [0,"pow(e, multiply(i, (-1 * PI) / 2))"]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("sdg", 0, 0);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## tdg
 
-
-
+*Qubits:* 1
 
 *Matrix:*
-```
+```javascript
 [
     [1,0]
     [0,"pow(e, multiply(i, (-1 * PI) / 4))"]
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("tdg", 0, 0);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## swap
 
-
-
+*Qubits:* 2
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,0,1,0]
@@ -810,13 +1018,22 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("swap", 0, [0, 1]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## srswap
 
-
-
+*Qubits:* 2
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,"multiply(0.5, add(1, i))","multiply(0.5, subtract(1, i))",0]
@@ -825,13 +1042,22 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("srswap", 0, [0, 1]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## cx
 
-
-
+*Qubits:* 2
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -840,13 +1066,22 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("cx", 0, [0, 1]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## cy
 
-
-
+*Qubits:* 2
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -855,13 +1090,22 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("cy", 0, [0, 1]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## cz
 
-
-
+*Qubits:* 2
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -870,13 +1114,22 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("cz", 0, [0, 1]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## ch
 
-
-
+*Qubits:* 2
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -885,13 +1138,22 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("ch", 0, [0, 1]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## csrn
 
-
-
+*Qubits:* 2
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -900,13 +1162,22 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("csrn", 0, [0, 1]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## cr2
 
-
-
+*Qubits:* 2
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -915,13 +1186,22 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("cr2", 0, [0, 1]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## cr4
 
-
-
+*Qubits:* 2
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -930,13 +1210,22 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("cr4", 0, [0, 1]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## cr8
 
-
-
+*Qubits:* 2
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -945,13 +1234,22 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("cr8", 0, [0, 1]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## crx
 
-
-
+*Qubits:* 2
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -960,13 +1258,22 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("crx", 0, [0, 1]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## cry
 
-
-
+*Qubits:* 2
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -975,9 +1282,19 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("cry", 0, [0, 1]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## crz
 
-
+*Qubits:* 2
 
 *Parameters:*
 
@@ -985,7 +1302,7 @@ Gates
 
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -994,9 +1311,23 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("crz", 0, [0, 1], {
+    params: {
+        phi: "pi/2"
+    }
+});
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## cu1
 
-
+*Qubits:* 2
 
 *Parameters:*
 
@@ -1004,7 +1335,7 @@ Gates
 
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -1013,9 +1344,23 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("cu1", 0, [0, 1], {
+    params: {
+        lambda: "pi/2"
+    }
+});
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## cu2
 
-
+*Qubits:* 2
 
 *Parameters:*
 
@@ -1024,7 +1369,7 @@ Gates
 
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -1033,9 +1378,24 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("cu2", 0, [0, 1], {
+    params: {
+        phi: "pi/2",
+        lambda: "pi/2"
+    }
+});
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## cu3
 
-
+*Qubits:* 2
 
 *Parameters:*
 
@@ -1045,7 +1405,7 @@ Gates
 
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -1054,13 +1414,28 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("cu3", 0, [0, 1], {
+    params: {
+        theta: "pi/2",
+        phi: "pi/2",
+        lambda: "pi/2"
+    }
+});
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## cs
 
-
-
+*Qubits:* 2
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -1069,13 +1444,22 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("cs", 0, [0, 1]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## ct
 
-
-
+*Qubits:* 2
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -1084,13 +1468,22 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("ct", 0, [0, 1]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## csdg
 
-
-
+*Qubits:* 2
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -1099,13 +1492,22 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("csdg", 0, [0, 1]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## ctdg
 
-
-
+*Qubits:* 2
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0]
     [0,1,0,0]
@@ -1114,13 +1516,22 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("ctdg", 0, [0, 1]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## ccx
 
-
-
+*Qubits:* 3
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0,0,0,0,0]
     [0,1,0,0,0,0,0,0]
@@ -1131,15 +1542,24 @@ Gates
     [0,0,0,0,0,0,0,1]
     [0,0,0,0,0,0,1,0]
 ]
+```
+
+*Example:*
+```javascript
+circuit.addGate("ccx", 0, [0, 1, 2]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
 ```
 
 ## cswap
 
-
-
+*Qubits:* 3
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0,0,0,0,0]
     [0,1,0,0,0,0,0,0]
@@ -1152,13 +1572,22 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("cswap", 0, [0, 1, 2]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## csrswap
 
-
-
+*Qubits:* 3
 
 *Matrix:*
-```
+```javascript
 [
     [1,0,0,0,0,0,0,0]
     [0,1,0,0,0,0,0,0]
@@ -1171,10 +1600,34 @@ Gates
 ]
 ```
 
+*Example:*
+```javascript
+circuit.addGate("csrswap", 0, [0, 1, 2]);
+```
+
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
+
 ## measure
 
+*Qubits:* 1
 
+*Example:*
+```javascript
+circuit.addGate("measure", 0, 0, {
+    creg: {
+        name: "c",
+        bit: 3
+    }
+});
+```
 
+*Or:*
+```javascript
+circuit.addMeasure(0, "c", 3);
+```
 
 
 
@@ -1182,7 +1635,7 @@ Gates
 API docs
 ========
 
-{API_DOCS}
+*To be written...*
 
 
 License
