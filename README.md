@@ -131,49 +131,49 @@ Implemented gates
 
 | Name | pyQuil | Qubits | Params | Description |
 | --- | --- | --- | --- | --- |
-| **id** | I | 1 |  |  |
-| **x** | X | 1 |  |  |
-| **y** | Y | 1 |  |  |
-| **z** | Z | 1 |  |  |
-| **h** | H | 1 |  |  |
-| **srn** |  | 1 |  |  |
-| **r2** |  | 1 |  |  |
-| **r4** |  | 1 |  |  |
-| **r8** |  | 1 |  |  |
-| **rx** | RX | 1 | theta |  |
-| **ry** | RY | 1 | theta |  |
-| **rz** | RZ | 1 | phi |  |
-| **u1** | PHASE | 1 | lambda |  |
-| **u2** |  | 1 | phi, lambda |  |
-| **u3** |  | 1 | theta, phi, lambda |  |
-| **s** | S | 1 |  |  |
-| **t** | T | 1 |  |  |
-| **sdg** |  | 1 |  |  |
-| **tdg** |  | 1 |  |  |
-| **swap** | SWAP | 2 |  |  |
-| **srswap** |  | 2 |  |  |
-| **cx** | CNOT | 2 |  |  |
-| **cy** |  | 2 |  |  |
-| **cz** | CZ | 2 |  |  |
-| **ch** |  | 2 |  |  |
-| **csrn** |  | 2 |  |  |
-| **cr2** |  | 2 |  |  |
-| **cr4** |  | 2 |  |  |
-| **cr8** |  | 2 |  |  |
-| **crx** |  | 2 |  |  |
-| **cry** |  | 2 |  |  |
-| **crz** | CPHASE | 2 | phi |  |
-| **cu1** | CPHASE | 2 | lambda |  |
-| **cu2** |  | 2 | phi, lambda |  |
-| **cu3** |  | 2 | theta, phi, lambda |  |
-| **cs** |  | 2 |  |  |
-| **ct** |  | 2 |  |  |
-| **csdg** |  | 2 |  |  |
-| **ctdg** |  | 2 |  |  |
-| **ccx** | CCNOT | 3 |  |  |
-| **cswap** |  | 3 |  |  |
-| **csrswap** |  | 3 |  |  |
-| **measure** | MEASURE | 1 |  |  |
+| **id** | I | 1 |  | Single qubit identity gate |
+| **x** | X | 1 |  | Pauli X (PI rotation over X-axis) aka "NOT" gate |
+| **y** | Y | 1 |  | Pauli Y (PI rotation over Y-axis) |
+| **z** | Z | 1 |  | Pauli Z (PI rotation over Z-axis) |
+| **h** | H | 1 |  | Hadamard gate |
+| **srn** |  | 1 |  | Square root of NOT |
+| **r2** |  | 1 |  | PI/2 rotation over Z-axis aka "Phase PI/2" |
+| **r4** |  | 1 |  | PI/4 rotation over Z-axis aka "Phase PI/4" |
+| **r8** |  | 1 |  | PI/8 rotation over Z-axis aka "Phase PI/8" |
+| **rx** | RX | 1 | theta | Rotation around the X-axis by given angle |
+| **ry** | RY | 1 | theta | Rotation around the Y-axis by given angle |
+| **rz** | RZ | 1 | phi | Rotation around the Z-axis by given angle |
+| **u1** | PHASE | 1 | lambda | 1-parameter 0-pulse single qubit gate |
+| **u2** |  | 1 | phi, lambda | 2-parameter 1-pulse single qubit gate |
+| **u3** |  | 1 | theta, phi, lambda | 3-parameter 2-pulse single qubit gate |
+| **s** | S | 1 |  | PI/2 rotation over Z-axis (synonym for `r2`) |
+| **t** | T | 1 |  | PI/4 rotation over Z-axis (synonym for `r4`) |
+| **sdg** |  | 1 |  | (-PI/2) rotation over Z-axis |
+| **tdg** |  | 1 |  | (-PI/4) rotation over Z-axis |
+| **swap** | SWAP | 2 |  | Swaps the state of two qubits. |
+| **srswap** |  | 2 |  | Square root of swap |
+| **cx** | CNOT | 2 |  | Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate |
+| **cy** |  | 2 |  | Controlled Pauli Y (PI rotation over Y-axis) |
+| **cz** | CZ | 2 |  | Controlled Pauli Z (PI rotation over Z-axis) |
+| **ch** |  | 2 |  | Controlled Hadamard gate |
+| **csrn** |  | 2 |  | Controlled square root of NOT |
+| **cr2** |  | 2 |  | Controlled PI/2 rotation over Z-axis |
+| **cr4** |  | 2 |  | Controlled PI/4 rotation over Z-axis |
+| **cr8** |  | 2 |  | Controlled PI/8 rotation over Z-axis |
+| **crx** |  | 2 |  | Controlled rotation around the X-axis by given angle |
+| **cry** |  | 2 |  | Controlled rotation around the Y-axis by given angle |
+| **crz** | CPHASE | 2 | phi | Controlled rotation around the Z-axis by given angle |
+| **cu1** | CPHASE | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
+| **cu2** |  | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
+| **cu3** |  | 2 | theta, phi, lambda | Controlled 3-parameter 2-pulse single qubit gate |
+| **cs** |  | 2 |  | Controlled PI/2 rotation over Z-axis (synonym for `cr2`) |
+| **ct** |  | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
+| **csdg** |  | 2 |  | Controlled (-PI/2) rotation over Z-axis |
+| **ctdg** |  | 2 |  | Controlled (-PI/4) rotation over Z-axis |
+| **ccx** | CCNOT | 3 |  | Toffoli aka "CCNOT" gate |
+| **cswap** |  | 3 |  | Controlled swap aka "Fredkin" gate |
+| **csrswap** |  | 3 |  | Controlled square root of swap |
+| **measure** | MEASURE | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
 
 
 *For more details see [reference](#gates)*
@@ -528,6 +528,8 @@ Gates
 
 ## id
 
+Single qubit identity gate
+
 *Qubits:* 1
 
 *Matrix:*
@@ -543,12 +545,9 @@ Gates
 circuit.addGate("id", 0, 0);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## x
+
+Pauli X (PI rotation over X-axis) aka "NOT" gate
 
 *Qubits:* 1
 
@@ -565,12 +564,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("x", 0, 0);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## y
+
+Pauli Y (PI rotation over Y-axis)
 
 *Qubits:* 1
 
@@ -587,12 +583,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("y", 0, 0);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## z
+
+Pauli Z (PI rotation over Z-axis)
 
 *Qubits:* 1
 
@@ -609,12 +602,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("z", 0, 0);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## h
+
+Hadamard gate
 
 *Qubits:* 1
 
@@ -631,12 +621,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("h", 0, 0);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## srn
+
+Square root of NOT
 
 *Qubits:* 1
 
@@ -653,12 +640,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("srn", 0, 0);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## r2
+
+PI/2 rotation over Z-axis aka "Phase PI/2"
 
 *Qubits:* 1
 
@@ -675,12 +659,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("r2", 0, 0);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## r4
+
+PI/4 rotation over Z-axis aka "Phase PI/4"
 
 *Qubits:* 1
 
@@ -697,12 +678,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("r4", 0, 0);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## r8
+
+PI/8 rotation over Z-axis aka "Phase PI/8"
 
 *Qubits:* 1
 
@@ -719,12 +697,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("r8", 0, 0);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## rx
+
+Rotation around the X-axis by given angle
 
 *Qubits:* 1
 
@@ -750,12 +725,9 @@ circuit.addGate("rx", 0, 0, {
 });
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## ry
+
+Rotation around the Y-axis by given angle
 
 *Qubits:* 1
 
@@ -781,12 +753,9 @@ circuit.addGate("ry", 0, 0, {
 });
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## rz
+
+Rotation around the Z-axis by given angle
 
 *Qubits:* 1
 
@@ -812,12 +781,9 @@ circuit.addGate("rz", 0, 0, {
 });
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## u1
+
+1-parameter 0-pulse single qubit gate
 
 *Qubits:* 1
 
@@ -843,12 +809,9 @@ circuit.addGate("u1", 0, 0, {
 });
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## u2
+
+2-parameter 1-pulse single qubit gate
 
 *Qubits:* 1
 
@@ -876,12 +839,9 @@ circuit.addGate("u2", 0, 0, {
 });
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## u3
+
+3-parameter 2-pulse single qubit gate
 
 *Qubits:* 1
 
@@ -911,12 +871,9 @@ circuit.addGate("u3", 0, 0, {
 });
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## s
+
+PI/2 rotation over Z-axis (synonym for `r2`)
 
 *Qubits:* 1
 
@@ -933,12 +890,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("s", 0, 0);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## t
+
+PI/4 rotation over Z-axis (synonym for `r4`)
 
 *Qubits:* 1
 
@@ -955,12 +909,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("t", 0, 0);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## sdg
+
+(-PI/2) rotation over Z-axis
 
 *Qubits:* 1
 
@@ -977,12 +928,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("sdg", 0, 0);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## tdg
+
+(-PI/4) rotation over Z-axis
 
 *Qubits:* 1
 
@@ -999,12 +947,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("tdg", 0, 0);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## swap
+
+Swaps the state of two qubits.
 
 *Qubits:* 2
 
@@ -1023,12 +968,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("swap", 0, [0, 1]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## srswap
+
+Square root of swap
 
 *Qubits:* 2
 
@@ -1047,12 +989,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("srswap", 0, [0, 1]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## cx
+
+Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate
 
 *Qubits:* 2
 
@@ -1071,12 +1010,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("cx", 0, [0, 1]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## cy
+
+Controlled Pauli Y (PI rotation over Y-axis)
 
 *Qubits:* 2
 
@@ -1095,12 +1031,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("cy", 0, [0, 1]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## cz
+
+Controlled Pauli Z (PI rotation over Z-axis)
 
 *Qubits:* 2
 
@@ -1119,12 +1052,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("cz", 0, [0, 1]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## ch
+
+Controlled Hadamard gate
 
 *Qubits:* 2
 
@@ -1143,12 +1073,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("ch", 0, [0, 1]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## csrn
+
+Controlled square root of NOT
 
 *Qubits:* 2
 
@@ -1167,12 +1094,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("csrn", 0, [0, 1]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## cr2
+
+Controlled PI/2 rotation over Z-axis
 
 *Qubits:* 2
 
@@ -1191,12 +1115,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("cr2", 0, [0, 1]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## cr4
+
+Controlled PI/4 rotation over Z-axis
 
 *Qubits:* 2
 
@@ -1215,12 +1136,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("cr4", 0, [0, 1]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## cr8
+
+Controlled PI/8 rotation over Z-axis
 
 *Qubits:* 2
 
@@ -1239,12 +1157,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("cr8", 0, [0, 1]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## crx
+
+Controlled rotation around the X-axis by given angle
 
 *Qubits:* 2
 
@@ -1263,12 +1178,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("crx", 0, [0, 1]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## cry
+
+Controlled rotation around the Y-axis by given angle
 
 *Qubits:* 2
 
@@ -1287,12 +1199,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("cry", 0, [0, 1]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## crz
+
+Controlled rotation around the Z-axis by given angle
 
 *Qubits:* 2
 
@@ -1320,12 +1229,9 @@ circuit.addGate("crz", 0, [0, 1], {
 });
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## cu1
+
+Controlled 1-parameter 0-pulse single qubit gate
 
 *Qubits:* 2
 
@@ -1353,12 +1259,9 @@ circuit.addGate("cu1", 0, [0, 1], {
 });
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## cu2
+
+Controlled 2-parameter 1-pulse single qubit gate
 
 *Qubits:* 2
 
@@ -1388,12 +1291,9 @@ circuit.addGate("cu2", 0, [0, 1], {
 });
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## cu3
+
+Controlled 3-parameter 2-pulse single qubit gate
 
 *Qubits:* 2
 
@@ -1425,12 +1325,9 @@ circuit.addGate("cu3", 0, [0, 1], {
 });
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## cs
+
+Controlled PI/2 rotation over Z-axis (synonym for `cr2`)
 
 *Qubits:* 2
 
@@ -1449,12 +1346,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("cs", 0, [0, 1]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## ct
+
+Controlled PI/4 rotation over Z-axis (synonym for `cr4`)
 
 *Qubits:* 2
 
@@ -1473,12 +1367,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("ct", 0, [0, 1]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## csdg
+
+Controlled (-PI/2) rotation over Z-axis
 
 *Qubits:* 2
 
@@ -1497,12 +1388,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("csdg", 0, [0, 1]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## ctdg
+
+Controlled (-PI/4) rotation over Z-axis
 
 *Qubits:* 2
 
@@ -1521,12 +1409,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("ctdg", 0, [0, 1]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## ccx
+
+Toffoli aka "CCNOT" gate
 
 *Qubits:* 3
 
@@ -1549,12 +1434,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("ccx", 0, [0, 1, 2]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## cswap
+
+Controlled swap aka "Fredkin" gate
 
 *Qubits:* 3
 
@@ -1577,12 +1459,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("cswap", 0, [0, 1, 2]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## csrswap
+
+Controlled square root of swap
 
 *Qubits:* 3
 
@@ -1605,12 +1484,9 @@ circuit.addMeasure(0, "c", 3);
 circuit.addGate("csrswap", 0, [0, 1, 2]);
 ```
 
-*Or:*
-```javascript
-circuit.addMeasure(0, "c", 3);
-```
-
 ## measure
+
+Measures qubit and stores chance (0 or 1) into classical bit
 
 *Qubits:* 1
 

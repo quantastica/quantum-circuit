@@ -115,11 +115,13 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 		gateRef += ");\n";
 		gateRef += "```\n";
 
-		gateRef += "\n*Or:*\n"
-		gateRef += "```javascript\n";
-		gateRef += "circuit.addMeasure(0, \"c\", 3);\n";
-		gateRef += "```\n"
-
+		if(gateName == "measure") {
+			gateRef += "\n*Or:*\n"
+			gateRef += "```javascript\n";
+			gateRef += "circuit.addMeasure(0, \"c\", 3);\n";
+			gateRef += "```\n"
+		}
+		
 		gateRef += "\n";
 		// ---
 	}
