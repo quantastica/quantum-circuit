@@ -8,7 +8,8 @@
     "test": "node ./test/test.js",
     "browserify-debug": "browserify ./lib/quantum-circuit.js -o ./dist/quantum-circuit.js -d -s QuantumCircuit",
     "browserify-min": "browserify ./lib/quantum-circuit.js -s QuantumCircuit | uglifyjs --source-map -c -b beautify=false,ascii_only=true -o ./dist/quantum-circuit.min.js",
-    "build": "npm run browserify-debug && npm run browserify-min",
+    "make-docs": "node ./utils/generate_readme.js",
+    "build": "npm run browserify-debug && npm run browserify-min && npm run make-docs",
     "prepublish": "npm run build"
   },
   "repository": {
