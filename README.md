@@ -26,7 +26,11 @@ Simply include [quantum-circuit.min.js](dist/) into your html page (available vi
 </html>
 ```
 
-See [live example](https://quantum-circuit.com/example.html)
+### Live examples
+
+- [example.html](https://quantum-circuit.com/example.html)
+
+- [qasm2pyquil](https://quantum-circuit.com/qasm2pyquil)
 
 
 Using at server with node.js
