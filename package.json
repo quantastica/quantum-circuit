@@ -23,7 +23,9 @@
     "simulator",
     "emulator",
     "qasm",
-    "openqasm"
+    "openqasm",
+    "quil",
+    "pyquil"
   ],
   "author": "Petar Korponaić",
   "license": "MIT",

@@ -54,17 +54,17 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 			gateRef += "\n" + gateDef.description + "\n";
 		}
 
-		gateRef += "\n*Qubits:* " + numQubits + "\n";
+		gateRef += "\n**Qubits:** " + numQubits + "\n";
 
 		if(params.length) {
-			gateRef += "\n*Parameters:*\n\n";
+			gateRef += "\n**Parameters:**\n\n";
 			params.map(function(paramName) {
 				gateRef += "- *" + paramName + "*\n";
 			});
 			gateRef += "\n";
 		}
 		if(gateDef.matrix && gateDef.matrix.length) {
-			gateRef += "\n*Matrix:*\n";
+			gateRef += "\n**Matrix:**\n";
 			gateRef += "```javascript\n";
 			gateRef += "[\n";
 			gateDef.matrix.map(function(row) {
@@ -74,7 +74,7 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 			gateRef += "```\n";
 		}
 
-		gateRef += "\n*Example:*\n";
+		gateRef += "\n**Example:**\n";
 		gateRef += "```javascript\n";
 		gateRef += "circuit.addGate(\"" + gateName + "\", 0, ";
 		if(numQubits == 1) {
@@ -116,7 +116,7 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 		gateRef += "```\n";
 
 		if(gateName == "measure") {
-			gateRef += "\n*Or:*\n"
+			gateRef += "\n**Or:**\n"
 			gateRef += "```javascript\n";
 			gateRef += "circuit.addMeasure(0, \"c\", 3);\n";
 			gateRef += "```\n"

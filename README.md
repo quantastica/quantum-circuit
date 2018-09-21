@@ -537,9 +537,9 @@ Gates
 
 Single qubit identity gate
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0]
@@ -547,7 +547,7 @@ Single qubit identity gate
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("id", 0, 0);
 ```
@@ -556,9 +556,9 @@ circuit.addGate("id", 0, 0);
 
 Pauli X (PI rotation over X-axis) aka "NOT" gate
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [0,1]
@@ -566,7 +566,7 @@ Pauli X (PI rotation over X-axis) aka "NOT" gate
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("x", 0, 0);
 ```
@@ -575,9 +575,9 @@ circuit.addGate("x", 0, 0);
 
 Pauli Y (PI rotation over Y-axis)
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [0,"multiply(-1, i)"]
@@ -585,7 +585,7 @@ Pauli Y (PI rotation over Y-axis)
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("y", 0, 0);
 ```
@@ -594,9 +594,9 @@ circuit.addGate("y", 0, 0);
 
 Pauli Z (PI rotation over Z-axis)
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0]
@@ -604,7 +604,7 @@ Pauli Z (PI rotation over Z-axis)
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("z", 0, 0);
 ```
@@ -613,9 +613,9 @@ circuit.addGate("z", 0, 0);
 
 Hadamard gate
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     ["1 / sqrt(2)","1 / sqrt(2)"]
@@ -623,7 +623,7 @@ Hadamard gate
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("h", 0, 0);
 ```
@@ -632,9 +632,9 @@ circuit.addGate("h", 0, 0);
 
 Square root of NOT
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     ["1 / sqrt(2)","-1 / sqrt(2)"]
@@ -642,7 +642,7 @@ Square root of NOT
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("srn", 0, 0);
 ```
@@ -651,9 +651,9 @@ circuit.addGate("srn", 0, 0);
 
 PI/2 rotation over Z-axis aka "Phase PI/2"
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0]
@@ -661,7 +661,7 @@ PI/2 rotation over Z-axis aka "Phase PI/2"
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("r2", 0, 0);
 ```
@@ -670,9 +670,9 @@ circuit.addGate("r2", 0, 0);
 
 PI/4 rotation over Z-axis aka "Phase PI/4"
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0]
@@ -680,7 +680,7 @@ PI/4 rotation over Z-axis aka "Phase PI/4"
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("r4", 0, 0);
 ```
@@ -689,9 +689,9 @@ circuit.addGate("r4", 0, 0);
 
 PI/8 rotation over Z-axis aka "Phase PI/8"
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0]
@@ -699,7 +699,7 @@ PI/8 rotation over Z-axis aka "Phase PI/8"
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("r8", 0, 0);
 ```
@@ -708,14 +708,14 @@ circuit.addGate("r8", 0, 0);
 
 Rotation around the X-axis by given angle
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Parameters:*
+**Parameters:**
 
 - *theta*
 
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     ["cos(theta / 2)","multiply(-i, sin(theta / 2))"]
@@ -723,7 +723,7 @@ Rotation around the X-axis by given angle
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("rx", 0, 0, {
     params: {
@@ -736,14 +736,14 @@ circuit.addGate("rx", 0, 0, {
 
 Rotation around the Y-axis by given angle
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Parameters:*
+**Parameters:**
 
 - *theta*
 
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     ["cos(theta / 2)","multiply(-1, sin(theta / 2))"]
@@ -751,7 +751,7 @@ Rotation around the Y-axis by given angle
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("ry", 0, 0, {
     params: {
@@ -764,14 +764,14 @@ circuit.addGate("ry", 0, 0, {
 
 Rotation around the Z-axis by given angle
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Parameters:*
+**Parameters:**
 
 - *phi*
 
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0]
@@ -779,7 +779,7 @@ Rotation around the Z-axis by given angle
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("rz", 0, 0, {
     params: {
@@ -792,14 +792,14 @@ circuit.addGate("rz", 0, 0, {
 
 1-parameter 0-pulse single qubit gate
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Parameters:*
+**Parameters:**
 
 - *lambda*
 
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0]
@@ -807,7 +807,7 @@ circuit.addGate("rz", 0, 0, {
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("u1", 0, 0, {
     params: {
@@ -820,15 +820,15 @@ circuit.addGate("u1", 0, 0, {
 
 2-parameter 1-pulse single qubit gate
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Parameters:*
+**Parameters:**
 
 - *phi*
 - *lambda*
 
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     ["1 / sqrt(2)","pow(-e, multiply(i, lambda)) / sqrt(2)"]
@@ -836,7 +836,7 @@ circuit.addGate("u1", 0, 0, {
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("u2", 0, 0, {
     params: {
@@ -850,16 +850,16 @@ circuit.addGate("u2", 0, 0, {
 
 3-parameter 2-pulse single qubit gate
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Parameters:*
+**Parameters:**
 
 - *theta*
 - *phi*
 - *lambda*
 
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     ["cos(theta / 2)","pow(-e, multiply(i, lambda)) * sin(theta / 2)"]
@@ -867,7 +867,7 @@ circuit.addGate("u2", 0, 0, {
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("u3", 0, 0, {
     params: {
@@ -882,9 +882,9 @@ circuit.addGate("u3", 0, 0, {
 
 PI/2 rotation over Z-axis (synonym for `r2`)
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0]
@@ -892,7 +892,7 @@ PI/2 rotation over Z-axis (synonym for `r2`)
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("s", 0, 0);
 ```
@@ -901,9 +901,9 @@ circuit.addGate("s", 0, 0);
 
 PI/4 rotation over Z-axis (synonym for `r4`)
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0]
@@ -911,7 +911,7 @@ PI/4 rotation over Z-axis (synonym for `r4`)
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("t", 0, 0);
 ```
@@ -920,9 +920,9 @@ circuit.addGate("t", 0, 0);
 
 (-PI/2) rotation over Z-axis
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0]
@@ -930,7 +930,7 @@ circuit.addGate("t", 0, 0);
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("sdg", 0, 0);
 ```
@@ -939,9 +939,9 @@ circuit.addGate("sdg", 0, 0);
 
 (-PI/4) rotation over Z-axis
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0]
@@ -949,7 +949,7 @@ circuit.addGate("sdg", 0, 0);
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("tdg", 0, 0);
 ```
@@ -958,9 +958,9 @@ circuit.addGate("tdg", 0, 0);
 
 Swaps the state of two qubits.
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -970,7 +970,7 @@ Swaps the state of two qubits.
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("swap", 0, [0, 1]);
 ```
@@ -979,9 +979,9 @@ circuit.addGate("swap", 0, [0, 1]);
 
 Square root of swap
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -991,7 +991,7 @@ Square root of swap
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("srswap", 0, [0, 1]);
 ```
@@ -1000,9 +1000,9 @@ circuit.addGate("srswap", 0, [0, 1]);
 
 Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1012,7 +1012,7 @@ Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("cx", 0, [0, 1]);
 ```
@@ -1021,9 +1021,9 @@ circuit.addGate("cx", 0, [0, 1]);
 
 Controlled Pauli Y (PI rotation over Y-axis)
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1033,7 +1033,7 @@ Controlled Pauli Y (PI rotation over Y-axis)
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("cy", 0, [0, 1]);
 ```
@@ -1042,9 +1042,9 @@ circuit.addGate("cy", 0, [0, 1]);
 
 Controlled Pauli Z (PI rotation over Z-axis)
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1054,7 +1054,7 @@ Controlled Pauli Z (PI rotation over Z-axis)
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("cz", 0, [0, 1]);
 ```
@@ -1063,9 +1063,9 @@ circuit.addGate("cz", 0, [0, 1]);
 
 Controlled Hadamard gate
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1075,7 +1075,7 @@ Controlled Hadamard gate
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("ch", 0, [0, 1]);
 ```
@@ -1084,9 +1084,9 @@ circuit.addGate("ch", 0, [0, 1]);
 
 Controlled square root of NOT
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1096,7 +1096,7 @@ Controlled square root of NOT
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("csrn", 0, [0, 1]);
 ```
@@ -1105,9 +1105,9 @@ circuit.addGate("csrn", 0, [0, 1]);
 
 Controlled PI/2 rotation over Z-axis
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1117,7 +1117,7 @@ Controlled PI/2 rotation over Z-axis
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("cr2", 0, [0, 1]);
 ```
@@ -1126,9 +1126,9 @@ circuit.addGate("cr2", 0, [0, 1]);
 
 Controlled PI/4 rotation over Z-axis
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1138,7 +1138,7 @@ Controlled PI/4 rotation over Z-axis
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("cr4", 0, [0, 1]);
 ```
@@ -1147,9 +1147,9 @@ circuit.addGate("cr4", 0, [0, 1]);
 
 Controlled PI/8 rotation over Z-axis
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1159,7 +1159,7 @@ Controlled PI/8 rotation over Z-axis
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("cr8", 0, [0, 1]);
 ```
@@ -1168,9 +1168,9 @@ circuit.addGate("cr8", 0, [0, 1]);
 
 Controlled rotation around the X-axis by given angle
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1180,7 +1180,7 @@ Controlled rotation around the X-axis by given angle
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("crx", 0, [0, 1]);
 ```
@@ -1189,9 +1189,9 @@ circuit.addGate("crx", 0, [0, 1]);
 
 Controlled rotation around the Y-axis by given angle
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1201,7 +1201,7 @@ Controlled rotation around the Y-axis by given angle
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("cry", 0, [0, 1]);
 ```
@@ -1210,14 +1210,14 @@ circuit.addGate("cry", 0, [0, 1]);
 
 Controlled rotation around the Z-axis by given angle
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Parameters:*
+**Parameters:**
 
 - *phi*
 
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1227,7 +1227,7 @@ Controlled rotation around the Z-axis by given angle
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("crz", 0, [0, 1], {
     params: {
@@ -1240,14 +1240,14 @@ circuit.addGate("crz", 0, [0, 1], {
 
 Controlled 1-parameter 0-pulse single qubit gate
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Parameters:*
+**Parameters:**
 
 - *lambda*
 
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1257,7 +1257,7 @@ Controlled 1-parameter 0-pulse single qubit gate
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("cu1", 0, [0, 1], {
     params: {
@@ -1270,15 +1270,15 @@ circuit.addGate("cu1", 0, [0, 1], {
 
 Controlled 2-parameter 1-pulse single qubit gate
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Parameters:*
+**Parameters:**
 
 - *phi*
 - *lambda*
 
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1288,7 +1288,7 @@ Controlled 2-parameter 1-pulse single qubit gate
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("cu2", 0, [0, 1], {
     params: {
@@ -1302,16 +1302,16 @@ circuit.addGate("cu2", 0, [0, 1], {
 
 Controlled 3-parameter 2-pulse single qubit gate
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Parameters:*
+**Parameters:**
 
 - *theta*
 - *phi*
 - *lambda*
 
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1321,7 +1321,7 @@ Controlled 3-parameter 2-pulse single qubit gate
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("cu3", 0, [0, 1], {
     params: {
@@ -1336,9 +1336,9 @@ circuit.addGate("cu3", 0, [0, 1], {
 
 Controlled PI/2 rotation over Z-axis (synonym for `cr2`)
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1348,7 +1348,7 @@ Controlled PI/2 rotation over Z-axis (synonym for `cr2`)
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("cs", 0, [0, 1]);
 ```
@@ -1357,9 +1357,9 @@ circuit.addGate("cs", 0, [0, 1]);
 
 Controlled PI/4 rotation over Z-axis (synonym for `cr4`)
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1369,7 +1369,7 @@ Controlled PI/4 rotation over Z-axis (synonym for `cr4`)
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("ct", 0, [0, 1]);
 ```
@@ -1378,9 +1378,9 @@ circuit.addGate("ct", 0, [0, 1]);
 
 Controlled (-PI/2) rotation over Z-axis
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1390,7 +1390,7 @@ Controlled (-PI/2) rotation over Z-axis
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("csdg", 0, [0, 1]);
 ```
@@ -1399,9 +1399,9 @@ circuit.addGate("csdg", 0, [0, 1]);
 
 Controlled (-PI/4) rotation over Z-axis
 
-*Qubits:* 2
+**Qubits:** 2
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0]
@@ -1411,7 +1411,7 @@ Controlled (-PI/4) rotation over Z-axis
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("ctdg", 0, [0, 1]);
 ```
@@ -1420,9 +1420,9 @@ circuit.addGate("ctdg", 0, [0, 1]);
 
 Toffoli aka "CCNOT" gate
 
-*Qubits:* 3
+**Qubits:** 3
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0,0,0,0,0]
@@ -1436,7 +1436,7 @@ Toffoli aka "CCNOT" gate
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("ccx", 0, [0, 1, 2]);
 ```
@@ -1445,9 +1445,9 @@ circuit.addGate("ccx", 0, [0, 1, 2]);
 
 Controlled swap aka "Fredkin" gate
 
-*Qubits:* 3
+**Qubits:** 3
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0,0,0,0,0]
@@ -1461,7 +1461,7 @@ Controlled swap aka "Fredkin" gate
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("cswap", 0, [0, 1, 2]);
 ```
@@ -1470,9 +1470,9 @@ circuit.addGate("cswap", 0, [0, 1, 2]);
 
 Controlled square root of swap
 
-*Qubits:* 3
+**Qubits:** 3
 
-*Matrix:*
+**Matrix:**
 ```javascript
 [
     [1,0,0,0,0,0,0,0]
@@ -1486,7 +1486,7 @@ Controlled square root of swap
 ]
 ```
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("csrswap", 0, [0, 1, 2]);
 ```
@@ -1495,9 +1495,9 @@ circuit.addGate("csrswap", 0, [0, 1, 2]);
 
 Measures qubit and stores chance (0 or 1) into classical bit
 
-*Qubits:* 1
+**Qubits:** 1
 
-*Example:*
+**Example:**
 ```javascript
 circuit.addGate("measure", 0, 0, {
     creg: {
@@ -1507,7 +1507,7 @@ circuit.addGate("measure", 0, 0, {
 });
 ```
 
-*Or:*
+**Or:**
 ```javascript
 circuit.addMeasure(0, "c", 3);
 ```
