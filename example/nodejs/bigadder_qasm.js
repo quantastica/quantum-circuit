@@ -76,7 +76,9 @@ console.log("");
 console.log("Answer:", answer, " (" + answer.toString(2) + ")");
 
 console.log("");
-console.log("Time: ", adder.stats.duration + " ms");
+console.log("Qubits: " + adder.numQubits);
+console.log("Gates: " + adder.numGates(false) + " (" + adder.numGates(true) + " decomposed)");
+console.log("Time: " + adder.stats.duration + " ms");
 
 console.log("");
 console.log("Final amplitudes:");
