@@ -351,7 +351,7 @@ anotherCircuit.addGate("my_gate", 0, [2, 3, 4]);
 Decompose circuit
 -----------------
 
-If your circuit contains custom gates (created from another circuit), you can decompose it into equivalent circuit containing only basic gates.
+If your circuit contains user defined gates (created from another circuit), you can decompose it into equivalent circuit containing only basic gates.
 
 If you pass `true` as argument to function `save`, you'll get decomposed circuit.
 
@@ -396,14 +396,18 @@ Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) with
 - `reset` is ignored. **TODO**
 
 
-To import circuit from OpenQASM use `importQASM(input)` method:
+To import circuit from OpenQASM use `importQASM(input, errorCallback)` method:
 
 Example:
 ```javascript
-circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\ncx q[0],q[1];\n");
+circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\ncx q[0],q[1];\n", function(errors) {
+    console.log(errors);
+});
 ```
 
 - `input` is string containing QASM source code.
+
+- `errorCallback` (optional) function will be called after parsing with array containing syntax errors.
 
 
 Export to pyQuil
