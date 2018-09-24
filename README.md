@@ -164,8 +164,8 @@ Implemented gates
 | **cr2** |  | 2 |  | Controlled PI/2 rotation over Z-axis |
 | **cr4** |  | 2 |  | Controlled PI/4 rotation over Z-axis |
 | **cr8** |  | 2 |  | Controlled PI/8 rotation over Z-axis |
-| **crx** |  | 2 |  | Controlled rotation around the X-axis by given angle |
-| **cry** |  | 2 |  | Controlled rotation around the Y-axis by given angle |
+| **crx** |  | 2 | theta | Controlled rotation around the X-axis by given angle |
+| **cry** |  | 2 | theta | Controlled rotation around the Y-axis by given angle |
 | **crz** | CPHASE | 2 | phi | Controlled rotation around the Z-axis by given angle |
 | **cu1** | CPHASE | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
 | **cu2** |  | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
@@ -716,7 +716,7 @@ Rotation around the X-axis by given angle
 
 **Parameters:**
 
-- *theta*
+- theta
 
 
 **Matrix:**
@@ -744,7 +744,7 @@ Rotation around the Y-axis by given angle
 
 **Parameters:**
 
-- *theta*
+- theta
 
 
 **Matrix:**
@@ -772,7 +772,7 @@ Rotation around the Z-axis by given angle
 
 **Parameters:**
 
-- *phi*
+- phi
 
 
 **Matrix:**
@@ -800,7 +800,7 @@ circuit.addGate("rz", 0, 0, {
 
 **Parameters:**
 
-- *lambda*
+- lambda
 
 
 **Matrix:**
@@ -828,8 +828,8 @@ circuit.addGate("u1", 0, 0, {
 
 **Parameters:**
 
-- *phi*
-- *lambda*
+- phi
+- lambda
 
 
 **Matrix:**
@@ -858,9 +858,9 @@ circuit.addGate("u2", 0, 0, {
 
 **Parameters:**
 
-- *theta*
-- *phi*
-- *lambda*
+- theta
+- phi
+- lambda
 
 
 **Matrix:**
@@ -1174,6 +1174,11 @@ Controlled rotation around the X-axis by given angle
 
 **Qubits:** 2
 
+**Parameters:**
+
+- theta
+
+
 **Matrix:**
 ```javascript
 [
@@ -1186,7 +1191,11 @@ Controlled rotation around the X-axis by given angle
 
 **Example:**
 ```javascript
-circuit.addGate("crx", 0, [0, 1]);
+circuit.addGate("crx", 0, [0, 1], {
+    params: {
+        theta: "pi/2"
+    }
+});
 ```
 
 ## cry
@@ -1194,6 +1203,11 @@ circuit.addGate("crx", 0, [0, 1]);
 Controlled rotation around the Y-axis by given angle
 
 **Qubits:** 2
+
+**Parameters:**
+
+- theta
+
 
 **Matrix:**
 ```javascript
@@ -1207,7 +1221,11 @@ Controlled rotation around the Y-axis by given angle
 
 **Example:**
 ```javascript
-circuit.addGate("cry", 0, [0, 1]);
+circuit.addGate("cry", 0, [0, 1], {
+    params: {
+        theta: "pi/2"
+    }
+});
 ```
 
 ## crz
@@ -1218,7 +1236,7 @@ Controlled rotation around the Z-axis by given angle
 
 **Parameters:**
 
-- *phi*
+- phi
 
 
 **Matrix:**
@@ -1248,7 +1266,7 @@ Controlled 1-parameter 0-pulse single qubit gate
 
 **Parameters:**
 
-- *lambda*
+- lambda
 
 
 **Matrix:**
@@ -1278,8 +1296,8 @@ Controlled 2-parameter 1-pulse single qubit gate
 
 **Parameters:**
 
-- *phi*
-- *lambda*
+- phi
+- lambda
 
 
 **Matrix:**
@@ -1310,9 +1328,9 @@ Controlled 3-parameter 2-pulse single qubit gate
 
 **Parameters:**
 
-- *theta*
-- *phi*
-- *lambda*
+- theta
+- phi
+- lambda
 
 
 **Matrix:**

@@ -59,7 +59,7 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 		if(params.length) {
 			gateRef += "\n**Parameters:**\n\n";
 			params.map(function(paramName) {
-				gateRef += "- *" + paramName + "*\n";
+				gateRef += "- " + paramName + "\n";
 			});
 			gateRef += "\n";
 		}
