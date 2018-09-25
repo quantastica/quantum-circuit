@@ -1,7 +1,7 @@
 Quantum Circuit Simulator
 =========================
 
-Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). No UI: you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html) so it can be used for QASM to pyQuil conversion. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
+Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). No UI: you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html) and [Quil](https://arxiv.org/abs/1608.03355) so it can be used for QASM to pyQuil and QASM to Quil conversion. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
 Using in browser
@@ -28,9 +28,9 @@ Simply include [quantum-circuit.min.js](dist/) into your html page (available vi
 
 ### Live examples
 
-- [example.html](https://quantum-circuit.com/example.html)
-
 - [qasm2pyquil](https://quantum-circuit.com/qasm2pyquil)
+
+- [example.html](https://quantum-circuit.com/example.html)
 
 
 Using at server with node.js
@@ -50,6 +50,10 @@ var QuantumCircuit = require("quantum-circuit");
 // Your code here
 
 ```
+
+### Examples
+
+See [/examples/nodejs](examples/nodejs/) directory.
 
 
 Getting started
@@ -135,30 +139,30 @@ Implemented gates
 
 | Name | pyQuil | Qubits | Params | Description |
 | --- | --- | --- | --- | --- |
-| **id** | I | 1 |  | Single qubit identity gate |
-| **x** | X | 1 |  | Pauli X (PI rotation over X-axis) aka "NOT" gate |
-| **y** | Y | 1 |  | Pauli Y (PI rotation over Y-axis) |
-| **z** | Z | 1 |  | Pauli Z (PI rotation over Z-axis) |
-| **h** | H | 1 |  | Hadamard gate |
+| **id** |  | 1 |  | Single qubit identity gate |
+| **x** |  | 1 |  | Pauli X (PI rotation over X-axis) aka "NOT" gate |
+| **y** |  | 1 |  | Pauli Y (PI rotation over Y-axis) |
+| **z** |  | 1 |  | Pauli Z (PI rotation over Z-axis) |
+| **h** |  | 1 |  | Hadamard gate |
 | **srn** |  | 1 |  | Square root of NOT |
 | **r2** |  | 1 |  | PI/2 rotation over Z-axis aka "Phase PI/2" |
 | **r4** |  | 1 |  | PI/4 rotation over Z-axis aka "Phase PI/4" |
 | **r8** |  | 1 |  | PI/8 rotation over Z-axis aka "Phase PI/8" |
-| **rx** | RX | 1 | theta | Rotation around the X-axis by given angle |
-| **ry** | RY | 1 | theta | Rotation around the Y-axis by given angle |
-| **rz** | RZ | 1 | phi | Rotation around the Z-axis by given angle |
-| **u1** | PHASE | 1 | lambda | 1-parameter 0-pulse single qubit gate |
+| **rx** |  | 1 | theta | Rotation around the X-axis by given angle |
+| **ry** |  | 1 | theta | Rotation around the Y-axis by given angle |
+| **rz** |  | 1 | phi | Rotation around the Z-axis by given angle |
+| **u1** |  | 1 | lambda | 1-parameter 0-pulse single qubit gate |
 | **u2** |  | 1 | phi, lambda | 2-parameter 1-pulse single qubit gate |
 | **u3** |  | 1 | theta, phi, lambda | 3-parameter 2-pulse single qubit gate |
-| **s** | S | 1 |  | PI/2 rotation over Z-axis (synonym for `r2`) |
-| **t** | T | 1 |  | PI/4 rotation over Z-axis (synonym for `r4`) |
+| **s** |  | 1 |  | PI/2 rotation over Z-axis (synonym for `r2`) |
+| **t** |  | 1 |  | PI/4 rotation over Z-axis (synonym for `r4`) |
 | **sdg** |  | 1 |  | (-PI/2) rotation over Z-axis |
 | **tdg** |  | 1 |  | (-PI/4) rotation over Z-axis |
-| **swap** | SWAP | 2 |  | Swaps the state of two qubits. |
+| **swap** |  | 2 |  | Swaps the state of two qubits. |
 | **srswap** |  | 2 |  | Square root of swap |
-| **cx** | CNOT | 2 |  | Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate |
+| **cx** |  | 2 |  | Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate |
 | **cy** |  | 2 |  | Controlled Pauli Y (PI rotation over Y-axis) |
-| **cz** | CZ | 2 |  | Controlled Pauli Z (PI rotation over Z-axis) |
+| **cz** |  | 2 |  | Controlled Pauli Z (PI rotation over Z-axis) |
 | **ch** |  | 2 |  | Controlled Hadamard gate |
 | **csrn** |  | 2 |  | Controlled square root of NOT |
 | **cr2** |  | 2 |  | Controlled PI/2 rotation over Z-axis |
@@ -166,18 +170,18 @@ Implemented gates
 | **cr8** |  | 2 |  | Controlled PI/8 rotation over Z-axis |
 | **crx** |  | 2 | theta | Controlled rotation around the X-axis by given angle |
 | **cry** |  | 2 | theta | Controlled rotation around the Y-axis by given angle |
-| **crz** | CPHASE | 2 | phi | Controlled rotation around the Z-axis by given angle |
-| **cu1** | CPHASE | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
+| **crz** |  | 2 | phi | Controlled rotation around the Z-axis by given angle |
+| **cu1** |  | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
 | **cu2** |  | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
 | **cu3** |  | 2 | theta, phi, lambda | Controlled 3-parameter 2-pulse single qubit gate |
 | **cs** |  | 2 |  | Controlled PI/2 rotation over Z-axis (synonym for `cr2`) |
 | **ct** |  | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
 | **csdg** |  | 2 |  | Controlled (-PI/2) rotation over Z-axis |
 | **ctdg** |  | 2 |  | Controlled (-PI/4) rotation over Z-axis |
-| **ccx** | CCNOT | 3 |  | Toffoli aka "CCNOT" gate |
+| **ccx** |  | 3 |  | Toffoli aka "CCNOT" gate |
 | **cswap** |  | 3 |  | Controlled swap aka "Fredkin" gate |
 | **csrswap** |  | 3 |  | Controlled square root of swap |
-| **measure** | MEASURE | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
+| **measure** |  | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
 
 
 *For more details see [reference](#gates)*
@@ -204,6 +208,13 @@ circuit.run([1, 1]);
 
 Measurement
 -----------
+
+Method `probabilities()` will return array of probabilities (real numbers between 0 and 1) for each qubit:
+
+```javascript
+console.log(circuit.probabilities());
+```
+
 
 Method `measure(wire)` returns chance of being 1 for given qubit:
 
@@ -428,6 +439,26 @@ var pyquil = circuit.exportPyquil("Comment to insert at the beginning.\nCan be m
 - `comment` - comment to insert at the beginning of the file.
 
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
+
+
+Export to Quil
+--------------
+
+Circuit can be exported to [Quil](https://arxiv.org/abs/1608.03355) with following limitation:
+
+- at the moment, gates not directly supported by Quil are exported as-is - DEFGATE is not generated. **TODO**
+
+
+To export circuit to Quil use `exportQuil(comment, decompose)` method:
+
+Example:
+```javascript
+var quil = circuit.exportQuil("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false);
+```
+
+- `comment` - comment to insert at the beginning of the file.
+
+- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines (DEFCIRCUIT).
 
 
 Export to SVG

@@ -1,7 +1,7 @@
 Quantum Circuit Simulator
 =========================
 
-Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). No UI: you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html) so it can be used for QASM to pyQuil conversion. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
+Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). No UI: you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html) and [Quil](https://arxiv.org/abs/1608.03355) so it can be used for QASM to pyQuil and QASM to Quil conversion. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
 Using in browser
@@ -28,9 +28,9 @@ Simply include [quantum-circuit.min.js](dist/) into your html page (available vi
 
 ### Live examples
 
-- [example.html](https://quantum-circuit.com/example.html)
-
 - [qasm2pyquil](https://quantum-circuit.com/qasm2pyquil)
+
+- [example.html](https://quantum-circuit.com/example.html)
 
 
 Using at server with node.js
@@ -50,6 +50,10 @@ var QuantumCircuit = require("quantum-circuit");
 // Your code here
 
 ```
+
+### Examples
+
+See [/examples/nodejs](examples/nodejs/) directory.
 
 
 Getting started
@@ -159,6 +163,13 @@ circuit.run([1, 1]);
 
 Measurement
 -----------
+
+Method `probabilities()` will return array of probabilities (real numbers between 0 and 1) for each qubit:
+
+```javascript
+console.log(circuit.probabilities());
+```
+
 
 Method `measure(wire)` returns chance of being 1 for given qubit:
 
@@ -383,6 +394,26 @@ var pyquil = circuit.exportPyquil("Comment to insert at the beginning.\nCan be m
 - `comment` - comment to insert at the beginning of the file.
 
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
+
+
+Export to Quil
+--------------
+
+Circuit can be exported to [Quil](https://arxiv.org/abs/1608.03355) with following limitation:
+
+- at the moment, gates not directly supported by Quil are exported as-is - DEFGATE is not generated. **TODO**
+
+
+To export circuit to Quil use `exportQuil(comment, decompose)` method:
+
+Example:
+```javascript
+var quil = circuit.exportQuil("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false);
+```
+
+- `comment` - comment to insert at the beginning of the file.
+
+- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines (DEFCIRCUIT).
 
 
 Export to SVG
