@@ -53,7 +53,7 @@ var QuantumCircuit = require("quantum-circuit");
 
 ### Examples
 
-See [/examples/nodejs](examples/nodejs/) directory.
+See [/example/nodejs](example/nodejs/) directory.
 
 
 Getting started
@@ -152,8 +152,8 @@ Implemented gates
 | **ry** |  | 1 | theta | Rotation around the Y-axis by given angle |
 | **rz** |  | 1 | phi | Rotation around the Z-axis by given angle |
 | **u1** |  | 1 | lambda | 1-parameter 0-pulse single qubit gate |
-| **u2** |  | 1 | phi, lambda | 2-parameter 1-pulse single qubit gate |
-| **u3** |  | 1 | theta, phi, lambda | 3-parameter 2-pulse single qubit gate |
+| **u2** | u2 | 1 | phi, lambda | 2-parameter 1-pulse single qubit gate |
+| **u3** | u3 | 1 | theta, phi, lambda | 3-parameter 2-pulse single qubit gate |
 | **s** |  | 1 |  | PI/2 rotation over Z-axis (synonym for `r2`) |
 | **t** |  | 1 |  | PI/4 rotation over Z-axis (synonym for `r4`) |
 | **sdg** |  | 1 |  | (-PI/2) rotation over Z-axis |
@@ -172,8 +172,8 @@ Implemented gates
 | **cry** |  | 2 | theta | Controlled rotation around the Y-axis by given angle |
 | **crz** |  | 2 | phi | Controlled rotation around the Z-axis by given angle |
 | **cu1** |  | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
-| **cu2** |  | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
-| **cu3** |  | 2 | theta, phi, lambda | Controlled 3-parameter 2-pulse single qubit gate |
+| **cu2** | cu2 | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
+| **cu3** | cu3 | 2 | theta, phi, lambda | Controlled 3-parameter 2-pulse single qubit gate |
 | **cs** |  | 2 |  | Controlled PI/2 rotation over Z-axis (synonym for `cr2`) |
 | **ct** |  | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
 | **csdg** |  | 2 |  | Controlled (-PI/2) rotation over Z-axis |
@@ -184,7 +184,7 @@ Implemented gates
 | **measure** |  | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
 
 
-*For more details see [reference](#gates)*
+*For more details see [gate reference](#gates)*
 
 
 Run circuit

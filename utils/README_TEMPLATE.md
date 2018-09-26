@@ -53,7 +53,7 @@ var QuantumCircuit = require("quantum-circuit");
 
 ### Examples
 
-See [/examples/nodejs](examples/nodejs/) directory.
+See [/example/nodejs](example/nodejs/) directory.
 
 
 Getting started
@@ -139,7 +139,7 @@ Implemented gates
 
 {GATE_INDEX}
 
-*For more details see [reference](#gates)*
+*For more details see [gate reference](#gates)*
 
 
 Run circuit
