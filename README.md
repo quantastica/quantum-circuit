@@ -424,10 +424,7 @@ circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\n
 Export to pyQuil
 ----------------
 
-Circuit can be exported to [pyQuil](http://docs.rigetti.com/en/latest/index.html) with following limitation:
-
-- at the moment, gates not directly supported by pyQuil are exported as-is - their definition is not generated. **TODO**
-
+Circuit can be exported to [pyQuil](http://docs.rigetti.com/en/latest/index.html)
 
 To export circuit to pyQuil use `exportPyquil(comment, decompose)` method:
 
@@ -444,10 +441,7 @@ var pyquil = circuit.exportPyquil("Comment to insert at the beginning.\nCan be m
 Export to Quil
 --------------
 
-Circuit can be exported to [Quil](https://arxiv.org/abs/1608.03355) with following limitation:
-
-- at the moment, gates not directly supported by Quil are exported as-is - DEFGATE is not generated. **TODO**
-
+Circuit can be exported to [Quil](https://arxiv.org/abs/1608.03355)
 
 To export circuit to Quil use `exportQuil(comment, decompose)` method:
 
@@ -538,8 +532,8 @@ quirkLink.setAttr("href", quirkLink);
 ```
 
 
-About algorithm
-===============
+About simulator algorithm
+=========================
 
 Memory usage: up to `2 * (2^numQubits) * sizeOfComplexNumber`
 
