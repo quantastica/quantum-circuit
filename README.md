@@ -426,33 +426,36 @@ Export to pyQuil
 
 Circuit can be exported to [pyQuil](http://docs.rigetti.com/en/latest/index.html)
 
-To export circuit to pyQuil use `exportPyquil(comment, decompose)` method:
+To export circuit to pyQuil use `exportPyquil(comment, decompose, null, versionStr)` method:
 
 Example:
 ```javascript
-var pyquil = circuit.exportPyquil("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false);
+var pyquil = circuit.exportPyquil("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, "2.0");
 ```
 
 - `comment` - comment to insert at the beginning of the file.
 
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
 
+- `versionStr` - pyQuil version. Can be `"1.9"` or `"2.0"`.
 
 Export to Quil
 --------------
 
 Circuit can be exported to [Quil](https://arxiv.org/abs/1608.03355)
 
-To export circuit to Quil use `exportQuil(comment, decompose)` method:
+To export circuit to Quil use `exportQuil(comment, decompose, null, versionStr)` method:
 
 Example:
 ```javascript
-var quil = circuit.exportQuil("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false);
+var quil = circuit.exportQuil("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, "2.0");
 ```
 
 - `comment` - comment to insert at the beginning of the file.
 
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines (DEFCIRCUIT).
+
+- `versionStr` - Quil version. Can be `"1.0"` or `"2.0"`.
 
 
 Export to SVG
