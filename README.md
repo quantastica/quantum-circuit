@@ -1,7 +1,7 @@
 Quantum Circuit Simulator
 =========================
 
-Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). No UI: you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html) and [Quil](https://arxiv.org/abs/1608.03355) so it can be used for QASM to pyQuil and QASM to Quil conversion. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
+Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html) and [Quil](https://arxiv.org/abs/1608.03355) so it can be used for QASM to pyQuil and QASM to Quil conversion. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
 Using in browser
@@ -28,7 +28,7 @@ Simply include [quantum-circuit.min.js](dist/) into your html page (available vi
 
 ### Live examples
 
-- [qasm2pyquil](https://quantum-circuit.com/qasm2pyquil)
+- [qasm2pyquil](https://quantum-circuit.com/qasm2pyquil) QASM to pyQuil/Quil online converter
 
 - [example.html](https://quantum-circuit.com/example.html)
 
@@ -134,35 +134,36 @@ Wire 2 ----...-------| CX  |---
 *Note: if `column` is negative integer then gate will be added to the end*
 
 
+
 Implemented gates
 -----------------
 
 | Name | pyQuil | Qubits | Params | Description |
 | --- | --- | --- | --- | --- |
-| **id** |  | 1 |  | Single qubit identity gate |
-| **x** |  | 1 |  | Pauli X (PI rotation over X-axis) aka "NOT" gate |
-| **y** |  | 1 |  | Pauli Y (PI rotation over Y-axis) |
-| **z** |  | 1 |  | Pauli Z (PI rotation over Z-axis) |
-| **h** |  | 1 |  | Hadamard gate |
+| **id** | I | 1 |  | Single qubit identity gate |
+| **x** | X | 1 |  | Pauli X (PI rotation over X-axis) aka "NOT" gate |
+| **y** | Y | 1 |  | Pauli Y (PI rotation over Y-axis) |
+| **z** | Z | 1 |  | Pauli Z (PI rotation over Z-axis) |
+| **h** | H | 1 |  | Hadamard gate |
 | **srn** |  | 1 |  | Square root of NOT |
 | **r2** |  | 1 |  | PI/2 rotation over Z-axis aka "Phase PI/2" |
 | **r4** |  | 1 |  | PI/4 rotation over Z-axis aka "Phase PI/4" |
 | **r8** |  | 1 |  | PI/8 rotation over Z-axis aka "Phase PI/8" |
-| **rx** |  | 1 | theta | Rotation around the X-axis by given angle |
-| **ry** |  | 1 | theta | Rotation around the Y-axis by given angle |
-| **rz** |  | 1 | phi | Rotation around the Z-axis by given angle |
-| **u1** |  | 1 | lambda | 1-parameter 0-pulse single qubit gate |
-| **u2** | u2 | 1 | phi, lambda | 2-parameter 1-pulse single qubit gate |
-| **u3** | u3 | 1 | theta, phi, lambda | 3-parameter 2-pulse single qubit gate |
-| **s** |  | 1 |  | PI/2 rotation over Z-axis (synonym for `r2`) |
-| **t** |  | 1 |  | PI/4 rotation over Z-axis (synonym for `r4`) |
-| **sdg** |  | 1 |  | (-PI/2) rotation over Z-axis |
-| **tdg** |  | 1 |  | (-PI/4) rotation over Z-axis |
-| **swap** |  | 2 |  | Swaps the state of two qubits. |
+| **rx** | RX | 1 | theta | Rotation around the X-axis by given angle |
+| **ry** | RY | 1 | theta | Rotation around the Y-axis by given angle |
+| **rz** | RZ | 1 | phi | Rotation around the Z-axis by given angle |
+| **u1** | PHASE | 1 | lambda | 1-parameter 0-pulse single qubit gate |
+| **u2** | def u2 | 1 | phi, lambda | 2-parameter 1-pulse single qubit gate |
+| **u3** | def u3 | 1 | theta, phi, lambda | 3-parameter 2-pulse single qubit gate |
+| **s** | S | 1 |  | PI/2 rotation over Z-axis (synonym for `r2`) |
+| **t** | T | 1 |  | PI/4 rotation over Z-axis (synonym for `r4`) |
+| **sdg** | RZ(-pi/2) | 1 |  | (-PI/2) rotation over Z-axis |
+| **tdg** | RZ(-pi/4) | 1 |  | (-PI/4) rotation over Z-axis |
+| **swap** | SWAP | 2 |  | Swaps the state of two qubits. |
 | **srswap** |  | 2 |  | Square root of swap |
-| **cx** |  | 2 |  | Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate |
+| **cx** | CNOT | 2 |  | Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate |
 | **cy** |  | 2 |  | Controlled Pauli Y (PI rotation over Y-axis) |
-| **cz** |  | 2 |  | Controlled Pauli Z (PI rotation over Z-axis) |
+| **cz** | CZ | 2 |  | Controlled Pauli Z (PI rotation over Z-axis) |
 | **ch** |  | 2 |  | Controlled Hadamard gate |
 | **csrn** |  | 2 |  | Controlled square root of NOT |
 | **cr2** |  | 2 |  | Controlled PI/2 rotation over Z-axis |
@@ -170,18 +171,18 @@ Implemented gates
 | **cr8** |  | 2 |  | Controlled PI/8 rotation over Z-axis |
 | **crx** |  | 2 | theta | Controlled rotation around the X-axis by given angle |
 | **cry** |  | 2 | theta | Controlled rotation around the Y-axis by given angle |
-| **crz** |  | 2 | phi | Controlled rotation around the Z-axis by given angle |
-| **cu1** |  | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
-| **cu2** | cu2 | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
-| **cu3** | cu3 | 2 | theta, phi, lambda | Controlled 3-parameter 2-pulse single qubit gate |
-| **cs** |  | 2 |  | Controlled PI/2 rotation over Z-axis (synonym for `cr2`) |
-| **ct** |  | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
-| **csdg** |  | 2 |  | Controlled (-PI/2) rotation over Z-axis |
-| **ctdg** |  | 2 |  | Controlled (-PI/4) rotation over Z-axis |
-| **ccx** |  | 3 |  | Toffoli aka "CCNOT" gate |
+| **crz** | CPHASE | 2 | phi | Controlled rotation around the Z-axis by given angle |
+| **cu1** | CPHASE | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
+| **cu2** | def cu2 | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
+| **cu3** | def cu3 | 2 | theta, phi, lambda | Controlled 3-parameter 2-pulse single qubit gate |
+| **cs** | CPHASE(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis (synonym for `cr2`) |
+| **ct** | CPHASE(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
+| **csdg** | CPHASE(-pi/2) | 2 |  | Controlled (-PI/2) rotation over Z-axis |
+| **ctdg** | CPHASE(-pi/4) | 2 |  | Controlled (-PI/4) rotation over Z-axis |
+| **ccx** | CCNOT | 3 |  | Toffoli aka "CCNOT" gate |
 | **cswap** |  | 3 |  | Controlled swap aka "Fredkin" gate |
 | **csrswap** |  | 3 |  | Controlled square root of swap |
-| **measure** |  | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
+| **measure** | MEASURE | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
 
 
 *For more details see [gate reference](#gates)*
@@ -290,6 +291,22 @@ Example: set bit 3 to `1` in register named `ans`:
 circuit.setCregBit("ans", 3, 1);
 ```
 
+Control by classical register
+-----------------------------
+
+Each quatum gate in the circuit (except "measure" gate) can be controlled by classical register - gate will be executed only if classical register contains specified value. Pass `options` object as fourth argument to `addGate` method:
+
+Example:
+```javascript
+circuit.addGate("x", -1, 0, { 
+    condition: { 
+        creg: "ans",
+        value: 7
+    }
+});
+```
+In this example, "x" gate will execute on qubit 0 only if value of register named "ans" equals 7.
+
 
 View/print final amplitudes
 ---------------------------
@@ -321,7 +338,7 @@ var s = circuit.print(true);
 Export/Import circuit
 ---------------------
 
-You can export circuit by calling `save` method:
+You can export circuit to object (format internally used by QuantumCircuit) by calling `save` method:
 
 ```javascript
 var obj = circuit.save();
@@ -400,8 +417,6 @@ Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) with
 
 - `import` directive is ignored (but most of gates defined in `qelib1.inc` are supported) **TODO**
 
-- `if` statement is ignored. **TODO**
-
 - `barrier` is ignored. **TODO**
 
 - `reset` is ignored. **TODO**
@@ -463,11 +478,9 @@ Export to SVG
 
 Vector `.svg` image of circuit can be created with `exportSVG(embedded)` function with following limitations:
 
-- Integer registers are not drawn. **TODO**
-
 - Gate symbols are non-standard. **TODO** *(BTW, do we have standard?)*
 
-- Not yet tested well. **TODO**
+- Not well tested yet. **TODO**
 
 
 **Example 1**
@@ -581,7 +594,7 @@ Single qubit identity gate
 
 **Example:**
 ```javascript
-circuit.addGate("id", 0, 0);
+circuit.addGate("id", -1, 0);
 ```
 
 ## x
@@ -600,7 +613,7 @@ Pauli X (PI rotation over X-axis) aka "NOT" gate
 
 **Example:**
 ```javascript
-circuit.addGate("x", 0, 0);
+circuit.addGate("x", -1, 0);
 ```
 
 ## y
@@ -619,7 +632,7 @@ Pauli Y (PI rotation over Y-axis)
 
 **Example:**
 ```javascript
-circuit.addGate("y", 0, 0);
+circuit.addGate("y", -1, 0);
 ```
 
 ## z
@@ -638,7 +651,7 @@ Pauli Z (PI rotation over Z-axis)
 
 **Example:**
 ```javascript
-circuit.addGate("z", 0, 0);
+circuit.addGate("z", -1, 0);
 ```
 
 ## h
@@ -657,7 +670,7 @@ Hadamard gate
 
 **Example:**
 ```javascript
-circuit.addGate("h", 0, 0);
+circuit.addGate("h", -1, 0);
 ```
 
 ## srn
@@ -676,7 +689,7 @@ Square root of NOT
 
 **Example:**
 ```javascript
-circuit.addGate("srn", 0, 0);
+circuit.addGate("srn", -1, 0);
 ```
 
 ## r2
@@ -695,7 +708,7 @@ PI/2 rotation over Z-axis aka "Phase PI/2"
 
 **Example:**
 ```javascript
-circuit.addGate("r2", 0, 0);
+circuit.addGate("r2", -1, 0);
 ```
 
 ## r4
@@ -714,7 +727,7 @@ PI/4 rotation over Z-axis aka "Phase PI/4"
 
 **Example:**
 ```javascript
-circuit.addGate("r4", 0, 0);
+circuit.addGate("r4", -1, 0);
 ```
 
 ## r8
@@ -733,7 +746,7 @@ PI/8 rotation over Z-axis aka "Phase PI/8"
 
 **Example:**
 ```javascript
-circuit.addGate("r8", 0, 0);
+circuit.addGate("r8", -1, 0);
 ```
 
 ## rx
@@ -757,7 +770,7 @@ Rotation around the X-axis by given angle
 
 **Example:**
 ```javascript
-circuit.addGate("rx", 0, 0, {
+circuit.addGate("rx", -1, 0, {
     params: {
         theta: "pi/2"
     }
@@ -785,7 +798,7 @@ Rotation around the Y-axis by given angle
 
 **Example:**
 ```javascript
-circuit.addGate("ry", 0, 0, {
+circuit.addGate("ry", -1, 0, {
     params: {
         theta: "pi/2"
     }
@@ -813,7 +826,7 @@ Rotation around the Z-axis by given angle
 
 **Example:**
 ```javascript
-circuit.addGate("rz", 0, 0, {
+circuit.addGate("rz", -1, 0, {
     params: {
         phi: "pi/2"
     }
@@ -841,7 +854,7 @@ circuit.addGate("rz", 0, 0, {
 
 **Example:**
 ```javascript
-circuit.addGate("u1", 0, 0, {
+circuit.addGate("u1", -1, 0, {
     params: {
         lambda: "pi/2"
     }
@@ -870,7 +883,7 @@ circuit.addGate("u1", 0, 0, {
 
 **Example:**
 ```javascript
-circuit.addGate("u2", 0, 0, {
+circuit.addGate("u2", -1, 0, {
     params: {
         phi: "pi/2",
         lambda: "pi/2"
@@ -901,7 +914,7 @@ circuit.addGate("u2", 0, 0, {
 
 **Example:**
 ```javascript
-circuit.addGate("u3", 0, 0, {
+circuit.addGate("u3", -1, 0, {
     params: {
         theta: "pi/2",
         phi: "pi/2",
@@ -926,7 +939,7 @@ PI/2 rotation over Z-axis (synonym for `r2`)
 
 **Example:**
 ```javascript
-circuit.addGate("s", 0, 0);
+circuit.addGate("s", -1, 0);
 ```
 
 ## t
@@ -945,7 +958,7 @@ PI/4 rotation over Z-axis (synonym for `r4`)
 
 **Example:**
 ```javascript
-circuit.addGate("t", 0, 0);
+circuit.addGate("t", -1, 0);
 ```
 
 ## sdg
@@ -964,7 +977,7 @@ circuit.addGate("t", 0, 0);
 
 **Example:**
 ```javascript
-circuit.addGate("sdg", 0, 0);
+circuit.addGate("sdg", -1, 0);
 ```
 
 ## tdg
@@ -983,7 +996,7 @@ circuit.addGate("sdg", 0, 0);
 
 **Example:**
 ```javascript
-circuit.addGate("tdg", 0, 0);
+circuit.addGate("tdg", -1, 0);
 ```
 
 ## swap
@@ -1004,7 +1017,7 @@ Swaps the state of two qubits.
 
 **Example:**
 ```javascript
-circuit.addGate("swap", 0, [0, 1]);
+circuit.addGate("swap", -1, [0, 1]);
 ```
 
 ## srswap
@@ -1025,7 +1038,7 @@ Square root of swap
 
 **Example:**
 ```javascript
-circuit.addGate("srswap", 0, [0, 1]);
+circuit.addGate("srswap", -1, [0, 1]);
 ```
 
 ## cx
@@ -1046,7 +1059,7 @@ Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate
 
 **Example:**
 ```javascript
-circuit.addGate("cx", 0, [0, 1]);
+circuit.addGate("cx", -1, [0, 1]);
 ```
 
 ## cy
@@ -1067,7 +1080,7 @@ Controlled Pauli Y (PI rotation over Y-axis)
 
 **Example:**
 ```javascript
-circuit.addGate("cy", 0, [0, 1]);
+circuit.addGate("cy", -1, [0, 1]);
 ```
 
 ## cz
@@ -1088,7 +1101,7 @@ Controlled Pauli Z (PI rotation over Z-axis)
 
 **Example:**
 ```javascript
-circuit.addGate("cz", 0, [0, 1]);
+circuit.addGate("cz", -1, [0, 1]);
 ```
 
 ## ch
@@ -1109,7 +1122,7 @@ Controlled Hadamard gate
 
 **Example:**
 ```javascript
-circuit.addGate("ch", 0, [0, 1]);
+circuit.addGate("ch", -1, [0, 1]);
 ```
 
 ## csrn
@@ -1130,7 +1143,7 @@ Controlled square root of NOT
 
 **Example:**
 ```javascript
-circuit.addGate("csrn", 0, [0, 1]);
+circuit.addGate("csrn", -1, [0, 1]);
 ```
 
 ## cr2
@@ -1151,7 +1164,7 @@ Controlled PI/2 rotation over Z-axis
 
 **Example:**
 ```javascript
-circuit.addGate("cr2", 0, [0, 1]);
+circuit.addGate("cr2", -1, [0, 1]);
 ```
 
 ## cr4
@@ -1172,7 +1185,7 @@ Controlled PI/4 rotation over Z-axis
 
 **Example:**
 ```javascript
-circuit.addGate("cr4", 0, [0, 1]);
+circuit.addGate("cr4", -1, [0, 1]);
 ```
 
 ## cr8
@@ -1193,7 +1206,7 @@ Controlled PI/8 rotation over Z-axis
 
 **Example:**
 ```javascript
-circuit.addGate("cr8", 0, [0, 1]);
+circuit.addGate("cr8", -1, [0, 1]);
 ```
 
 ## crx
@@ -1219,7 +1232,7 @@ Controlled rotation around the X-axis by given angle
 
 **Example:**
 ```javascript
-circuit.addGate("crx", 0, [0, 1], {
+circuit.addGate("crx", -1, [0, 1], {
     params: {
         theta: "pi/2"
     }
@@ -1249,7 +1262,7 @@ Controlled rotation around the Y-axis by given angle
 
 **Example:**
 ```javascript
-circuit.addGate("cry", 0, [0, 1], {
+circuit.addGate("cry", -1, [0, 1], {
     params: {
         theta: "pi/2"
     }
@@ -1279,7 +1292,7 @@ Controlled rotation around the Z-axis by given angle
 
 **Example:**
 ```javascript
-circuit.addGate("crz", 0, [0, 1], {
+circuit.addGate("crz", -1, [0, 1], {
     params: {
         phi: "pi/2"
     }
@@ -1309,7 +1322,7 @@ Controlled 1-parameter 0-pulse single qubit gate
 
 **Example:**
 ```javascript
-circuit.addGate("cu1", 0, [0, 1], {
+circuit.addGate("cu1", -1, [0, 1], {
     params: {
         lambda: "pi/2"
     }
@@ -1340,7 +1353,7 @@ Controlled 2-parameter 1-pulse single qubit gate
 
 **Example:**
 ```javascript
-circuit.addGate("cu2", 0, [0, 1], {
+circuit.addGate("cu2", -1, [0, 1], {
     params: {
         phi: "pi/2",
         lambda: "pi/2"
@@ -1373,7 +1386,7 @@ Controlled 3-parameter 2-pulse single qubit gate
 
 **Example:**
 ```javascript
-circuit.addGate("cu3", 0, [0, 1], {
+circuit.addGate("cu3", -1, [0, 1], {
     params: {
         theta: "pi/2",
         phi: "pi/2",
@@ -1400,7 +1413,7 @@ Controlled PI/2 rotation over Z-axis (synonym for `cr2`)
 
 **Example:**
 ```javascript
-circuit.addGate("cs", 0, [0, 1]);
+circuit.addGate("cs", -1, [0, 1]);
 ```
 
 ## ct
@@ -1421,7 +1434,7 @@ Controlled PI/4 rotation over Z-axis (synonym for `cr4`)
 
 **Example:**
 ```javascript
-circuit.addGate("ct", 0, [0, 1]);
+circuit.addGate("ct", -1, [0, 1]);
 ```
 
 ## csdg
@@ -1442,7 +1455,7 @@ Controlled (-PI/2) rotation over Z-axis
 
 **Example:**
 ```javascript
-circuit.addGate("csdg", 0, [0, 1]);
+circuit.addGate("csdg", -1, [0, 1]);
 ```
 
 ## ctdg
@@ -1463,7 +1476,7 @@ Controlled (-PI/4) rotation over Z-axis
 
 **Example:**
 ```javascript
-circuit.addGate("ctdg", 0, [0, 1]);
+circuit.addGate("ctdg", -1, [0, 1]);
 ```
 
 ## ccx
@@ -1488,7 +1501,7 @@ Toffoli aka "CCNOT" gate
 
 **Example:**
 ```javascript
-circuit.addGate("ccx", 0, [0, 1, 2]);
+circuit.addGate("ccx", -1, [0, 1, 2]);
 ```
 
 ## cswap
@@ -1513,7 +1526,7 @@ Controlled swap aka "Fredkin" gate
 
 **Example:**
 ```javascript
-circuit.addGate("cswap", 0, [0, 1, 2]);
+circuit.addGate("cswap", -1, [0, 1, 2]);
 ```
 
 ## csrswap
@@ -1538,7 +1551,7 @@ Controlled square root of swap
 
 **Example:**
 ```javascript
-circuit.addGate("csrswap", 0, [0, 1, 2]);
+circuit.addGate("csrswap", -1, [0, 1, 2]);
 ```
 
 ## measure
@@ -1549,7 +1562,7 @@ Measures qubit and stores chance (0 or 1) into classical bit
 
 **Example:**
 ```javascript
-circuit.addGate("measure", 0, 0, {
+circuit.addGate("measure", -1, 0, {
     creg: {
         name: "c",
         bit: 3

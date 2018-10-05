@@ -9,7 +9,8 @@ var escapeRegExp = function(string) {
 
 fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 	if(err) {
-		throw err; 
+		throw err;
+		return;
 	}
 
 	var circ = new QuantumCircuit();
@@ -23,7 +24,7 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 	for(var gateName in circ.basicGates) {
 		var gateDef = circ.basicGates[gateName];
 		var numQubits = Math.log2(gateDef.matrix && gateDef.matrix.length ? gateDef.matrix.length : 2);
-		var pyquilDef = gateDef.exportInfo && gateDef.exportInfo.pyquil ? gateDef.exportInfo.pyquil : null;
+		var pyquilDef = (gateDef.exportInfo ? (gateDef.exportInfo.pyquil || gateDef.exportInfo.quil) : null) || null;
 		var params = gateDef.params || [];
 		var paramList = "";
 		if(gateDef.params && gateDef.params.length) {
@@ -38,8 +39,30 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 		// ---
 		// gate index
 		// ---
+		var pyquilName = pyquilDef ? (pyquilDef.array ? "def " + (pyquilDef.name || "") : (pyquilDef.name || "")) : "";
+		if(pyquilDef && pyquilDef.replacement) {
+			var gdef = circ.basicGates[pyquilDef.replacement.name] || null;
+			if(gdef) {
+				var pdef = (gdef.exportInfo ? (gdef.exportInfo.pyquil || gdef.exportInfo.quil) : null) || null;
+				if(pdef) {
+					pyquilName = pdef.name || "";
+					if(pyquilDef.replacement.params) {
+						pyquilName += "(";
+						var pcount = 0;
+						for(var pname in pyquilDef.replacement.params) {
+							if(pcount) {
+								pyquilName += ", ";
+							}
+							pyquilName += pyquilDef.replacement.params[pname];
+						}
+						pyquilName += ")";
+					}					
+				}
+			}
+		}
+
 		gateIndex += "| **" + gateName + "**";
-		gateIndex += " | " + (pyquilDef ? pyquilDef.name : "");
+		gateIndex += " | " + pyquilName;
 		gateIndex += " | " + numQubits;
 		gateIndex += " | " + paramList;
 		gateIndex += " | " + (gateDef.description || "");
@@ -76,7 +99,7 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 
 		gateRef += "\n**Example:**\n";
 		gateRef += "```javascript\n";
-		gateRef += "circuit.addGate(\"" + gateName + "\", 0, ";
+		gateRef += "circuit.addGate(\"" + gateName + "\", -1, ";
 		if(numQubits == 1) {
 			gateRef += "0";
 		} else {
@@ -135,8 +158,8 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 	fs.writeFile(path.join(path.join(__dirname, "../"), "README.md"), readme, function(err) {
 		if(err) {
 			throw err;
+			return;
 		}
-
-		console.log("README.md is written.");
+		console.log("README.md is written.");			
 	});
 });

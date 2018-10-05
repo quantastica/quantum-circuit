@@ -1,7 +1,7 @@
 Quantum Circuit Simulator
 =========================
 
-Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). No UI: you can use it in your program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html) and [Quil](https://arxiv.org/abs/1608.03355) so it can be used for QASM to pyQuil and QASM to Quil conversion. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
+Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html) and [Quil](https://arxiv.org/abs/1608.03355) so it can be used for QASM to pyQuil and QASM to Quil conversion. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
 Using in browser
@@ -28,7 +28,7 @@ Simply include [quantum-circuit.min.js](dist/) into your html page (available vi
 
 ### Live examples
 
-- [qasm2pyquil](https://quantum-circuit.com/qasm2pyquil)
+- [qasm2pyquil](https://quantum-circuit.com/qasm2pyquil) QASM to pyQuil/Quil online converter
 
 - [example.html](https://quantum-circuit.com/example.html)
 
@@ -132,6 +132,7 @@ Wire 2 ----...-------| CX  |---
 ```
 
 *Note: if `column` is negative integer then gate will be added to the end*
+
 
 
 Implemented gates
@@ -245,6 +246,22 @@ Example: set bit 3 to `1` in register named `ans`:
 circuit.setCregBit("ans", 3, 1);
 ```
 
+Control by classical register
+-----------------------------
+
+Each quatum gate in the circuit (except "measure" gate) can be controlled by classical register - gate will be executed only if classical register contains specified value. Pass `options` object as fourth argument to `addGate` method:
+
+Example:
+```javascript
+circuit.addGate("x", -1, 0, { 
+    condition: { 
+        creg: "ans",
+        value: 7
+    }
+});
+```
+In this example, "x" gate will execute on qubit 0 only if value of register named "ans" equals 7.
+
 
 View/print final amplitudes
 ---------------------------
@@ -276,7 +293,7 @@ var s = circuit.print(true);
 Export/Import circuit
 ---------------------
 
-You can export circuit by calling `save` method:
+You can export circuit to object (format internally used by QuantumCircuit) by calling `save` method:
 
 ```javascript
 var obj = circuit.save();
@@ -355,8 +372,6 @@ Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) with
 
 - `import` directive is ignored (but most of gates defined in `qelib1.inc` are supported) **TODO**
 
-- `if` statement is ignored. **TODO**
-
 - `barrier` is ignored. **TODO**
 
 - `reset` is ignored. **TODO**
@@ -418,11 +433,9 @@ Export to SVG
 
 Vector `.svg` image of circuit can be created with `exportSVG(embedded)` function with following limitations:
 
-- Integer registers are not drawn. **TODO**
-
 - Gate symbols are non-standard. **TODO** *(BTW, do we have standard?)*
 
-- Not yet tested well. **TODO**
+- Not well tested yet. **TODO**
 
 
 **Example 1**
