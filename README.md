@@ -146,9 +146,9 @@ Implemented gates
 | **z** | Z | 1 |  | Pauli Z (PI rotation over Z-axis) |
 | **h** | H | 1 |  | Hadamard gate |
 | **srn** |  | 1 |  | Square root of NOT |
-| **r2** |  | 1 |  | PI/2 rotation over Z-axis aka "Phase PI/2" |
-| **r4** |  | 1 |  | PI/4 rotation over Z-axis aka "Phase PI/4" |
-| **r8** |  | 1 |  | PI/8 rotation over Z-axis aka "Phase PI/8" |
+| **r2** | S | 1 |  | PI/2 rotation over Z-axis aka "Phase PI/2" |
+| **r4** | T | 1 |  | PI/4 rotation over Z-axis aka "Phase PI/4" |
+| **r8** | RZ(pi/8) | 1 |  | PI/8 rotation over Z-axis aka "Phase PI/8" |
 | **rx** | RX | 1 | theta | Rotation around the X-axis by given angle |
 | **ry** | RY | 1 | theta | Rotation around the Y-axis by given angle |
 | **rz** | RZ | 1 | phi | Rotation around the Z-axis by given angle |
@@ -166,9 +166,9 @@ Implemented gates
 | **cz** | CZ | 2 |  | Controlled Pauli Z (PI rotation over Z-axis) |
 | **ch** |  | 2 |  | Controlled Hadamard gate |
 | **csrn** |  | 2 |  | Controlled square root of NOT |
-| **cr2** |  | 2 |  | Controlled PI/2 rotation over Z-axis |
-| **cr4** |  | 2 |  | Controlled PI/4 rotation over Z-axis |
-| **cr8** |  | 2 |  | Controlled PI/8 rotation over Z-axis |
+| **cr2** | CPHASE(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis |
+| **cr4** | CPHASE(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis |
+| **cr8** | CPHASE(pi/8) | 2 |  | Controlled PI/8 rotation over Z-axis |
 | **crx** |  | 2 | theta | Controlled rotation around the X-axis by given angle |
 | **cry** |  | 2 | theta | Controlled rotation around the Y-axis by given angle |
 | **crz** | CPHASE | 2 | phi | Controlled rotation around the Z-axis by given angle |
