@@ -171,15 +171,25 @@ Method `probabilities()` will return array of probabilities (real numbers betwee
 console.log(circuit.probabilities());
 ```
 
+Method `probability()` will return probability (real number between 0 and 1) for given qubit:
 
-Method `measure(wire)` returns chance of being 1 for given qubit:
+```javascript
+console.log(circuit.probability());
+```
+
+Method `measureAll()` returns array of chances (as integers 0 or 1) for each qubit:
+
+Example:
+```javascript
+console.log(circuit.measureAll());
+```
+
+Method `measure(wire)` returns chance (as integer 0 or 1) for given qubit:
 
 Example:
 ```javascript
 console.log(circuit.measure(0));
 ```
-
-*Note: method `measure` will return real number betwen 0 and 1.*
 
 
 You can store measurement into classical register. For example, to measure first qubit (wire 0) and store result into classical register named `c` as fourth bit (bit 3):
@@ -203,8 +213,6 @@ circuit.addMeasure(0, "c", 3);
 *Note:*
 
 - *If specified classical register doesn't exists - it will be created automatically.*
-
-- *Equal probability (0.5) will be stored as random 0 or 1*
 
 
 Classical registers

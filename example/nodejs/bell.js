@@ -14,11 +14,13 @@ console.log("");
 console.log(circ.exportPyquil());
 
 console.log("");
-console.log("Chance:");
-console.log("Q0: " + circ.measure(0));
-console.log("Q1: " + circ.measure(1));
+console.log("Final amplitudes:");
+circ.print(true);
 
 console.log("");
-console.log("Final amplitudes:");
+console.log("Probabilities:");
+console.log(circ.probabilities());
 
-circ.print(true);
+console.log("");
+console.log("Measured:");
+console.log(circ.measureAll());

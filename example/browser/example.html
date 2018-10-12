@@ -269,14 +269,14 @@
 
 			function LogOutput() {
 				Log("Chance:");
-				Log("-----------");
+				Log("-------");
 				for(var i = 0; i < circuit.numQubits; i++) {
 					Log("Q" + i + ": " + circuit.measure(i) * 100 + "%");					
 				}
 				Log("");
 
 				Log("Final state:");
-				Log("-----------");
+				Log("------------");
 				Log(circuit.stateAsString(true));
 				Log("");
 			}
@@ -295,8 +295,19 @@
 					quirkLink.setAttribute("style", "display: none");
 				}
 
+				Log("Probabilities:");
+				Log("--------------");
+				Log(circuit.probabilities());
+				Log("");
+
+				Log("Measured:");
+				Log("---------");
+				Log(circuit.measureAll());
+				Log("");
+
+
 				Log("QASM:");
-				Log("-------");
+				Log("-----");
 				Log(circuit.exportQASM(""));
 				Log("");
 
@@ -305,13 +316,8 @@
 				Log(circuit.exportPyquil(""));
 				Log("");
 
-				Log("JSON:");
-				Log("-------");
-				Log(JSON.stringify(circuit.save(), null, 4));
-				Log("");
-
 				Log("SVG:");
-				Log("-------");
+				Log("----");
 				Log(circuit.exportSVG(false));
 				Log("");
 			}

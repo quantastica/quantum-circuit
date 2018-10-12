@@ -64,5 +64,12 @@ console.log("Answer:", adder.getCregValue("ans"));
 
 console.log("");
 console.log("Final amplitudes:");
-
 adder.print(true);
+
+console.log("");
+console.log("Probabilities:");
+console.log(adder.probabilities());
+
+console.log("");
+console.log("Measured:");
+console.log(adder.measureAll());

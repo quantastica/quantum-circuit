@@ -68,5 +68,13 @@ circuit.run();
 
 console.log("");
 console.log("Final amplitudes:");
-
 circuit.print(true);
+
+console.log("");
+console.log("Probabilities:");
+console.log(circuit.probabilities());
+
+console.log("");
+console.log("Measured:");
+console.log(circuit.measureAll());
+

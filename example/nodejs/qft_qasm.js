@@ -49,8 +49,9 @@ console.log("Final amplitudes:");
 qft.print(true);
 
 console.log("");
+console.log("Probabilities:");
+console.log(qft.probabilities());
 
-console.log("Q0:", qft.measure(0));
-console.log("Q1:", qft.measure(1));
-console.log("Q2:", qft.measure(2));
-console.log("Q3:", qft.measure(3));
+console.log("");
+console.log("Measured:");
+console.log(qft.measureAll());
