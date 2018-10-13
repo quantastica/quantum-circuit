@@ -54,6 +54,12 @@ console.log("Importing QASM...");
 adder.importQASM(input);
 
 console.log("");
+console.log(adder.exportQASM("Sum two numbers"));
+
+console.log("");
+console.log(adder.exportPyquil("Sum two numbers"));
+
+console.log("");
 console.log("Calculating...");
 
 adder.run();
