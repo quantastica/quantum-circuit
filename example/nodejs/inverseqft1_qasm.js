@@ -39,6 +39,9 @@ circuit.importQASM(input);
 console.log("");
 console.log(circuit.exportQASM());
 
+//console.log("");
+//console.log(JSON.stringify(circuit.exportRaw(), null, '\t'));
+
 console.log("");
 console.log("Calculating...");
 

@@ -59,6 +59,9 @@ console.log(adder.exportQASM("Sum two numbers"));
 console.log("");
 console.log(adder.exportPyquil("Sum two numbers"));
 
+//console.log("");
+//console.log(JSON.stringify(adder.exportRaw(), null, '\t'));
+
 console.log("");
 console.log("Calculating...");
 

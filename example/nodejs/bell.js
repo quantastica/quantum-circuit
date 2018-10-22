@@ -13,6 +13,9 @@ console.log(circ.exportQASM());
 console.log("");
 console.log(circ.exportPyquil());
 
+//console.log("");
+//console.log(JSON.stringify(circ.exportRaw(), null, '\t'));
+
 console.log("");
 console.log("Final amplitudes:");
 circ.print(true);

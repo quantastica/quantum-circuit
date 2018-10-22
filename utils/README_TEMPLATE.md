@@ -171,10 +171,10 @@ Method `probabilities()` will return array of probabilities (real numbers betwee
 console.log(circuit.probabilities());
 ```
 
-Method `probability()` will return probability (real number between 0 and 1) for given qubit:
+Method `probability(wire)` will return probability (real number between 0 and 1) for given qubit:
 
 ```javascript
-console.log(circuit.probability());
+console.log(circuit.probability(0));
 ```
 
 Method `measureAll()` returns array of chances (as integers 0 or 1) for each qubit:
