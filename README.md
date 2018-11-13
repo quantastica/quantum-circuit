@@ -36,7 +36,7 @@ Simply include [quantum-circuit.min.js](dist/) into your html page (available vi
 Using at server with node.js
 ----------------------------
 
-Install [quantum-circuit](https://www.npmjs.com/package/quantum-circuit) npm module:
+Add [quantum-circuit](https://www.npmjs.com/package/quantum-circuit) npm module to your node.js project:
 
 ```bash
 npm install --save quantum-circuit
@@ -54,6 +54,30 @@ var QuantumCircuit = require("quantum-circuit");
 ### Examples
 
 See [/example/nodejs](example/nodejs/) directory.
+
+
+Using with Jupyter notebook
+---------------------------
+
+You need to install [ijavascript](https://github.com/n-riesco/ijavascript) kernel for [Jupyter notebook](http://jupyter.org/)
+
+You can install quantum-circuit npm module globally and invoke jupyter notebook from any directory:
+
+```
+npm install -g quantum-circuit
+```
+
+Or inside new directory do:
+
+```
+npm init
+npm install --save quantum-circuit
+jupyter notebook
+```
+
+### Examples
+
+See [/example/jupyter](example/jupyter/) directory.
 
 
 Getting started
