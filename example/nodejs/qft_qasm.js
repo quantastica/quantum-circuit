@@ -44,8 +44,11 @@ qft.run();
 
 console.log("");
 console.log("Final amplitudes:");
-
 qft.print(true);
+
+console.log("");
+console.log("Angles:");
+console.log(qft.angles());
 
 console.log("");
 console.log("Probabilities:");
