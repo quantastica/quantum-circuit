@@ -82,8 +82,12 @@ console.log("Time: " + adder.stats.duration + " ms");
 
 console.log("");
 console.log("Final amplitudes:");
-
 adder.print(true);
+
+console.log("");
+console.log("Angles:");
+console.log(adder.angles());
+
 
 console.log("");
 console.log("Probabilities:");

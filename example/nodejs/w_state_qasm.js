@@ -50,6 +50,10 @@ console.log("Final amplitudes:");
 circuit.print(true);
 
 console.log("");
+console.log("Angles:");
+console.log(circuit.angles());
+
+console.log("");
 console.log("Probabilities:");
 console.log(circuit.probabilities());
 

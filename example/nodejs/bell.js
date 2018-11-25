@@ -21,6 +21,10 @@ console.log("Final amplitudes:");
 circ.print(true);
 
 console.log("");
+console.log("Angles:");
+console.log(circ.angles());
+
+console.log("");
 console.log("Probabilities:");
 console.log(circ.probabilities());
 

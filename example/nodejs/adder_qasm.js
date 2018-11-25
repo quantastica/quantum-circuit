@@ -76,6 +76,10 @@ console.log("Final amplitudes:");
 adder.print(true);
 
 console.log("");
+console.log("Angles:");
+console.log(adder.angles());
+
+console.log("");
 console.log("Probabilities:");
 console.log(adder.probabilities());
 
