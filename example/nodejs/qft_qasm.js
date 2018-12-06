@@ -43,6 +43,9 @@ console.log("Calculating...");
 qft.run();
 
 console.log("");
+console.log("Time: " + qft.stats.duration + " ms");
+
+console.log("");
 console.log("Final amplitudes:");
 qft.print(true);
 
