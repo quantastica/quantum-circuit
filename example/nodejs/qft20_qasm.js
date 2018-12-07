@@ -245,9 +245,9 @@ console.log("Time: " + qft.stats.duration + " ms");
 //console.log("Final amplitudes:");
 //qft.print(true);
 
-console.log("");
-console.log("Angles:");
-console.log(qft.angles());
+//console.log("");
+//console.log("Angles:");
+//console.log(qft.angles());
 
 console.log("");
 console.log("Probabilities:");
