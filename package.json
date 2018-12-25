@@ -38,7 +38,7 @@
     "mathjs": "^3.20.2"
   },
   "devDependencies": {
-    "browserify": "^16.2.2",
+    "browserify": "^16.2.3",
     "uglify-js": "^3.4.5"
   }
 }

@@ -14,6 +14,12 @@
 		<button type="button" id="bigadder">8-bit Adder</button>
 		<br />
 		<br />
+		<div>
+			<input type="checkbox" id="random-input">
+			<label for="random-input">Random input</label>
+		</div>
+		<br />
+		<br />
 		<a id="quirk" style="display: none" href="#" target="_blank">Open Quirk</a>
 		<br />
 		<div id="drawing"></div>
@@ -24,6 +30,7 @@
 		<script src="../../dist/quantum-circuit.min.js"></script>
 
 		<script>
+			var randomInput = false;
 
 			let circuit = new QuantumCircuit();
 
@@ -259,7 +266,7 @@
 				Log("-----");
 				input = [];
 				for(var i = 0; i < circuit.numQubits; i++) {
-					var x = !!Math.round(Math.random());
+					var x = randomInput ? !!Math.round(Math.random()) : 0;
 					input.push(x);
 					Log(i + ": " + (x ? "|1>" : "|0>"));
 				}
@@ -268,13 +275,6 @@
 			}
 
 			function LogOutput() {
-				Log("Chance:");
-				Log("-------");
-				for(var i = 0; i < circuit.numQubits; i++) {
-					Log("Q" + i + ": " + circuit.measure(i) * 100 + "%");					
-				}
-				Log("");
-
 				Log("Final state:");
 				Log("------------");
 				Log(circuit.stateAsString(true));
@@ -311,6 +311,11 @@
 				Log(circuit.exportQASM(""));
 				Log("");
 
+				Log("QUIL:");
+				Log("-----");
+				Log(circuit.exportQuil(""));
+				Log("");
+
 				Log("pyQuil:");
 				Log("-------");
 				Log(circuit.exportPyquil(""));
@@ -345,6 +350,11 @@
 			$("#bigadder").click(function () {
 				bigAdder();
 			});
+
+			$("#random-input").click(function () {
+				randomInput = $(this).is(":checked");
+			});
+
 		</script>
 	</body>
 </html>

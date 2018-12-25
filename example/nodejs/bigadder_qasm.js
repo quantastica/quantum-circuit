@@ -69,7 +69,7 @@ adder.importQASM(input);
 console.log("");
 console.log("Calculating...");
 
-adder.run();
+adder.run(null, { partitioning: false });
 
 var answer = adder.getCregValue("ans");
 console.log("");
