@@ -61,7 +61,7 @@ for(var qubits = 2; qubits <= 25; qubits++) {
 		circ.addGate("swap", -1, [i, (qubits - i) - 1]);
 	}
 
-	circ.run(null, { partitioning: true });
+	circ.run(null, { partitioning: false });
 
 	var heapUsedMB = process.memoryUsage().heapUsed / 1024 / 1024;
 

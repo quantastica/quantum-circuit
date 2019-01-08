@@ -4,6 +4,18 @@ Quantum Circuit Simulator
 Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html) and [Quil](https://arxiv.org/abs/1608.03355) so it can be used for QASM to Quil/pyQuil conversion. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
+### Live examples
+
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=hhPUQtUqYCI" target="_blank"><img src="http://img.youtube.com/vi/hhPUQtUqYCI/0.jpg" alt="Quantum Programming Studio - preview" width="480" height="360" border="10" /></a>
+
+- [Quantum Programming Studio](https://quantum-circuit.com) Web based quantum programming IDE and simulator
+
+- [qasm2pyquil](https://quantum-circuit.com/qasm2pyquil) QASM to pyQuil/Quil online converter
+
+- [example.html](https://quantum-circuit.com/example.html)
+
+
 Using in browser
 ----------------
 
@@ -25,12 +37,6 @@ Simply include [quantum-circuit.min.js](dist/) into your html page (available vi
     </body>
 </html>
 ```
-
-### Live examples
-
-- [qasm2pyquil](https://quantum-circuit.com/qasm2pyquil) QASM to pyQuil/Quil online converter
-
-- [example.html](https://quantum-circuit.com/example.html)
 
 
 Using at server with node.js
