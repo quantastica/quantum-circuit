@@ -4,12 +4,16 @@ Quantum Circuit Simulator
 Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html) and [Quil](https://arxiv.org/abs/1608.03355) so it can be used for QASM to Quil/pyQuil conversion. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
-### Live examples
+Live examples
+-------------
 
+### Quantum Programming Studio
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=hhPUQtUqYCI" target="_blank"><img src="http://img.youtube.com/vi/hhPUQtUqYCI/0.jpg" alt="Quantum Programming Studio - preview" width="480" height="360" border="10" /></a>
+[Quantum Programming Studio](https://quantum-circuit.com) Web based quantum programming IDE and simulator. Circuit can be executed on real quantum computer directly from the UI. See example video:
 
-- [Quantum Programming Studio](https://quantum-circuit.com) Web based quantum programming IDE and simulator
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=tbuvzv4Do6k" target="_blank"><img src="http://img.youtube.com/vi/tbuvzv4Do6k/0.jpg" alt="Quantum Programming Studio - Running on Rigetti quantum computer" width="480" height="360" border="10" /></a>
+
+### Other examples
 
 - [qasm2pyquil](https://quantum-circuit.com/qasm2pyquil) QASM to pyQuil/Quil online converter
 
@@ -57,7 +61,7 @@ var QuantumCircuit = require("quantum-circuit");
 
 ```
 
-### Examples
+### Node.js examples
 
 See [/example/nodejs](example/nodejs/) directory.
 
@@ -81,7 +85,7 @@ npm install --save quantum-circuit
 jupyter notebook
 ```
 
-### Examples
+### Jupyter notebook examples
 
 See [/example/jupyter](example/jupyter/) directory.
 
@@ -92,7 +96,7 @@ Getting started
 Create circuit
 --------------
 
-Create instance of `QuantumCircuit` class passing number of qubits (wires) to constructor:
+Create instance of `QuantumCircuit` class, optionally passing number of qubits (wires) to constructor:
 
 ```javascript
 var circuit = new QuantumCircuit(3);
@@ -120,7 +124,7 @@ Result is:
                   
          Column 0 
                   
-Wire 0 ----...----
+Wire 0 -----------
                   
           |---|   
 Wire 1 ---| H |---
@@ -150,13 +154,13 @@ circuit.addGate("cx", 1, [1, 2]);
                                 
          Column 0    Column 1   
                                
-Wire 0 ----...---------...-----
+Wire 0 ------------------------
                                
                                
-Wire 1 ----...----------o------
+Wire 1 -----------------o------
                         |      
                      |-----|   
-Wire 2 ----...-------| CX  |---
+Wire 2 --------------| CX  |---
                      |-----|   
                                
 ```
@@ -266,14 +270,13 @@ Example:
 console.log(circuit.measure(0));
 ```
 
-
 You can store measurement into classical register. For example, to measure first qubit (wire 0) and store result into classical register named `c` as fourth bit (bit 3):
 
 ```javascript
 circuit.measure(0, "c", 3);
 ```
 
-Also, you can add `measure` gate to circuit and then measurement will be done automatically and result will be stored into classical register:
+You can add `measure` gate to circuit and then measurement will be done automatically and result will be stored into classical register:
 
 ```javascript
 circuit.addGate("measure", -1, 0, { creg: { name: "c", bit: 3 } });
@@ -286,6 +289,8 @@ circuit.addMeasure(0, "c", 3);
 ```
 
 *Note:*
+
+- *Measurement gate will reset qubit to measured value only if there are gates with classical control (gates controlled by classical registers). Otherwise, measurement gate will leave qubit as is - measured value will be written to classical register and qubit will remain unchanged. This "nondestructive" behavior is handy when experimenting. However, it will automatically switches to "destructive" mode when needed (when classical control is present)*
 
 - *If specified classical register doesn't exists - it will be created automatically.*
 
@@ -315,7 +320,7 @@ var value = circuit.getCregValue("ans");
 
 Example: get bit 3 from register named `ans`:
 
-```
+```javascript
 console.log(circuit.getCregBit("ans", 3));
 ```
 *Returns integer: 0 or 1*
@@ -325,7 +330,7 @@ console.log(circuit.getCregBit("ans", 3));
 
 Example: set bit 3 to `1` in register named `ans`:
 
-```
+```javascript
 circuit.setCregBit("ans", 3, 1);
 ```
 
@@ -344,6 +349,19 @@ circuit.addGate("x", -1, 0, {
 });
 ```
 In this example, "x" gate will execute on qubit 0 only if value of register named "ans" equals 7.
+
+
+Reset qubit
+-----------
+
+You can reset qubit to value `|0>` or `|1>` with `resetQubit` method:
+
+```javascript
+circuit.resetQubit(3, 0);
+```
+In this example, qubit 3 will be set to `0|>`. 
+
+*Note that all entangled qubits will be changed as well*
 
 
 View/print final amplitudes
@@ -376,7 +394,7 @@ var s = circuit.print(true);
 Export/Import circuit
 ---------------------
 
-You can export circuit to object (format internally used by QuantumCircuit) by calling `save` method:
+You can export circuit to javascript object (format internally used by QuantumCircuit) by calling `save` method:
 
 ```javascript
 var obj = circuit.save();
@@ -479,18 +497,23 @@ Export to pyQuil
 
 Circuit can be exported to [pyQuil](http://docs.rigetti.com/en/latest/index.html)
 
-To export circuit to pyQuil use `exportPyquil(comment, decompose, null, versionStr)` method:
+To export circuit to pyQuil use `exportPyquil(comment, decompose, null, versionStr, lattice, asQVM)` method:
 
 Example:
 ```javascript
-var pyquil = circuit.exportPyquil("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, "2.0");
+var pyquil = circuit.exportPyquil("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, "2.1", "", false);
 ```
 
 - `comment` - comment to insert at the beginning of the file.
 
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
 
-- `versionStr` - pyQuil version. Can be `"1.9"` or `"2.0"`.
+- `versionStr` - pyQuil version. Can be `"1.9"`, `"2.0"` or `"2.1"`. Remember - it is a string.
+
+- `lattice` - You can optionally pass then name of the lattice.
+
+- `asQVM` - If this argument is `true` (and if `lattice` is specified) then produced code will run on QVM mimicking running on QPU. Otherwise, produced code will run on QPU.
+
 
 Export to Quil
 --------------
@@ -517,8 +540,6 @@ Export to SVG
 Vector `.svg` image of circuit can be created with `exportSVG(embedded)` function with following limitations:
 
 - Gate symbols are non-standard. **TODO** *(BTW, do we have standard?)*
-
-- Not well tested yet. **TODO**
 
 
 **Example 1**
