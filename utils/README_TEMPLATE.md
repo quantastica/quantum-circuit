@@ -9,7 +9,7 @@ Live examples
 
 ### Quantum Programming Studio
 
-[Quantum Programming Studio](https://quantum-circuit.com) Web based quantum programming IDE and simulator. Circuit can be executed on real quantum computer directly from the UI. See example video:
+[Quantum Programming Studio](https://quantum-circuit.com) is web based quantum programming IDE and simulator. Circuit can be executed on real quantum computer directly from the UI. See example video:
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=tbuvzv4Do6k" target="_blank"><img src="http://img.youtube.com/vi/tbuvzv4Do6k/0.jpg" alt="Quantum Programming Studio - Running on Rigetti quantum computer" width="480" height="360" border="10" /></a>
 
