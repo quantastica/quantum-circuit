@@ -447,6 +447,27 @@ circuit.load(obj);
 ```
 
 
+Export to python (Qiskit)
+-------------------------
+
+Circuit can be exported to [Qiskit](https://qiskit.org/documentation/) with following limitation:
+
+- User defined gates are not generated. Instead, circuit is decomposed to basic gates and exported. Effect is the same but code is less readable. **TODO**
+
+- Gates not directly supported by Qiskit are exported as-is - their definition is not generated. **TODO**
+
+To export circuit to Qiskit use `exportQiskit(comment, decompose)` method:
+
+Example:
+```javascript
+var qiskit = circuit.exportQiskit("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false);
+```
+
+- `comment` - comment to insert at the beginning of the file.
+
+- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
+
+
 Export to QASM
 --------------
 
