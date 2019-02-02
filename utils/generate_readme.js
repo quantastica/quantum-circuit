@@ -19,12 +19,13 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 
 	var gateIndex = "";
 	var gateRef = "";
-	gateIndex += "| Name | pyQuil | Qubits | Params | Description |\n";
-	gateIndex += "| --- | --- | --- | --- | --- |\n";
+	gateIndex += "| Name | pyQuil | Cirq | Qubits | Params | Description |\n";
+	gateIndex += "| --- | --- | --- | --- | --- | --- |\n";
 	for(var gateName in circ.basicGates) {
 		var gateDef = circ.basicGates[gateName];
 		var numQubits = Math.log2(gateDef.matrix && gateDef.matrix.length ? gateDef.matrix.length : 2);
 		var pyquilDef = (gateDef.exportInfo ? (gateDef.exportInfo.pyquil || gateDef.exportInfo.quil) : null) || null;
+		var cirqDef = (gateDef.exportInfo ? gateDef.exportInfo.cirq : null) || null;
 		var params = gateDef.params || [];
 		var paramList = "";
 		if(gateDef.params && gateDef.params.length) {
@@ -61,8 +62,31 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 			}
 		}
 
+		var cirqName = cirqDef ? (cirqDef.array ? "def " + (cirqDef.name || "") : (cirqDef.name || "")) : "";
+		if(cirqDef && cirqDef.replacement) {
+			var gdef = circ.basicGates[cirqDef.replacement.name] || null;
+			if(gdef) {
+				var pdef = (gdef.exportInfo ? gdef.exportInfo.cirq : null) || null;
+				if(pdef) {
+					cirqName = pdef.name || "";
+					if(cirqDef.replacement.params) {
+						cirqName += "(";
+						var pcount = 0;
+						for(var pname in cirqDef.replacement.params) {
+							if(pcount) {
+								cirqName += ", ";
+							}
+							cirqName += cirqDef.replacement.params[pname];
+						}
+						cirqName += ")";
+					}					
+				}
+			}
+		}
+
 		gateIndex += "| **" + gateName + "**";
 		gateIndex += " | " + pyquilName;
+		gateIndex += " | " + cirqName;
 		gateIndex += " | " + numQubits;
 		gateIndex += " | " + paramList;
 		gateIndex += " | " + (gateDef.description || "");

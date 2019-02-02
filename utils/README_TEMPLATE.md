@@ -1,7 +1,7 @@
 Quantum Circuit Simulator
 =========================
 
-Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html) and [Quil](https://arxiv.org/abs/1608.03355) so it can be used for QASM to Quil/pyQuil conversion. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
+Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html), [Quil](https://arxiv.org/abs/1608.03355), [Qiskit](https://qiskit.org/documentation/) and [Cirq](https://github.com/quantumlib/Cirq) so it can be used for conversion from QASM to other languages. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
 Live examples
@@ -411,16 +411,18 @@ Circuit can be exported to [Qiskit](https://qiskit.org/documentation/) with foll
 
 - Gates not directly supported by Qiskit are exported as-is - their definition is not generated. **TODO**
 
-To export circuit to Qiskit use `exportQiskit(comment, decompose)` method:
+To export circuit to Qiskit use `exportQiskit(comment, decompose, null, versionStr)` method:
 
 Example:
 ```javascript
-var qiskit = circuit.exportQiskit("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false);
+var qiskit = circuit.exportQiskit("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, null);
 ```
 
 - `comment` - comment to insert at the beginning of the file.
 
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
+
+- `versionStr` - Qiskit version. Can be `"0.7"`. Exports to latest supported version when empty string is provided. Remember - it is a string.
 
 
 Export to QASM
@@ -468,8 +470,8 @@ circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\n
 - `errorCallback` (optional) function will be called after parsing with array containing syntax errors.
 
 
-Export to pyQuil
-----------------
+Export to python (pyQuil)
+-------------------------
 
 Circuit can be exported to [pyQuil](http://docs.rigetti.com/en/latest/index.html)
 
@@ -484,7 +486,7 @@ var pyquil = circuit.exportPyquil("Comment to insert at the beginning.\nCan be m
 
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
 
-- `versionStr` - pyQuil version. Can be `"1.9"`, `"2.0"` or `"2.1"`. Remember - it is a string.
+- `versionStr` - pyQuil version. Can be `"1.9"`, `"2.0"` or `"2.1"`. Exports to latest supported version when empty string is provided. Remember - it is a string.
 
 - `lattice` - You can optionally pass then name of the lattice.
 
@@ -507,7 +509,30 @@ var quil = circuit.exportQuil("Comment to insert at the beginning.\nCan be multi
 
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines (DEFCIRCUIT).
 
-- `versionStr` - Quil version. Can be `"1.0"` or `"2.0"`.
+- `versionStr` - Quil version. Can be `"1.0"` or `"2.0"` or empty string. Exports to latest supported version when empty string is provided. Remember - it is a string.
+
+
+Export to python (Cirq)
+-----------------------
+
+Circuit can be exported to [Cirq](https://github.com/quantumlib/Cirq) with following limitation:
+
+- Gates not directly supported by Cirq are exported as-is - their definition is not generated. **TODO**
+
+- Classical control is ignored (comment with warning is generated). **TODO**
+
+To export circuit to Cirq use `exportCirq(comment, decompose, null, versionStr)` method:
+
+Example:
+```javascript
+var cirq = circuit.exportCirq("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, null);
+```
+
+- `comment` - comment to insert at the beginning of the file.
+
+- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
+
+- `versionStr` - Cirq version. Can be `"0.5"` or empty string. Exports to latest supported version when empty string is provided. Remember - it is a string.
 
 
 Export to SVG
