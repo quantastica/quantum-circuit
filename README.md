@@ -213,7 +213,7 @@ Implemented gates
 | **ct** | CPHASE(pi/4) |  | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
 | **csdg** | CPHASE(-pi/2) |  | 2 |  | Controlled (-PI/2) rotation over Z-axis |
 | **ctdg** | CPHASE(-pi/4) |  | 2 |  | Controlled (-PI/4) rotation over Z-axis |
-| **ccx** | CCNOT |  | 3 |  | Toffoli aka "CCNOT" gate |
+| **ccx** | CCNOT | CCX | 3 |  | Toffoli aka "CCNOT" gate |
 | **cswap** |  |  | 3 |  | Controlled swap aka "Fredkin" gate |
 | **csrswap** |  |  | 3 |  | Controlled square root of swap |
 | **measure** | MEASURE | measure | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
