@@ -200,21 +200,21 @@ Implemented gates
 | **cz** | CZ | CZ | 2 |  | Controlled Pauli Z (PI rotation over Z-axis) |
 | **ch** |  |  | 2 |  | Controlled Hadamard gate |
 | **csrn** |  |  | 2 |  | Controlled square root of NOT |
-| **cr2** | CPHASE(pi/2) |  | 2 |  | Controlled PI/2 rotation over Z-axis |
-| **cr4** | CPHASE(pi/4) |  | 2 |  | Controlled PI/4 rotation over Z-axis |
-| **cr8** | CPHASE(pi/8) |  | 2 |  | Controlled PI/8 rotation over Z-axis |
+| **cr2** | CPHASE(pi/2) | cu1(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis |
+| **cr4** | CPHASE(pi/4) | cu1(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis |
+| **cr8** | CPHASE(pi/8) | cu1(pi/8) | 2 |  | Controlled PI/8 rotation over Z-axis |
 | **crx** |  |  | 2 | theta | Controlled rotation around the X-axis by given angle |
 | **cry** |  |  | 2 | theta | Controlled rotation around the Y-axis by given angle |
-| **crz** | CPHASE |  | 2 | phi | Controlled rotation around the Z-axis by given angle |
-| **cu1** | CPHASE |  | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
-| **cu2** | def cu2 |  | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
-| **cu3** | def cu3 |  | 2 | theta, phi, lambda | Controlled 3-parameter 2-pulse single qubit gate |
-| **cs** | CPHASE(pi/2) |  | 2 |  | Controlled PI/2 rotation over Z-axis (synonym for `cr2`) |
-| **ct** | CPHASE(pi/4) |  | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
-| **csdg** | CPHASE(-pi/2) |  | 2 |  | Controlled (-PI/2) rotation over Z-axis |
-| **ctdg** | CPHASE(-pi/4) |  | 2 |  | Controlled (-PI/4) rotation over Z-axis |
+| **crz** | CPHASE | def cu1 | 2 | phi | Controlled rotation around the Z-axis by given angle |
+| **cu1** | CPHASE | def cu1 | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
+| **cu2** | def cu2 | def cu2 | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
+| **cu3** | def cu3 | def cu3 | 2 | theta, phi, lambda | Controlled 3-parameter 2-pulse single qubit gate |
+| **cs** | CPHASE(pi/2) | cu1(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis (synonym for `cr2`) |
+| **ct** | CPHASE(pi/4) | cu1(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
+| **csdg** | CPHASE(-pi/2) | cu1(-pi/2) | 2 |  | Controlled (-PI/2) rotation over Z-axis |
+| **ctdg** | CPHASE(-pi/4) | cu1(-pi/4) | 2 |  | Controlled (-PI/4) rotation over Z-axis |
 | **ccx** | CCNOT | CCX | 3 |  | Toffoli aka "CCNOT" gate |
-| **cswap** |  |  | 3 |  | Controlled swap aka "Fredkin" gate |
+| **cswap** |  | CSWAP | 3 |  | Controlled swap aka "Fredkin" gate |
 | **csrswap** |  |  | 3 |  | Controlled square root of swap |
 | **measure** | MEASURE | measure | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
 
