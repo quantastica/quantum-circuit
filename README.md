@@ -200,6 +200,7 @@ Implemented gates
 | **cz** | CZ | CZ | 2 |  | Controlled Pauli Z (PI rotation over Z-axis) |
 | **ch** |  |  | 2 |  | Controlled Hadamard gate |
 | **csrn** |  |  | 2 |  | Controlled square root of NOT |
+| **ms** |  | MS | 2 | theta | Mølmer-Sørensen gate |
 | **cr2** | CPHASE(pi/2) | cu1(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis |
 | **cr4** | CPHASE(pi/4) | cu1(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis |
 | **cr8** | CPHASE(pi/8) | cu1(pi/8) | 2 |  | Controlled PI/8 rotation over Z-axis |
@@ -1249,6 +1250,36 @@ Controlled square root of NOT
 **Example:**
 ```javascript
 circuit.addGate("csrn", -1, [0, 1]);
+```
+
+## ms
+
+Mølmer-Sørensen gate
+
+**Qubits:** 2
+
+**Parameters:**
+
+- theta
+
+
+**Matrix:**
+```javascript
+[
+    ["cos(theta)",0,0,"-i*sin(theta)"]
+    [0,"cos(theta)","-i*sin(theta)",0]
+    [0,"-i*sin(theta)","cos(theta)",0]
+    ["-i*sin(theta)",0,0,"cos(theta)"]
+]
+```
+
+**Example:**
+```javascript
+circuit.addGate("ms", -1, [0, 1], {
+    params: {
+        theta: "pi/2"
+    }
+});
 ```
 
 ## cr2
