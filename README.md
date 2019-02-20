@@ -205,8 +205,8 @@ Implemented gates
 | **cr2** | CPHASE(pi/2) | cu1(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis |
 | **cr4** | CPHASE(pi/4) | cu1(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis |
 | **cr8** | CPHASE(pi/8) | cu1(pi/8) | 2 |  | Controlled PI/8 rotation over Z-axis |
-| **crx** |  |  | 2 | theta | Controlled rotation around the X-axis by given angle |
-| **cry** |  |  | 2 | theta | Controlled rotation around the Y-axis by given angle |
+| **crx** | def crx |  | 2 | theta | Controlled rotation around the X-axis by given angle |
+| **cry** | def cry |  | 2 | theta | Controlled rotation around the Y-axis by given angle |
 | **crz** | CPHASE | def cu1 | 2 | phi | Controlled rotation around the Z-axis by given angle |
 | **cu1** | CPHASE | def cu1 | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
 | **cu2** | def cu2 | def cu2 | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
