@@ -218,6 +218,7 @@ Implemented gates
 | **ccx** | CCNOT | CCX | 3 |  | Toffoli aka "CCNOT" gate |
 | **cswap** |  | CSWAP | 3 |  | Controlled swap aka "Fredkin" gate |
 | **csrswap** |  |  | 3 |  | Controlled square root of swap |
+| **reset** | RESET | reset | 1 |  | Resets qubit |
 | **measure** | MEASURE | measure | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
 
 
@@ -1719,6 +1720,17 @@ Controlled square root of swap
 **Example:**
 ```javascript
 circuit.addGate("csrswap", -1, [0, 1, 2]);
+```
+
+## reset
+
+Resets qubit
+
+**Qubits:** 1
+
+**Example:**
+```javascript
+circuit.addGate("reset", -1, 0);
 ```
 
 ## measure
