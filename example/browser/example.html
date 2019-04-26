@@ -27,7 +27,7 @@
 
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 
-		<script src="../../dist/quantum-circuit.min.js"></script>
+		<script src="../../dist/quantum-circuit.js"></script>
 
 		<script>
 			var randomInput = false;
@@ -190,15 +190,15 @@
 
 				qasm += "gate majority a,b,c\n";
 				qasm += "{\n";
-				qasm += "  cx c,b;\n"; 
-				qasm += "  cx c,a;\n"; 
-				qasm += "  ccx a,b,c;\n"; 
+				qasm += "  cx c,b;\n";
+				qasm += "  cx c,a;\n";
+				qasm += "  ccx a,b,c;\n";
 				qasm += "}\n";
 				qasm += "gate unmaj a,b,c\n";
 				qasm += "{\n";
 				qasm += "  ccx a,b,c;\n";
-				qasm += "  cx c,a;\n"; 
-				qasm += "  cx a,b;\n"; 
+				qasm += "  cx c,a;\n";
+				qasm += "  cx a,b;\n";
 				qasm += "}\n";
 
 				qasm += "// add a to b, storing result in b\n";
@@ -319,6 +319,11 @@
 				Log("pyQuil:");
 				Log("-------");
 				Log(circuit.exportPyquil(""));
+				Log("");
+
+				Log("QuEST:");
+				Log("-------");
+				Log(circuit.exportQuEST(""));
 				Log("");
 
 				Log("SVG:");
