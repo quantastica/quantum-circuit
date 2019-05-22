@@ -984,8 +984,8 @@ circuit.addGate("u1", -1, 0, {
 **Matrix:**
 ```javascript
 [
-    ["1 / sqrt(2)","pow(-e, multiply(i, lambda)) / sqrt(2)"]
-    ["pow(e, multiply(i, phi)) / sqrt(2)","pow(e, multiply(i, lambda) + multiply(i, phi)) / sqrt(2)"]
+    ["1 / sqrt(2)","-exp(i * lambda) * 1 / sqrt(2)"]
+    ["exp(i * phi) * 1 / sqrt(2)","exp(i * lambda + i * phi) * 1 / sqrt(2)"]
 ]
 ```
 
