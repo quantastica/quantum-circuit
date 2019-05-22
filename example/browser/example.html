@@ -27,6 +27,7 @@
 
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 
+		<!-- <script src="../../dist/quantum-circuit.min.js"></script> -->
 		<script src="../../dist/quantum-circuit.js"></script>
 
 		<script>
@@ -323,7 +324,7 @@
 
 				Log("QuEST:");
 				Log("-------");
-				Log(circuit.exportQuEST(""));
+				Log(circuit.exportQuEST("", null, null, []));
 				Log("");
 
 				Log("SVG:");
