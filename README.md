@@ -956,7 +956,7 @@ circuit.addGate("rz", -1, 0, {
 ```javascript
 [
     [1,0]
-    [0,"pow(e, multiply(i, lambda))"]
+    [0,"exp(i * lambda)"]
 ]
 ```
 
