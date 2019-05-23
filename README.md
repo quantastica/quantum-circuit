@@ -1015,8 +1015,8 @@ circuit.addGate("u2", -1, 0, {
 **Matrix:**
 ```javascript
 [
-    ["cos(theta / 2)","pow(-e, multiply(i, lambda)) * sin(theta / 2)"]
-    ["pow(e, multiply(i, phi)) * sin(theta / 2)","pow(e, multiply(i, lambda) + multiply(i, phi)) * cos(theta / 2)"]
+    ["cos(theta/2)","-exp(i * lambda) * sin(theta / 2)"]
+    ["exp(i * phi) * sin(theta / 2)","exp(i * lambda + i * phi) * cos(theta / 2)"]
 ]
 ```
 
