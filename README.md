@@ -179,7 +179,7 @@ Implemented gates
 | **y** | Y | Y | 1 |  | Pauli Y (PI rotation over Y-axis) |
 | **z** | Z | Z | 1 |  | Pauli Z (PI rotation over Z-axis) |
 | **h** | H | H | 1 |  | Hadamard gate |
-| **srn** |  | X**(1/2) | 1 |  | Square root of NOT |
+| **srn** | def srn | X**(1/2) | 1 |  | Square root of NOT |
 | **r2** | S | Rz(pi/2) | 1 |  | PI/2 rotation over Z-axis aka "Phase PI/2" |
 | **r4** | T | Rz(pi/4) | 1 |  | PI/4 rotation over Z-axis aka "Phase PI/4" |
 | **r8** | RZ(pi/8) | Rz(pi/2) | 1 |  | PI/8 rotation over Z-axis aka "Phase PI/8" |
@@ -790,8 +790,8 @@ Square root of NOT
 **Matrix:**
 ```javascript
 [
-    ["1 / sqrt(2)","-1 / sqrt(2)"]
-    ["-1 / sqrt(2)","1 / sqrt(2)"]
+    ["0.5+0.5i","0.5-0.5i"]
+    ["0.5-0.5i","0.5+0.5i"]
 ]
 ```
 
@@ -984,8 +984,8 @@ circuit.addGate("u1", -1, 0, {
 **Matrix:**
 ```javascript
 [
-    ["1 / sqrt(2)","pow(-e, multiply(i, lambda)) / sqrt(2)"]
-    ["pow(e, multiply(i, phi)) / sqrt(2)","pow(e, multiply(i, lambda) + multiply(i, phi)) / sqrt(2)"]
+    ["1 / sqrt(2)","-exp(i * lambda) * 1 / sqrt(2)"]
+    ["exp(i * phi) * 1 / sqrt(2)","exp(i * lambda + i * phi) * 1 / sqrt(2)"]
 ]
 ```
 
@@ -1244,8 +1244,8 @@ Controlled square root of NOT
 [
     [1,0,0,0]
     [0,1,0,0]
-    [0,0,"1 / sqrt(2)","-1 / sqrt(2)"]
-    [0,0,"-1 / sqrt(2)","1 / sqrt(2)"]
+    [0,0,"0.5+0.5i","0.5-0.5i"]
+    [0,0,"0.5-0.5i","0.5+0.5i"]
 ]
 ```
 
