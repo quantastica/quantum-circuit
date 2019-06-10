@@ -168,6 +168,46 @@ Wire 2 --------------| CX  |---
 *Note: if `column` is negative integer then gate will be added to the end*
 
 
+Example - Quantum random number generator
+-----------------------------------------
+
+```javascript
+
+var QuantumCircuit = require("quantum-circuit");
+
+//
+// 8-bit quantum random number generator
+//
+
+var quantumRandom = function() {
+
+    var circuit = new QuantumCircuit();
+
+    for(var i = 0; i < 8; i++) {
+        //
+        // add Hadamard gate to the end (-1) of i-th wire
+        //
+        circuit.addGate("h", -1, i);
+
+        //
+        // add measurement gate to i-th qubit which will store result 
+        // into classical register "c", into i-th classical bit
+        //
+        circuit.addMeasure(i, "c", i); 
+    }
+
+    // run circuit
+    circuit.run();
+
+    // return value of register "c"
+    return circuit.getCregValue("c");
+};
+
+// Usage - print random number to terminal
+console.log(quantumRandom());
+
+```
+
 
 Implemented gates
 -----------------
@@ -319,6 +359,20 @@ Example:
 var value = circuit.getCregValue("ans");
 ```
 
+**Read all registers as dictionary**
+
+```javascript
+var regs = circuit.getCregs();
+console.log(regs);
+```
+
+**Read all registers as tab delimited CSV string**
+
+```javascript
+var tsv = circuit.cregsAsString();
+console.log(tsv);
+```
+
 **Read single bit**
 
 Example: get bit 3 from register named `ans`:
@@ -367,8 +421,8 @@ In this example, qubit 3 will be set to `0|>`.
 *Note that all entangled qubits will be changed as well*
 
 
-View/print final amplitudes
----------------------------
+View/print state vector
+-----------------------
 
 You can get state as string with method `stateAsString(onlyPossible)`:
 
@@ -394,8 +448,8 @@ var s = circuit.print(true);
 ```
 
 
-Export/Import circuit
----------------------
+Save/Load circuit
+-----------------
 
 You can export circuit to javascript object (format internally used by QuantumCircuit) by calling `save` method:
 
@@ -448,6 +502,21 @@ var obj = circuit.save(true);
 // now obj contains decomposed circuit. You can load it:
 circuit.load(obj);
 ```
+
+
+Export to JavaScript
+--------------------
+
+Circuit can be exported to JavaScript with `exportJavaScript(comment, decompose)` method:
+
+Example:
+```javascript
+var js = circuit.exportJavaScript("Comment to insert at the beginning.\nCan be multi-line comment like this one.", false);
+```
+
+- `comment` - comment to insert at the beginning of the file.
+
+- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
 
 
 Export to python (Qiskit)
@@ -750,7 +819,7 @@ Pauli Y (PI rotation over Y-axis)
 **Matrix:**
 ```javascript
 [
-    [0,"multiply(-1, i)"]
+    [0,"-i"]
     ["i",0]
 ]
 ```
@@ -888,8 +957,8 @@ Rotation around the X-axis by given angle
 **Matrix:**
 ```javascript
 [
-    ["cos(theta / 2)","multiply(-i, sin(theta / 2))"]
-    ["multiply(-i, sin(theta / 2))","cos(theta / 2)"]
+    ["cos(theta / 2)","-i * sin(theta / 2)"]
+    ["-i * sin(theta / 2)","cos(theta / 2)"]
 ]
 ```
 
@@ -916,7 +985,7 @@ Rotation around the Y-axis by given angle
 **Matrix:**
 ```javascript
 [
-    ["cos(theta / 2)","multiply(-1, sin(theta / 2))"]
+    ["cos(theta / 2)","-1 * sin(theta / 2)"]
     ["sin(theta / 2)","cos(theta / 2)"]
 ]
 ```
@@ -945,7 +1014,7 @@ Rotation around the Z-axis by given angle
 ```javascript
 [
     [1,0]
-    [0,"pow(e, multiply(i, phi))"]
+    [0,"exp(i * phi)"]
 ]
 ```
 
