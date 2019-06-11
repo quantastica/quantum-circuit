@@ -89,7 +89,6 @@ circuit.addGate("csdg", -1, [0, 1]);
 circuit.addGate("ctdg", -1, [0, 1]);
 circuit.addGate("ccx", -1, [0, 1, 2]);
 circuit.addGate("cswap", -1, [0, 1, 2]);
-circuit.addGate("csrswap", -1, [0, 1, 2]);
 circuit.addMeasure(0, "c", 3);
 
 circuit.run();
