@@ -1,6 +1,6 @@
 {
   "name": "quantum-circuit",
-  "version": "0.9.91",
+  "version": "0.9.92",
   "description": "Quantum Circuit Simulator",
   "main": "lib/quantum-circuit.js",
   "unpkg": "dist/quantum-circuit.min.js",
@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "browserify": "^16.2.3",
-    "uglify-js": "^3.4.5"
+    "uglify-js": "^3.4.5",
+    "url": "^0.11.0"
   }
 }

@@ -1,27 +1,22 @@
-Quantum Circuit Simulator
-=========================
+{TITLE}
 
-Quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html), [Quil](https://arxiv.org/abs/1608.03355), [Qiskit](https://qiskit.org/documentation/), [Cirq](https://github.com/quantumlib/Cirq) and [QuEST](https://quest.qtechtheory.org/), so it can be used for conversion from OpenQASM to other languages. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
+[quantum-circuit](https://www.npmjs.com/package/quantum-circuit) is open source quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html), [Quil](https://arxiv.org/abs/1608.03355), [Qiskit](https://qiskit.org/documentation/), [Cirq](https://github.com/quantumlib/Cirq) and [QuEST](https://quest.qtechtheory.org/), so it can be used for conversion from OpenQASM to other languages. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
-Live examples
--------------
+## Live examples
 
 ### Quantum Programming Studio
 
-[Quantum Programming Studio](https://quantum-circuit.com) is web based quantum programming IDE and simulator. Circuit can be executed on real quantum computer directly from the UI. See example video:
+[Quantum Programming Studio](https://quantum-circuit.com) is web based quantum programming IDE and simulator built on top of this package. Circuit can be executed on real quantum computer directly from the UI.
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=tbuvzv4Do6k" target="_blank"><img src="http://img.youtube.com/vi/tbuvzv4Do6k/0.jpg" alt="Quantum Programming Studio - Running on Rigetti quantum computer" width="480" height="360" border="10" /></a>
-
-### Other examples
+### Other live examples
 
 - [qasm2pyquil](https://quantum-circuit.com/qasm2pyquil) QASM to pyQuil/Quil online converter
 
 - [example.html](https://quantum-circuit.com/example.html)
 
 
-Using in browser
-----------------
+## Using in browser
 
 Simply include [quantum-circuit.min.js](dist/) into your html page (available via unpkg CDN [https://unpkg.com/quantum-circuit](https://unpkg.com/quantum-circuit))
 
@@ -43,8 +38,7 @@ Simply include [quantum-circuit.min.js](dist/) into your html page (available vi
 ```
 
 
-Using at server with node.js
-----------------------------
+## Using at server with node.js
 
 Add [quantum-circuit](https://www.npmjs.com/package/quantum-circuit) npm module to your node.js project:
 
@@ -90,11 +84,9 @@ jupyter notebook
 See [/example/jupyter](example/jupyter/) directory.
 
 
-Getting started
-===============
+# Getting started
 
-Create circuit
---------------
+## Create circuit
 
 Create instance of `QuantumCircuit` class, optionally passing number of qubits (wires) to constructor:
 
@@ -103,8 +95,8 @@ var circuit = new QuantumCircuit(3);
 ```
 *Note: number of qubits is optional argument - circuit will expand automatically if you add gates to non-existing wires*
 
-Add single-qubit gates
-----------------------
+
+## Add single-qubit gates
 
 Call `addGate` method passing gate name, column index and qubit (wire) index:
 
@@ -135,8 +127,7 @@ Wire 1 ---| H |---
 *Note: if `column` is negative integer then gate will be added to the end of the wire*
 
 
-Add multi-qubit gates
----------------------
+## Add multi-qubit gates
 
 Call `addGate` method passing gate name, column index and array of connected qubits (wires):
 
@@ -168,8 +159,7 @@ Wire 2 --------------| CX  |---
 *Note: if `column` is negative integer then gate will be added to the end*
 
 
-Example - Quantum random number generator
------------------------------------------
+## Example - Quantum random number generator
 
 ```javascript
 
@@ -209,16 +199,14 @@ console.log(quantumRandom());
 ```
 
 
-Implemented gates
------------------
+## Implemented gates
 
 {GATE_INDEX}
 
 *For more details see [gate reference](#gates)*
 
 
-Run circuit
------------
+## Run circuit
 
 Simply call `run` method.
 
@@ -226,8 +214,7 @@ Simply call `run` method.
 circuit.run();
 ```
 
-Initial state
--------------
+## Initial state
 
 By default, initial state of each qubit is `|0>`. You can pass initial values as array of bool (`true` or `false`) or integers (`0` or `1`). This will set first two qubits to `|1>` and evaluate circuit:
 
@@ -236,8 +223,7 @@ circuit.run([1, 1]);
 ```
 
 
-Measurement
------------
+## Measurement
 
 Method `probabilities()` will return array of probabilities (real numbers between 0 and 1) for each qubit:
 
@@ -290,8 +276,7 @@ circuit.addMeasure(0, "c", 3);
 - *If specified classical register doesn't exists - it will be created automatically.*
 
 
-Classical registers
--------------------
+## Classical registers
 
 **Create register**
 
@@ -343,8 +328,7 @@ Example: set bit 3 to `1` in register named `ans`:
 circuit.setCregBit("ans", 3, 1);
 ```
 
-Control by classical register
------------------------------
+## Control by classical register
 
 Each quatum gate in the circuit (except "measure" gate) can be controlled by classical register - gate will be executed only if classical register contains specified value. Pass `options` object as fourth argument to `addGate` method:
 
@@ -360,8 +344,7 @@ circuit.addGate("x", -1, 0, {
 In this example, "x" gate will execute on qubit 0 only if value of register named "ans" equals 7.
 
 
-Reset qubit
------------
+## Reset qubit
 
 You can reset qubit to value `|0>` or `|1>` with `resetQubit` method:
 
@@ -373,8 +356,7 @@ In this example, qubit 3 will be set to `0|>`.
 *Note that all entangled qubits will be changed as well*
 
 
-View/print state vector
------------------------
+## View/print state vector
 
 You can get state as string with method `stateAsString(onlyPossible)`:
 
@@ -400,8 +382,7 @@ var s = circuit.print(true);
 ```
 
 
-Save/Load circuit
------------------
+## Save/Load circuit
 
 You can export circuit to javascript object (format internally used by QuantumCircuit) by calling `save` method:
 
@@ -422,8 +403,7 @@ circuit.load(obj);
 ```
 
 
-Use circuit as a gate in another circuit
-----------------------------------------
+## Use circuit as a gate in another circuit
 
 You can "compile" any circuit and use it as a gate in another circuit like this:
 
@@ -441,8 +421,7 @@ anotherCircuit.addGate("my_gate", 0, [2, 3, 4]);
 ```
 
 
-Decompose circuit
------------------
+## Decompose circuit
 
 If your circuit contains user defined gates (created from another circuit), you can decompose it into equivalent circuit containing only basic gates.
 
@@ -455,9 +434,9 @@ var obj = circuit.save(true);
 circuit.load(obj);
 ```
 
+# Export circuit
 
-Export to JavaScript
---------------------
+## Export to JavaScript
 
 Circuit can be exported to JavaScript with `exportJavaScript(comment, decompose)` method:
 
@@ -471,8 +450,7 @@ var js = circuit.exportJavaScript("Comment to insert at the beginning.\nCan be m
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
 
 
-Export to python (Qiskit)
--------------------------
+## Export to python (Qiskit)
 
 Circuit can be exported to [Qiskit](https://qiskit.org/documentation/) with following limitation:
 
@@ -494,8 +472,7 @@ var qiskit = circuit.exportQiskit("Comment to insert at the beginning.\nCan be m
 - `versionStr` - Qiskit version. Can be `"0.7"`. Exports to latest supported version when empty string is provided. Remember - it is a string.
 
 
-Export to QASM
---------------
+## Export to QASM
 
 Circuit can be exported to [OpenQASM](https://github.com/Qiskit/openqasm) with following limitation:
 
@@ -513,8 +490,7 @@ var qasm = circuit.exportQASM("Comment to insert at the beginning.\nCan be multi
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
 
 
-Import from QASM
-----------------
+## Import from QASM
 
 Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) with following limitations:
 
@@ -539,8 +515,7 @@ circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\n
 - `errorCallback` (optional) function will be called after parsing with array containing syntax errors.
 
 
-Export to python (pyQuil)
--------------------------
+## Export to python (pyQuil)
 
 Circuit can be exported to [pyQuil](http://docs.rigetti.com/en/latest/index.html)
 
@@ -562,8 +537,7 @@ var pyquil = circuit.exportPyquil("Comment to insert at the beginning.\nCan be m
 - `asQVM` - If this argument is `true` (and if `lattice` is specified) then produced code will run on QVM mimicking running on QPU. Otherwise, produced code will run on QPU.
 
 
-Export to Quil
---------------
+## Export to Quil
 
 Circuit can be exported to [Quil](https://arxiv.org/abs/1608.03355)
 
@@ -581,8 +555,7 @@ var quil = circuit.exportQuil("Comment to insert at the beginning.\nCan be multi
 - `versionStr` - Quil version. Can be `"1.0"` or `"2.0"` or empty string. Exports to latest supported version when empty string is provided. Remember - it is a string.
 
 
-Export to python (Cirq)
------------------------
+## Export to python (Cirq)
 
 Circuit can be exported to [Cirq](https://github.com/quantumlib/Cirq) with following limitation:
 
@@ -604,8 +577,7 @@ var cirq = circuit.exportCirq("Comment to insert at the beginning.\nCan be multi
 - `versionStr` - Cirq version. Can be `"0.5"` or empty string. Exports to latest supported version when empty string is provided. Remember - it is a string.
 
 
-Export to C/C++ (QuEST)
------------------------
+## Export to C/C++ (QuEST)
 
 Circuit can be exported to [QuEST](https://quest.qtechtheory.org/)
 
@@ -621,8 +593,7 @@ var quest = circuit.exportQuEST("Comment to insert at the beginning.\nCan be mul
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
 
 
-Export to SVG
--------------
+## Export to SVG
 
 Vector `.svg` image of circuit can be created with `exportSVG(embedded)` function with following limitations:
 
@@ -667,8 +638,7 @@ svg = circuit.exportSVG(true);
 ``` 
 
 
-Export to Quirk
----------------
+## Export to Quirk
 
 Circuit can be exported to popular open-source drag-and-drop quantum circuit simulator [Quirk](https://algassert.com/quirk) with following limitations:
 
@@ -694,8 +664,7 @@ quirkLink.setAttr("href", quirkLink);
 ```
 
 
-About simulator algorithm
-=========================
+# About simulator algorithm
 
 Memory usage: up to `2 * (2^numQubits) * sizeOfComplexNumber`
 
@@ -707,8 +676,7 @@ Memory usage: up to `2 * (2^numQubits) * sizeOfComplexNumber`
 - Algorithm is parallelizable so it could use GPU, but GPU support is not implemented yet (work in progress).
 
 
-Benchmark
----------
+## Benchmark
 
 *Performance is measured on MacBook Pro MJLT2 mid-2015 (Core i7 2.5 GHz, 16GB RAM)*
 
@@ -721,18 +689,15 @@ Benchmark
 *You can find scripts in [/benchmark](benchmark/) directory.*
 
 
-Gates
-=====
+# Gates
 
 {GATE_REFERENCE}
 
 
-API docs
-========
+# API docs
 
 {API_DOCS}
 
 
-License
-=======
+# License
 [MIT](LICENSE.txt)

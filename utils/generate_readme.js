@@ -1,10 +1,43 @@
 var fs = require("fs");
 var path = require("path");
+var url = require("url");
 
 var QuantumCircuit = require("../lib/quantum-circuit.js");
 
 var escapeRegExp = function(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+};
+
+var extractMarkdownLinks = function(s) {
+	var res = [];
+	var regex1 = /\[([^\[]+)\]\(([^\)]+)\)/g;
+	while((array1 = regex1.exec(s)) !== null) {
+		res.push({
+			full: array1[0],
+			title: array1[1],
+			link: array1[2],
+			index: array1.index
+		});
+	}
+	return res;
+};
+
+var convertRelativeLinksToAbsolute = function(s, baseURL) {
+	var res = "";
+	var links = extractMarkdownLinks(s);
+	var pos = 0;
+	links.map(function(link) {
+		res += s.substring(pos, link.index);
+
+		var newlink = link.full;
+		if(link.link && link.link.indexOf("#") < 0 && link.link.indexOf("http://") < 0 && link.link.indexOf("https://") < 0) {
+			newlink = link.full.replace(/\((.+?)\)/g, "(" + url.resolve(baseURL, link.link) + ")");
+		}
+
+		res += newlink;
+		pos = link.index + link.full.length;
+	});
+	return res;
 };
 
 fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
@@ -114,16 +147,19 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 			gateRef += "\n**Matrix:**\n";
 			gateRef += "```javascript\n";
 			gateRef += "[\n";
-			gateDef.matrix.map(function(row) {
-				gateRef += "    " + JSON.stringify(row) + "\n";
+			gateDef.matrix.map(function(row, rowIndex) {
+				if(rowIndex > 0) {
+					gateRef += ",";
+				}
+				gateRef += "\n    " + JSON.stringify(row);
 			});
-			gateRef += "]\n";
+			gateRef += "\n]\n";
 			gateRef += "```\n";
 		}
 
 		gateRef += "\n**Example:**\n";
 		gateRef += "```javascript\n";
-		gateRef += "circuit.addGate(\"" + gateName + "\", -1, ";
+		gateRef += "circuit.appendGate(\"" + gateName + "\", ";
 		if(numQubits == 1) {
 			gateRef += "0";
 		} else {
@@ -175,6 +211,7 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 
 	var apiDocs = "*To be written...*";
 
+	readme = readme.replace(new RegExp(escapeRegExp("{TITLE}"), "g"), "# Quantum Circuit Simulator");
 	readme = readme.replace(new RegExp(escapeRegExp("{GATE_INDEX}"), "g"), gateIndex);
 	readme = readme.replace(new RegExp(escapeRegExp("{GATE_REFERENCE}"), "g"), gateRef);
 	readme = readme.replace(new RegExp(escapeRegExp("{API_DOCS}"), "g"), apiDocs);
