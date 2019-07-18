@@ -1637,8 +1637,8 @@ Controlled 3-parameter 2-pulse single qubit gate
 
     [1,0,0,0],
     [0,1,0,0],
-    [0,0,"cos(theta / 2)","pow(-e, multiply(i, lambda)) * sin(theta / 2)"],
-    [0,0,"pow(e, multiply(i, phi)) * sin(theta / 2)","pow(e, multiply(i, lambda) + multiply(phi, lambda)) * cos(theta / 2)"]
+    [0,0,"cos(theta/2)","-exp(i * lambda) * sin(theta / 2)"],
+    [0,0,"exp(i * phi) * sin(theta / 2)","exp(i * lambda + i * phi) * cos(theta / 2)"]
 ]
 ```
 
