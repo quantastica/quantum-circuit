@@ -1603,8 +1603,8 @@ Controlled 2-parameter 1-pulse single qubit gate
 
     [1,0,0,0],
     [0,1,0,0],
-    [0,0,"1 / sqrt(2)","pow(-e, multiply(i, lambda)) / sqrt(2)"],
-    [0,0,"pow(e, multiply(i, phi)) / sqrt(2)","pow(e, multiply(i, lambda) + multiply(i, phi)) / sqrt(2)"]
+    [0,0,"1 / sqrt(2)","-exp(i * lambda) * 1 / sqrt(2)"],
+    [0,0,"exp(i * phi) * 1 / sqrt(2)","exp(i * lambda + i * phi) * 1 / sqrt(2)"]
 ]
 ```
 

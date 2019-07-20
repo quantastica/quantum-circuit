@@ -1,11 +1,11 @@
 {
   "name": "quantum-circuit",
-  "version": "0.9.94",
+  "version": "0.9.95",
   "description": "Quantum Circuit Simulator",
   "main": "lib/quantum-circuit.js",
   "unpkg": "dist/quantum-circuit.min.js",
   "scripts": {
-    "test": "node ./test/test.js",
+    "test": "mocha",
     "browserify-debug": "browserify ./lib/quantum-circuit.js -o ./dist/quantum-circuit.js -d -s QuantumCircuit",
     "browserify-min": "browserify ./lib/quantum-circuit.js -s QuantumCircuit | uglifyjs --source-map -c -b beautify=false,ascii_only=true -o ./dist/quantum-circuit.min.js",
     "make-docs": "node ./utils/generate_readme.js",
@@ -34,12 +34,13 @@
   },
   "homepage": "https://quantum-circuit.com",
   "dependencies": {
-    "antlr4": "^4.7.1",
-    "mathjs": "^3.20.2"
+    "antlr4": "^4.7.2",
+    "mathjs": "^6.0.3"
   },
   "devDependencies": {
-    "browserify": "^16.2.3",
-    "uglify-js": "^3.4.5",
+    "browserify": "^16.3.0",
+    "mocha": "^6.2.0",
+    "uglify-js": "^3.6.0",
     "url": "^0.11.0"
   }
 }
