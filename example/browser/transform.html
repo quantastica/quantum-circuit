@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Transform</title>
+	</head>
+
+	<body>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+		<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>Transformation matrix playground</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 col-sm-6">
+				<form action="#">
+					<div class="form-group">
+						<label>Circuit total qubits</label>
+						<input class="form-control" type="text" name="totalQubits" value="3">
+					</div>
+
+					<div class="form-group">
+						<label>Gate matrix (unitary)</label>
+<textarea class="form-control" rows="6" name="U">
+[
+	[1,0,0,0],
+	[0,1,0,0],
+	[0,0,0,1],
+	[0,0,1,0]
+]</textarea>
+					</div>
+
+					<div class="form-group">
+						<label>Target qubits</label>
+						<input class="form-control" type="text" name="targetQubits" value="[0, 1]">
+					</div>
+
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="pretty" checked>
+							Show beautified
+						</label>
+					</div>
+
+					<button class="btn btn-success" type="submit">Transform</button>
+				</form>
+			</div>
+			<div class="col-xs-12 col-sm-6">
+				<label>Transformation matrix</label>
+				<pre><code id="output"></code></pre>
+			</div>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+		<!--
+			<script src="https://unpkg.com/quantum-circuit"></script>
+		-->
+		<script src="../../dist/quantum-circuit.min.js"></script>
+
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+		<script>
+			let circuit = new QuantumCircuit();
+
+			$("form").submit(function(e) {
+				e.preventDefault();
+
+				var arr = $(this).serializeArray();
+				var values = {};
+				for(i in arr) {
+					values[arr[i]['name']] = arr[i]['value']
+				}
+
+				var val = {}
+
+				val.totalQubits = parseFloat(values.totalQubits);
+				if(isNaN(val.totalQubits)) {
+					alert("Total qubits: must be integer");
+					return false;
+				}
+
+				try {
+					val.U = circuit.parseMatrix(values.U);
+				} catch(err) {
+					alert("Invalid gate matrix.\n" + err);
+					return false;
+				}
+
+				if(!Array.isArray(val.U)) {
+					alert("Gate matrix: expecting matrix but found " + typeof(val.U) + ".");
+					return false;
+				}
+
+
+				if(!circuit.isUnitaryMatrix(val.U)) {
+					alert("Gate matrix: must be unitary.\n");
+					return false;
+				}
+
+				var numQubits = Math.ceil(Math.log2(val.U.length));
+
+				if(numQubits > val.totalQubits) {
+					alert("Gate doesn't fit into circuit: you specified " + val.totalQubits + "-qubit circuit and " + numQubits + "-qubit gate.");
+					return false;
+				}
+
+
+				try {
+					val.targetQubits = JSON.parse(values.targetQubits);
+				} catch(err) {
+					alert("Invalid target qubits array.\n" + err);
+					return false;
+				}
+
+				if(!Array.isArray(val.targetQubits)) {
+					alert("Gate matrix: expecting matrix but found " + typeof(val.U) + ".");
+					return false;
+				}
+
+				var targetValid = true;
+				val.targetQubits.map(function(t, ndx	) {
+					val.targetQubits[ndx] = parseInt(t);
+					if(isNaN(val.targetQubits[ndx])) {
+						targetValid = false;
+					}
+				});
+				if(!targetValid) {
+					alert("Target qubits: expecting array of " + numQubits + " integers.");
+					return false;
+				}
+
+				if(val.targetQubits.length != numQubits) {
+					alert("Number of target qubits don't match gate: you specified " + numQubits + "-qubit gate but " + val.targetQubits.length + " target qubits.");
+					return false;
+				}
+
+				try {
+					T = circuit.transformMatrix(val.totalQubits, val.U, val.targetQubits);
+				} catch(err) {
+					alert("Error calculating transform matrix.\n" + err);
+					return false;					
+				}
+
+				$("#output").text(circuit.stringifyMatrix(T, {
+					minify: !values.pretty,
+					iotaChar: "i"
+				}));
+
+				return false;
+    		});
+
+			window.onload=function() { $("form").submit() }
+
+		</script>
+	</body>
+</html>
