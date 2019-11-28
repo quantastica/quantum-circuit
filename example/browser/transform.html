@@ -85,7 +85,7 @@
 				}
 
 				try {
-					val.U = circuit.parseMatrix(values.U);
+					val.U = circuit.evalMathString(values.U);
 				} catch(err) {
 					alert("Invalid gate matrix.\n" + err);
 					return false;
