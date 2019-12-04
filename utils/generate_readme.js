@@ -52,13 +52,14 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 
 	var gateIndex = "";
 	var gateRef = "";
-	gateIndex += "| Name | pyQuil | Cirq | Qubits | Params | Description |\n";
-	gateIndex += "| --- | --- | --- | --- | --- | --- |\n";
+	gateIndex += "| Name | pyQuil | Cirq | Q# | Qubits | Params | Description |\n";
+	gateIndex += "| --- | --- | --- | --- | --- | --- | --- |\n";
 	for(var gateName in circ.basicGates) {
 		var gateDef = circ.basicGates[gateName];
 		var numQubits = Math.log2(gateDef.matrix && gateDef.matrix.length ? gateDef.matrix.length : 2);
 		var pyquilDef = (gateDef.exportInfo ? (gateDef.exportInfo.pyquil || gateDef.exportInfo.quil) : null) || null;
 		var cirqDef = (gateDef.exportInfo ? gateDef.exportInfo.cirq : null) || null;
+		var qsharpDef = (gateDef.exportInfo ? gateDef.exportInfo.qsharp : null) || null;
 		var params = gateDef.params || [];
 		var paramList = "";
 		if(gateDef.params && gateDef.params.length) {
@@ -117,9 +118,32 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 			}
 		}
 
+		var qsharpName = qsharpDef ? (qsharpDef.array ? ""/*"def " + (qsharpDef.name || "")*/ : (qsharpDef.name || "")) : "";
+		if(qsharpDef && qsharpDef.replacement) {
+			var gdef = circ.basicGates[qsharpDef.replacement.name] || null;
+			if(gdef) {
+				var pdef = (gdef.exportInfo ? gdef.exportInfo.qsharp : null) || null;
+				if(pdef) {
+					qsharpName = pdef.name || "";
+					if(qsharpDef.replacement.params) {
+						qsharpName += "(";
+						var pcount = 0;
+						for(var pname in qsharpDef.replacement.params) {
+							if(pcount) {
+								qsharpName += ", ";
+							}
+							qsharpName += qsharpDef.replacement.params[pname];
+						}
+						qsharpName += ")";
+					}
+				}
+			}
+		}
+
 		gateIndex += "| **" + gateName + "**";
 		gateIndex += " | " + pyquilName;
 		gateIndex += " | " + cirqName;
+		gateIndex += " | " + qsharpName;
 		gateIndex += " | " + numQubits;
 		gateIndex += " | " + paramList;
 		gateIndex += " | " + (gateDef.description || "");

@@ -1,6 +1,6 @@
 {TITLE}
 
-[quantum-circuit](https://www.npmjs.com/package/quantum-circuit) is open source quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html), [Quil](https://arxiv.org/abs/1608.03355), [Qiskit](https://qiskit.org/documentation/), [Cirq](https://github.com/quantumlib/Cirq) and [QuEST](https://quest.qtechtheory.org/), so it can be used for conversion from OpenQASM to other languages. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
+[quantum-circuit](https://www.npmjs.com/package/quantum-circuit) is open source quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html), [Quil](https://arxiv.org/abs/1608.03355), [Qiskit](https://qiskit.org/documentation/), [Cirq](https://github.com/quantumlib/Cirq), [QSharp](https://docs.microsoft.com/en-us/quantum/language/index?view=qsharp-preview), and [QuEST](https://quest.qtechtheory.org/), so it can be used for conversion from OpenQASM to other languages. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
 ## Live examples
@@ -438,7 +438,7 @@ circuit.load(obj);
 
 ## Export to JavaScript
 
-Circuit can be exported to JavaScript with `exportJavaScript(comment, decompose)` method:
+Circuit can be exported to JavaScript with `exportJavaScript(comment, decompose, null, asJupyter)` method:
 
 Example:
 ```javascript
@@ -449,6 +449,8 @@ var js = circuit.exportJavaScript("Comment to insert at the beginning.\nCan be m
 
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
 
+- `asJupyter` - when this argument is `true` jupyter notebook (set to use `ijavascript` kernel) will be returned.
+
 
 ## Export to python (Qiskit)
 
@@ -458,7 +460,7 @@ Circuit can be exported to [Qiskit](https://qiskit.org/documentation/) with foll
 
 - Gates not directly supported by Qiskit are exported as-is - their definition is not generated. **TODO**
 
-To export circuit to Qiskit use `exportQiskit(comment, decompose, null, versionStr)` method:
+To export circuit to Qiskit use `exportQiskit(comment, decompose, null, versionStr, asJupyter)` method:
 
 Example:
 ```javascript
@@ -470,6 +472,8 @@ var qiskit = circuit.exportQiskit("Comment to insert at the beginning.\nCan be m
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
 
 - `versionStr` - Qiskit version. Can be `"0.7"`. Exports to latest supported version when empty string is provided. Remember - it is a string.
+
+- `asJupyter` - when this argument is `true` jupyter notebook will be returned.
 
 
 ## Export to QASM
@@ -519,7 +523,7 @@ circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\n
 
 Circuit can be exported to [pyQuil](http://docs.rigetti.com/en/latest/index.html)
 
-To export circuit to pyQuil use `exportPyquil(comment, decompose, null, versionStr, lattice, asQVM)` method:
+To export circuit to pyQuil use `exportPyquil(comment, decompose, null, versionStr, lattice, asQVM, asJupyter)` method:
 
 Example:
 ```javascript
@@ -535,6 +539,8 @@ var pyquil = circuit.exportPyquil("Comment to insert at the beginning.\nCan be m
 - `lattice` - You can optionally pass then name of the lattice.
 
 - `asQVM` - If this argument is `true` (and if `lattice` is specified) then produced code will run on QVM mimicking running on QPU. Otherwise, produced code will run on QPU.
+
+- `asJupyter` - when this argument is `true` jupyter notebook will be returned.
 
 
 ## Export to Quil
@@ -563,7 +569,7 @@ Circuit can be exported to [Cirq](https://github.com/quantumlib/Cirq) with follo
 
 - Classical control is ignored (comment with warning is generated). **TODO**
 
-To export circuit to Cirq use `exportCirq(comment, decompose, null, versionStr)` method:
+To export circuit to Cirq use `exportCirq(comment, decompose, null, versionStr, asJupyter)` method:
 
 Example:
 ```javascript
@@ -575,6 +581,8 @@ var cirq = circuit.exportCirq("Comment to insert at the beginning.\nCan be multi
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
 
 - `versionStr` - Cirq version. Can be `"0.5"` or empty string. Exports to latest supported version when empty string is provided. Remember - it is a string.
+
+- `asJupyter` - when this argument is `true` jupyter notebook will be returned.
 
 
 ## Export to C/C++ (QuEST)
@@ -591,6 +599,27 @@ var quest = circuit.exportQuEST("Comment to insert at the beginning.\nCan be mul
 - `comment` - comment to insert at the beginning of the file.
 
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
+
+
+## Export to Q# (QSharp)
+
+Circuit can be exported to [Q#](https://docs.microsoft.com/en-us/quantum/language/index?view=qsharp-preview).
+
+To export circuit to Q# use `exportQSharp(comment, decompose, null, versionStr, asJupyter, circuitName)` method:
+
+Example:
+```javascript
+var qsharp = circuit.exportQSharp("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, null, false, null);
+```
+
+- `comment` - comment to insert at the beginning of the file.
+
+- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
+
+- `versionStr` - QSharp version. Can be `"0.1"` or empty string. Exports to latest supported version when empty string is provided. Remember - it is a string.
+
+- `asJupyter` - when this argument is `true` jupyter notebook (set to use qsharp kernel) will be returned.
+
 
 
 ## Export to SVG
