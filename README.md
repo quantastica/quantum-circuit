@@ -1,6 +1,6 @@
 # Quantum Circuit Simulator
 
-[quantum-circuit](https://www.npmjs.com/package/quantum-circuit) is open source quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html), [Quil](https://arxiv.org/abs/1608.03355), [Qiskit](https://qiskit.org/documentation/), [Cirq](https://github.com/quantumlib/Cirq) and [QuEST](https://quest.qtechtheory.org/), so it can be used for conversion from OpenQASM to other languages. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
+[quantum-circuit](https://www.npmjs.com/package/quantum-circuit) is open source quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html), [Quil](https://arxiv.org/abs/1608.03355), [Qiskit](https://qiskit.org/documentation/), [Cirq](https://github.com/quantumlib/Cirq), [QSharp](https://docs.microsoft.com/en-us/quantum/language/index?view=qsharp-preview), and [QuEST](https://quest.qtechtheory.org/), so it can be used for conversion from OpenQASM to other languages. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
 ## Live examples
@@ -201,54 +201,54 @@ console.log(quantumRandom());
 
 ## Implemented gates
 
-| Name | pyQuil | Cirq | Qubits | Params | Description |
-| --- | --- | --- | --- | --- | --- |
-| **id** | I | Rz(0) | 1 |  | Single qubit identity gate |
-| **x** | X | X | 1 |  | Pauli X (PI rotation over X-axis) aka "NOT" gate |
-| **y** | Y | Y | 1 |  | Pauli Y (PI rotation over Y-axis) |
-| **z** | Z | Z | 1 |  | Pauli Z (PI rotation over Z-axis) |
-| **h** | H | H | 1 |  | Hadamard gate |
-| **srn** | def srn | X**(1/2) | 1 |  | Square root of NOT |
-| **r2** | S | Rz(pi/2) | 1 |  | PI/2 rotation over Z-axis aka "Phase PI/2" |
-| **r4** | T | Rz(pi/4) | 1 |  | PI/4 rotation over Z-axis aka "Phase PI/4" |
-| **r8** | RZ(pi/8) | Rz(pi/2) | 1 |  | PI/8 rotation over Z-axis aka "Phase PI/8" |
-| **rx** | RX | Rx | 1 | theta | Rotation around the X-axis by given angle |
-| **ry** | RY | Ry | 1 | theta | Rotation around the Y-axis by given angle |
-| **rz** | RZ | Rz | 1 | phi | Rotation around the Z-axis by given angle |
-| **u1** | PHASE | Rz | 1 | lambda | 1-parameter 0-pulse single qubit gate |
-| **u2** | def u2 | def u2 | 1 | phi, lambda | 2-parameter 1-pulse single qubit gate |
-| **u3** | def u3 | def u3 | 1 | theta, phi, lambda | 3-parameter 2-pulse single qubit gate |
-| **s** | S | S | 1 |  | PI/2 rotation over Z-axis (synonym for `r2`) |
-| **t** | T | T | 1 |  | PI/4 rotation over Z-axis (synonym for `r4`) |
-| **sdg** | RZ(-pi/2) | Rz(-pi/2) | 1 |  | (-PI/2) rotation over Z-axis |
-| **tdg** | RZ(-pi/4) | Rz(-pi/4) | 1 |  | (-PI/4) rotation over Z-axis |
-| **swap** | SWAP | SWAP | 2 |  | Swaps the state of two qubits. |
-| **srswap** |  | SWAP**(1/2) | 2 |  | Square root of swap |
-| **cx** | CNOT | CNOT | 2 |  | Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate |
-| **cy** |  |  | 2 |  | Controlled Pauli Y (PI rotation over Y-axis) |
-| **cz** | CZ | CZ | 2 |  | Controlled Pauli Z (PI rotation over Z-axis) |
-| **ch** |  |  | 2 |  | Controlled Hadamard gate |
-| **csrn** |  |  | 2 |  | Controlled square root of NOT |
-| **ms** | def ms | MS | 2 | theta | Mølmer-Sørensen gate |
-| **yy** | def yy |  | 2 | theta | YY gate |
-| **cr2** | CPHASE(pi/2) | crz(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis |
-| **cr4** | CPHASE(pi/4) | crz(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis |
-| **cr8** | CPHASE(pi/8) | crz(pi/8) | 2 |  | Controlled PI/8 rotation over Z-axis |
-| **crx** | def crx |  | 2 | theta | Controlled rotation around the X-axis by given angle |
-| **cry** | def cry |  | 2 | theta | Controlled rotation around the Y-axis by given angle |
-| **crz** | CPHASE | def crz | 2 | phi | Controlled rotation around the Z-axis by given angle |
-| **cu1** | CPHASE | def cu1 | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
-| **cu2** | def cu2 | def cu2 | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
-| **cu3** | def cu3 | def cu3 | 2 | theta, phi, lambda | Controlled 3-parameter 2-pulse single qubit gate |
-| **cs** | CPHASE(pi/2) | crz(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis (synonym for `cr2`) |
-| **ct** | CPHASE(pi/4) | crz(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
-| **csdg** | CPHASE(-pi/2) | crz(-pi/2) | 2 |  | Controlled (-PI/2) rotation over Z-axis |
-| **ctdg** | CPHASE(-pi/4) | crz(-pi/4) | 2 |  | Controlled (-PI/4) rotation over Z-axis |
-| **ccx** | CCNOT | CCX | 3 |  | Toffoli aka "CCNOT" gate |
-| **cswap** |  | CSWAP | 3 |  | Controlled swap aka "Fredkin" gate |
-| **csrswap** |  |  | 3 |  | Controlled square root of swap |
-| **reset** | RESET | reset | 1 |  | Resets qubit |
-| **measure** | MEASURE | measure | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
+| Name | pyQuil | Cirq | Q# | Qubits | Params | Description |
+| --- | --- | --- | --- | --- | --- | --- |
+| **id** | I | Rz(0) | I | 1 |  | Single qubit identity gate |
+| **x** | X | X | X | 1 |  | Pauli X (PI rotation over X-axis) aka "NOT" gate |
+| **y** | Y | Y | Y | 1 |  | Pauli Y (PI rotation over Y-axis) |
+| **z** | Z | Z | Z | 1 |  | Pauli Z (PI rotation over Z-axis) |
+| **h** | H | H | H | 1 |  | Hadamard gate |
+| **srn** | def srn | X**(1/2) |  | 1 |  | Square root of NOT |
+| **r2** | S | Rz(pi/2) | Rz(pi/2) | 1 |  | PI/2 rotation over Z-axis aka "Phase PI/2" |
+| **r4** | T | Rz(pi/4) | Rz(pi/4) | 1 |  | PI/4 rotation over Z-axis aka "Phase PI/4" |
+| **r8** | RZ(pi/8) | Rz(pi/2) | Rz(pi/8) | 1 |  | PI/8 rotation over Z-axis aka "Phase PI/8" |
+| **rx** | RX | Rx | Rx | 1 | theta | Rotation around the X-axis by given angle |
+| **ry** | RY | Ry | Ry | 1 | theta | Rotation around the Y-axis by given angle |
+| **rz** | RZ | Rz | Rz | 1 | phi | Rotation around the Z-axis by given angle |
+| **u1** | PHASE | Rz | Rz | 1 | lambda | 1-parameter 0-pulse single qubit gate |
+| **u2** | def u2 | def u2 |  | 1 | phi, lambda | 2-parameter 1-pulse single qubit gate |
+| **u3** | def u3 | def u3 |  | 1 | theta, phi, lambda | 3-parameter 2-pulse single qubit gate |
+| **s** | S | S | S | 1 |  | PI/2 rotation over Z-axis (synonym for `r2`) |
+| **t** | T | T | T | 1 |  | PI/4 rotation over Z-axis (synonym for `r4`) |
+| **sdg** | RZ(-pi/2) | Rz(-pi/2) | Rz(-pi/2) | 1 |  | (-PI/2) rotation over Z-axis |
+| **tdg** | RZ(-pi/4) | Rz(-pi/4) | Rz(-pi/4) | 1 |  | (-PI/4) rotation over Z-axis |
+| **swap** | SWAP | SWAP | SWAP | 2 |  | Swaps the state of two qubits. |
+| **srswap** |  | SWAP**(1/2) |  | 2 |  | Square root of swap |
+| **cx** | CNOT | CNOT | CNOT | 2 |  | Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate |
+| **cy** |  |  | Controlled Y | 2 |  | Controlled Pauli Y (PI rotation over Y-axis) |
+| **cz** | CZ | CZ | Controlled Z | 2 |  | Controlled Pauli Z (PI rotation over Z-axis) |
+| **ch** |  |  | Controlled H | 2 |  | Controlled Hadamard gate |
+| **csrn** |  |  |  | 2 |  | Controlled square root of NOT |
+| **ms** | def ms | MS |  | 2 | theta | Mølmer-Sørensen gate |
+| **yy** | def yy |  |  | 2 | theta | YY gate |
+| **cr2** | CPHASE(pi/2) | crz(pi/2) | Controlled Rz(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis |
+| **cr4** | CPHASE(pi/4) | crz(pi/4) | Controlled Rz(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis |
+| **cr8** | CPHASE(pi/8) | crz(pi/8) | Controlled Rz(pi/8) | 2 |  | Controlled PI/8 rotation over Z-axis |
+| **crx** | def crx |  | Controlled Rx | 2 | theta | Controlled rotation around the X-axis by given angle |
+| **cry** | def cry |  | Controlled Ry | 2 | theta | Controlled rotation around the Y-axis by given angle |
+| **crz** | CPHASE | def crz | Controlled Rz | 2 | phi | Controlled rotation around the Z-axis by given angle |
+| **cu1** | CPHASE | def cu1 | Controlled Rz | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
+| **cu2** | def cu2 | def cu2 |  | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
+| **cu3** | def cu3 | def cu3 |  | 2 | theta, phi, lambda | Controlled 3-parameter 2-pulse single qubit gate |
+| **cs** | CPHASE(pi/2) | crz(pi/2) | Controlled Rz(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis (synonym for `cr2`) |
+| **ct** | CPHASE(pi/4) | crz(pi/4) | Controlled Rz(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
+| **csdg** | CPHASE(-pi/2) | crz(-pi/2) | Controlled Rz(-pi/2) | 2 |  | Controlled (-PI/2) rotation over Z-axis |
+| **ctdg** | CPHASE(-pi/4) | crz(-pi/4) | Controlled Rz(-pi/4) | 2 |  | Controlled (-PI/4) rotation over Z-axis |
+| **ccx** | CCNOT | CCX | CCNOT | 3 |  | Toffoli aka "CCNOT" gate |
+| **cswap** |  | CSWAP | Controlled SWAP | 3 |  | Controlled swap aka "Fredkin" gate |
+| **csrswap** |  |  |  | 3 |  | Controlled square root of swap |
+| **reset** | RESET | reset | Reset | 1 |  | Resets qubit |
+| **measure** | MEASURE | measure | M | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
 
 
 *For more details see [gate reference](#gates)*
@@ -486,7 +486,7 @@ circuit.load(obj);
 
 ## Export to JavaScript
 
-Circuit can be exported to JavaScript with `exportJavaScript(comment, decompose)` method:
+Circuit can be exported to JavaScript with `exportJavaScript(comment, decompose, null, asJupyter)` method:
 
 Example:
 ```javascript
@@ -497,6 +497,8 @@ var js = circuit.exportJavaScript("Comment to insert at the beginning.\nCan be m
 
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
 
+- `asJupyter` - when this argument is `true` jupyter notebook (set to use `ijavascript` kernel) will be returned.
+
 
 ## Export to python (Qiskit)
 
@@ -506,7 +508,7 @@ Circuit can be exported to [Qiskit](https://qiskit.org/documentation/) with foll
 
 - Gates not directly supported by Qiskit are exported as-is - their definition is not generated. **TODO**
 
-To export circuit to Qiskit use `exportQiskit(comment, decompose, null, versionStr)` method:
+To export circuit to Qiskit use `exportQiskit(comment, decompose, null, versionStr, asJupyter)` method:
 
 Example:
 ```javascript
@@ -518,6 +520,8 @@ var qiskit = circuit.exportQiskit("Comment to insert at the beginning.\nCan be m
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
 
 - `versionStr` - Qiskit version. Can be `"0.7"`. Exports to latest supported version when empty string is provided. Remember - it is a string.
+
+- `asJupyter` - when this argument is `true` jupyter notebook will be returned.
 
 
 ## Export to QASM
@@ -567,7 +571,7 @@ circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\n
 
 Circuit can be exported to [pyQuil](http://docs.rigetti.com/en/latest/index.html)
 
-To export circuit to pyQuil use `exportPyquil(comment, decompose, null, versionStr, lattice, asQVM)` method:
+To export circuit to pyQuil use `exportPyquil(comment, decompose, null, versionStr, lattice, asQVM, asJupyter)` method:
 
 Example:
 ```javascript
@@ -583,6 +587,8 @@ var pyquil = circuit.exportPyquil("Comment to insert at the beginning.\nCan be m
 - `lattice` - You can optionally pass then name of the lattice.
 
 - `asQVM` - If this argument is `true` (and if `lattice` is specified) then produced code will run on QVM mimicking running on QPU. Otherwise, produced code will run on QPU.
+
+- `asJupyter` - when this argument is `true` jupyter notebook will be returned.
 
 
 ## Export to Quil
@@ -611,7 +617,7 @@ Circuit can be exported to [Cirq](https://github.com/quantumlib/Cirq) with follo
 
 - Classical control is ignored (comment with warning is generated). **TODO**
 
-To export circuit to Cirq use `exportCirq(comment, decompose, null, versionStr)` method:
+To export circuit to Cirq use `exportCirq(comment, decompose, null, versionStr, asJupyter)` method:
 
 Example:
 ```javascript
@@ -623,6 +629,8 @@ var cirq = circuit.exportCirq("Comment to insert at the beginning.\nCan be multi
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
 
 - `versionStr` - Cirq version. Can be `"0.5"` or empty string. Exports to latest supported version when empty string is provided. Remember - it is a string.
+
+- `asJupyter` - when this argument is `true` jupyter notebook will be returned.
 
 
 ## Export to C/C++ (QuEST)
@@ -639,6 +647,27 @@ var quest = circuit.exportQuEST("Comment to insert at the beginning.\nCan be mul
 - `comment` - comment to insert at the beginning of the file.
 
 - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
+
+
+## Export to Q# (QSharp)
+
+Circuit can be exported to [Q#](https://docs.microsoft.com/en-us/quantum/language/index?view=qsharp-preview).
+
+To export circuit to Q# use `exportQSharp(comment, decompose, null, versionStr, asJupyter, circuitName)` method:
+
+Example:
+```javascript
+var qsharp = circuit.exportQSharp("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, null, false, null);
+```
+
+- `comment` - comment to insert at the beginning of the file.
+
+- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
+
+- `versionStr` - QSharp version. Can be `"0.1"` or empty string. Exports to latest supported version when empty string is provided. Remember - it is a string.
+
+- `asJupyter` - when this argument is `true` jupyter notebook (set to use qsharp kernel) will be returned.
+
 
 
 ## Export to SVG
