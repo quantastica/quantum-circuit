@@ -224,6 +224,8 @@ console.log(quantumRandom());
 | **tdg** | RZ(-pi/4) | Rz(-pi/4) | Rz(-pi/4) | 1 |  | (-PI/4) rotation over Z-axis |
 | **swap** | SWAP | SWAP | SWAP | 2 |  | Swaps the state of two qubits. |
 | **srswap** |  | SWAP**(1/2) |  | 2 |  | Square root of swap |
+| **iswap** | ISWAP |  |  | 2 |  | Swaps the state of two qubits, applying a -i phase to q1 when it is in the 1 state and a -i phase to q2 when it is in the 0 state |
+| **xy** | XY |  |  | 2 | beta, theta | XY gate |
 | **cx** | CNOT | CNOT | CNOT | 2 |  | Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate |
 | **cy** |  |  | Controlled Y | 2 |  | Controlled Pauli Y (PI rotation over Y-axis) |
 | **cz** | CZ | CZ | Controlled Z | 2 |  | Controlled Pauli Z (PI rotation over Z-axis) |
@@ -1250,6 +1252,61 @@ Square root of swap
 **Example:**
 ```javascript
 circuit.appendGate("srswap", [0, 1]);
+```
+
+## iswap
+
+Swaps the state of two qubits, applying a -i phase to q1 when it is in the 1 state and a -i phase to q2 when it is in the 0 state
+
+**Qubits:** 2
+
+**Matrix:**
+```javascript
+[
+
+    [1,0,0,0],
+    [0,0,"0+i",0],
+    [0,"0+i",0,0],
+    [0,0,0,1]
+]
+```
+
+**Example:**
+```javascript
+circuit.appendGate("iswap", [0, 1]);
+```
+
+## xy
+
+XY gate
+
+**Qubits:** 2
+
+**Parameters:**
+
+- beta
+- theta
+
+
+**Matrix:**
+```javascript
+[
+
+    [1,0,0,0],
+    [0,"cos(theta/2)","i * sin(theta/2) * exp(i * beta)",0],
+    [0,"i * sin(theta/2) * exp(-i * beta)","cos(theta/2)",0],
+    [0,0,0,1]
+]
+```
+
+**Example:**
+```javascript
+circuit.appendGate("xy", [0, 1], {
+    params: {
+        beta: "pi/2",
+        theta: "pi/2"
+    }
+});
 ```
 
 ## cx
