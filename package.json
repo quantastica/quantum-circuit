@@ -1,6 +1,6 @@
 {
   "name": "quantum-circuit",
-  "version": "0.9.118",
+  "version": "0.9.124",
   "description": "Quantum Circuit Simulator",
   "main": "lib/quantum-circuit.js",
   "unpkg": "dist/quantum-circuit.min.js",
@@ -19,13 +19,16 @@
   "keywords": [
     "quantum",
     "qubit",
-    "qbit",
     "simulator",
     "emulator",
+    "qiskit",
     "qasm",
     "openqasm",
+    "qobj",
     "quil",
-    "pyquil"
+    "pyquil",
+    "cirq",
+    "qsharp"
   ],
   "author": "Petar Korponaić",
   "license": "MIT",
