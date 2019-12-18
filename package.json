@@ -1,6 +1,6 @@
 {
   "name": "quantum-circuit",
-  "version": "0.9.124",
+  "version": "0.9.125",
   "description": "Quantum Circuit Simulator",
   "main": "lib/quantum-circuit.js",
   "unpkg": "dist/quantum-circuit.min.js",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/perak/quantum-circuit.git"
+    "url": "git+https://github.com/quantastica/quantum-circuit.git"
   },
   "keywords": [
     "quantum",
@@ -30,10 +30,10 @@
     "cirq",
     "qsharp"
   ],
-  "author": "Petar Korponaić",
+  "author": "Quantastica <info@quantastica.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/perak/quantum-circuit/issues"
+    "url": "https://github.com/quantastica/quantum-circuit/issues"
   },
   "homepage": "https://quantum-circuit.com",
   "dependencies": {
