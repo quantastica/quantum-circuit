@@ -759,11 +759,11 @@ Memory usage: up to `2 * (2^numQubits) * sizeOfComplexNumber`
 
 *Performance is measured on MacBook Pro MJLT2 mid-2015 (Core i7 2.5 GHz, 16GB RAM)*
 
-![Benchmark 1](https://rawgit.com/quantastica/quantum-circuit/HEAD/media/benchmark1.png)
+![Benchmark 1](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark1.png)
 
-![Benchmark 2](https://rawgit.com/quantastica/quantum-circuit/HEAD/media/benchmark2.png)
+![Benchmark 2](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark2.png)
 
-![Benchmark 3](https://rawgit.com/quantastica/quantum-circuit/HEAD/media/benchmark3.png)
+![Benchmark 3](https://rawgit.com/perak/quantum-circuit/HEAD/media/benchmark3.png)
 
 *You can find scripts in [/benchmark](benchmark/) directory.*
 
@@ -1946,5 +1946,4 @@ circuit.addMeasure(0, "c", 3);
 
 
 # License
-
 [MIT](LICENSE.txt)
