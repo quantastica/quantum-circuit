@@ -225,7 +225,7 @@ console.log(quantumRandom());
 | **swap** | SWAP | SWAP | SWAP | 2 |  | Swaps the state of two qubits. |
 | **srswap** |  | SWAP**(1/2) |  | 2 |  | Square root of swap |
 | **iswap** | ISWAP |  |  | 2 |  | Swaps the state of two qubits, applying a -i phase to q1 when it is in the 1 state and a -i phase to q2 when it is in the 0 state |
-| **xy** | XY |  |  | 2 | beta, theta | XY gate |
+| **xy** | XY |  |  | 2 | phi | XY gate |
 | **cx** | CNOT | CNOT | CNOT | 2 |  | Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate |
 | **cy** |  |  | Controlled Y | 2 |  | Controlled Pauli Y (PI rotation over Y-axis) |
 | **cz** | CZ | CZ | Controlled Z | 2 |  | Controlled Pauli Z (PI rotation over Z-axis) |
@@ -861,7 +861,7 @@ Hadamard gate
 [
 
     ["1 / sqrt(2)","1 / sqrt(2)"],
-    ["1 / sqrt(2)","0 - (1 / sqrt(2))"]
+    ["1 / sqrt(2)","-1 / sqrt(2)"]
 ]
 ```
 
@@ -901,7 +901,7 @@ PI/2 rotation over Z-axis aka "Phase PI/2"
 [
 
     [1,0],
-    [0,"pow(e, multiply(i, PI / 2))"]
+    [0,"exp(i * pi / 2)"]
 ]
 ```
 
@@ -921,7 +921,7 @@ PI/4 rotation over Z-axis aka "Phase PI/4"
 [
 
     [1,0],
-    [0,"pow(e, multiply(i, PI / 4))"]
+    [0,"exp(i * pi / 4)"]
 ]
 ```
 
@@ -941,7 +941,7 @@ PI/8 rotation over Z-axis aka "Phase PI/8"
 [
 
     [1,0],
-    [0,"pow(e, multiply(i, PI / 8))"]
+    [0,"exp(i * pi / 8)"]
 ]
 ```
 
@@ -1141,7 +1141,7 @@ PI/2 rotation over Z-axis (synonym for `r2`)
 [
 
     [1,0],
-    [0,"pow(e, multiply(i, PI / 2))"]
+    [0,"exp(i * pi / 2)"]
 ]
 ```
 
@@ -1161,7 +1161,7 @@ PI/4 rotation over Z-axis (synonym for `r4`)
 [
 
     [1,0],
-    [0,"pow(e, multiply(i, PI / 4))"]
+    [0,"exp(i * pi / 4)"]
 ]
 ```
 
@@ -1181,7 +1181,7 @@ circuit.appendGate("t", 0);
 [
 
     [1,0],
-    [0,"pow(e, multiply(i, (-1 * PI) / 2))"]
+    [0,"exp(-1i * pi / 2)"]
 ]
 ```
 
@@ -1201,7 +1201,7 @@ circuit.appendGate("sdg", 0);
 [
 
     [1,0],
-    [0,"pow(e, multiply(i, (-1 * PI) / 4))"]
+    [0,"exp(-1i * pi / 4)"]
 ]
 ```
 
@@ -1243,8 +1243,8 @@ Square root of swap
 [
 
     [1,0,0,0],
-    [0,"multiply(0.5, add(1, i))","multiply(0.5, subtract(1, i))",0],
-    [0,"multiply(0.5, subtract(1, i))","multiply(0.5, add(1, i))",0],
+    [0,"0.5 * (1 + i)","0.5 * (1 - i)",0],
+    [0,"0.5 * (1 - i)","0.5 * (1 + i)",0],
     [0,0,0,1]
 ]
 ```
@@ -1284,8 +1284,7 @@ XY gate
 
 **Parameters:**
 
-- beta
-- theta
+- phi
 
 
 **Matrix:**
@@ -1293,8 +1292,8 @@ XY gate
 [
 
     [1,0,0,0],
-    [0,"cos(theta/2)","i * sin(theta/2) * exp(i * beta)",0],
-    [0,"i * sin(theta/2) * exp(-i * beta)","cos(theta/2)",0],
+    [0,"cos(phi / 2)","1i * sin(phi / 2)",0],
+    [0,"1i * sin(phi / 2)","cos(phi / 2)",0],
     [0,0,0,1]
 ]
 ```
@@ -1303,8 +1302,7 @@ XY gate
 ```javascript
 circuit.appendGate("xy", [0, 1], {
     params: {
-        beta: "pi/2",
-        theta: "pi/2"
+        phi: "pi/2"
     }
 });
 ```
@@ -1343,7 +1341,7 @@ Controlled Pauli Y (PI rotation over Y-axis)
 
     [1,0,0,0],
     [0,1,0,0],
-    [0,0,0,"multiply(-1, i)"],
+    [0,0,0,"-1i"],
     [0,0,"i",0]
 ]
 ```
@@ -1388,7 +1386,7 @@ Controlled Hadamard gate
     [1,0,0,0],
     [0,1,0,0],
     [0,0,"1 / sqrt(2)","1 / sqrt(2)"],
-    [0,0,"1 / sqrt(2)","0 - (1 / sqrt(2))"]
+    [0,0,"1 / sqrt(2)","-1 / sqrt(2)"]
 ]
 ```
 
@@ -1494,7 +1492,7 @@ Controlled PI/2 rotation over Z-axis
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"pow(e, multiply(i, PI / 2))"]
+    [0,0,0,"exp(i * pi / 2)"]
 ]
 ```
 
@@ -1516,7 +1514,7 @@ Controlled PI/4 rotation over Z-axis
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"pow(e, multiply(i, PI / 4))"]
+    [0,0,0,"exp(i * pi / 4)"]
 ]
 ```
 
@@ -1538,7 +1536,7 @@ Controlled PI/8 rotation over Z-axis
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"pow(e, multiply(i, PI / 8))"]
+    [0,0,0,"exp(i * pi / 8)"]
 ]
 ```
 
@@ -1564,8 +1562,8 @@ Controlled rotation around the X-axis by given angle
 
     [1,0,0,0],
     [0,1,0,0],
-    [0,0,"cos(theta / 2)","multiply(-i, sin(theta / 2))"],
-    [0,0,"multiply(-i, sin(theta / 2))","cos(theta / 2)"]
+    [0,0,"cos(theta / 2)","-1i * sin(theta / 2)"],
+    [0,0,"-1i * sin(theta / 2)","cos(theta / 2)"]
 ]
 ```
 
@@ -1595,7 +1593,7 @@ Controlled rotation around the Y-axis by given angle
 
     [1,0,0,0],
     [0,1,0,0],
-    [0,0,"cos(theta / 2)","multiply(-1, sin(theta / 2))"],
+    [0,0,"cos(theta / 2)","-1i * sin(theta / 2)"],
     [0,0,"sin(theta / 2)","cos(theta / 2)"]
 ]
 ```
@@ -1627,7 +1625,7 @@ Controlled rotation around the Z-axis by given angle
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"pow(e, multiply(i, phi))"]
+    [0,0,0,"exp(i * phi)"]
 ]
 ```
 
@@ -1658,7 +1656,7 @@ Controlled 1-parameter 0-pulse single qubit gate
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"pow(e, multiply(i, lambda))"]
+    [0,0,0,"exp(i * lambda)"]
 ]
 ```
 
@@ -1752,7 +1750,7 @@ Controlled PI/2 rotation over Z-axis (synonym for `cr2`)
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"pow(e, multiply(i, PI / 2))"]
+    [0,0,0,"exp(i * pi / 2)"]
 ]
 ```
 
@@ -1774,7 +1772,7 @@ Controlled PI/4 rotation over Z-axis (synonym for `cr4`)
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"pow(e, multiply(i, PI / 4))"]
+    [0,0,0,"exp(i * pi / 4)"]
 ]
 ```
 
@@ -1796,7 +1794,7 @@ Controlled (-PI/2) rotation over Z-axis
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"pow(e, multiply(i, (-1 * PI) / 2))"]
+    [0,0,0,"exp(-1i * pi / 2)"]
 ]
 ```
 
@@ -1818,7 +1816,7 @@ Controlled (-PI/4) rotation over Z-axis
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"pow(e, multiply(i, (-1 * PI) / 4))"]
+    [0,0,0,"exp(-1i * pi / 4)"]
 ]
 ```
 
@@ -1894,8 +1892,8 @@ Controlled square root of swap
     [0,0,1,0,0,0,0,0],
     [0,0,0,1,0,0,0,0],
     [0,0,0,0,1,0,0,0],
-    [0,0,0,0,0,"multiply(0.5, add(1, i))","multiply(0.5, subtract(1, i))",0],
-    [0,0,0,0,0,"multiply(0.5, subtract(1, i))","multiply(0.5, add(1, i))",0],
+    [0,0,0,0,0,"0.5 * (1 + i)","0.5 * (1 - i)",0],
+    [0,0,0,0,0,"0.5 * (1 - i)","0.5 * (1 + i)",0],
     [0,0,0,0,0,0,0,1]
 ]
 ```
