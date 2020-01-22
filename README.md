@@ -223,14 +223,14 @@ console.log(quantumRandom());
 | **sdg** | RZ(-pi/2) | Rz(-pi/2) | Rz(-pi/2) | 1 |  | (-PI/2) rotation over Z-axis |
 | **tdg** | RZ(-pi/4) | Rz(-pi/4) | Rz(-pi/4) | 1 |  | (-PI/4) rotation over Z-axis |
 | **swap** | SWAP | SWAP | SWAP | 2 |  | Swaps the state of two qubits. |
-| **srswap** |  | SWAP**(1/2) |  | 2 |  | Square root of swap |
+| **srswap** | def srswap | SWAP**(1/2) |  | 2 |  | Square root of swap |
 | **iswap** | ISWAP |  |  | 2 |  | Swaps the state of two qubits, applying a -i phase to q1 when it is in the 1 state and a -i phase to q2 when it is in the 0 state |
 | **xy** | XY |  |  | 2 | phi | XY gate |
-| **cx** | CNOT | CNOT | CNOT | 2 |  | Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate |
-| **cy** |  |  | Controlled Y | 2 |  | Controlled Pauli Y (PI rotation over Y-axis) |
+| **cx** | CNOT | CNOT | CNOT | 2 |  | Controlled NOT (CNOT) gate |
+| **cy** | def cy |  | Controlled Y | 2 |  | Controlled Pauli Y (PI rotation over Y-axis) |
 | **cz** | CZ | CZ | Controlled Z | 2 |  | Controlled Pauli Z (PI rotation over Z-axis) |
-| **ch** |  |  | Controlled H | 2 |  | Controlled Hadamard gate |
-| **csrn** |  |  |  | 2 |  | Controlled square root of NOT |
+| **ch** | def ch |  | Controlled H | 2 |  | Controlled Hadamard gate |
+| **csrn** | def csrn |  |  | 2 |  | Controlled square root of NOT |
 | **ms** | def ms | MS |  | 2 | theta | Mølmer-Sørensen gate |
 | **yy** | def yy |  |  | 2 | theta | YY gate |
 | **cr2** | CPHASE(pi/2) | crz(pi/2) | Controlled Rz(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis |
@@ -247,8 +247,8 @@ console.log(quantumRandom());
 | **csdg** | CPHASE(-pi/2) | crz(-pi/2) | Controlled Rz(-pi/2) | 2 |  | Controlled (-PI/2) rotation over Z-axis |
 | **ctdg** | CPHASE(-pi/4) | crz(-pi/4) | Controlled Rz(-pi/4) | 2 |  | Controlled (-PI/4) rotation over Z-axis |
 | **ccx** | CCNOT | CCX | CCNOT | 3 |  | Toffoli aka "CCNOT" gate |
-| **cswap** |  | CSWAP | Controlled SWAP | 3 |  | Controlled swap aka "Fredkin" gate |
-| **csrswap** |  |  |  | 3 |  | Controlled square root of swap |
+| **cswap** | CSWAP | CSWAP | Controlled SWAP | 3 |  | Controlled swap aka "Fredkin" gate |
+| **csrswap** | def csrswap |  |  | 3 |  | Controlled square root of swap |
 | **reset** | RESET | reset | Reset | 1 |  | Resets qubit |
 | **measure** | MEASURE | measure | M | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
 
@@ -1309,7 +1309,7 @@ circuit.appendGate("xy", [0, 1], {
 
 ## cx
 
-Controlled Pauli X (PI rotation over X-axis) aka "CNOT" gate
+Controlled NOT (CNOT) gate
 
 **Qubits:** 2
 
