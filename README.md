@@ -228,7 +228,7 @@ console.log(quantumRandom());
 | **xy** | XY |  |  | 2 | phi | XY gate |
 | **cx** | CNOT | CNOT | CNOT | 2 |  | Controlled NOT (CNOT) gate |
 | **cy** | def cy |  | Controlled Y | 2 |  | Controlled Pauli Y (PI rotation over Y-axis) |
-| **cz** | CZ | CZ | Controlled Z | 2 |  | Controlled Pauli Z (PI rotation over Z-axis) |
+| **cz** | CZ | CZ | Controlled Z | 2 |  | Controlled Z (CPHASE) gate |
 | **ch** | def ch |  | Controlled H | 2 |  | Controlled Hadamard gate |
 | **csrn** | def csrn |  |  | 2 |  | Controlled square root of NOT |
 | **ms** | def ms | MS |  | 2 | theta | Mølmer-Sørensen gate |
@@ -1353,7 +1353,7 @@ circuit.appendGate("cy", [0, 1]);
 
 ## cz
 
-Controlled Pauli Z (PI rotation over Z-axis)
+Controlled Z (CPHASE) gate
 
 **Qubits:** 2
 
@@ -1593,7 +1593,7 @@ Controlled rotation around the Y-axis by given angle
 
     [1,0,0,0],
     [0,1,0,0],
-    [0,0,"cos(theta / 2)","-1i * sin(theta / 2)"],
+    [0,0,"cos(theta / 2)","-1 * sin(theta / 2)"],
     [0,0,"sin(theta / 2)","cos(theta / 2)"]
 ]
 ```
