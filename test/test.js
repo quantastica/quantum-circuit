@@ -65,7 +65,7 @@ var checkImportExportQASM = function() {
 
 			var circ = new QuantumCircuit();
 
-			circ.appendGate(gateName, wires, { params: params, conditions: {} });
+			circ.appendGate(gateName, wires, { params: params });
 
 			var M1 = circ.circuitMatrix();
 			circ.importQASM(circ.exportQASM())
