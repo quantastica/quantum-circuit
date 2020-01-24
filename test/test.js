@@ -45,6 +45,40 @@ var checkBasicGates = function() {
 	return true;
 };
 
+var checkImportExportQASM = function() {
+	for(var gateName in circuit.basicGates) {
+		var gate = circuit.basicGates[gateName];
+
+		
+		if(gate.matrix && gate.matrix.length) {
+			var wires = [];
+			for(var i = 0; i < Math.log2(gate.matrix.length); i++){
+				wires.push(i);
+			}
+
+			var params = {};
+			if(gate.params && gate.params.length) {
+				gate.params.map(function(paramName) {
+					params[paramName] = Math.PI / 5;
+				});
+			}
+
+			var circ = new QuantumCircuit();
+
+			circ.appendGate(gateName, wires, { params: params });
+
+			var M1 = circ.circuitMatrix();
+			circ.importQASM(circ.exportQASM())
+			var M2 = circ.circuitMatrix();
+
+			it("Circuit for " + gateName + " from exportQASM should be same as original circuit", function() {
+				assert(Math.round(circ.matrixDiff(M1, M2), 7) == 0);
+			});
+		}
+	}
+	return true;
+};
+
 
 var circuits = {
 
@@ -205,6 +239,10 @@ var testCircuits = function() {
 
 describe("Check if all gate matrices are unitary", function() {
 	checkBasicGates();
+});
+
+describe("Check if import from and export to QASM works properly", function() {
+	checkImportExportQASM();
 });
 
 
