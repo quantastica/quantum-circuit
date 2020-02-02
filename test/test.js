@@ -68,7 +68,7 @@ var checkImportExportQASM = function() {
 			circ.appendGate(gateName, wires, { params: params });
 
 			var M1 = circ.circuitMatrix();
-			circ.importQASM(circ.exportQASM())
+			circ.importQASM(circ.exportQASM());
 			var M2 = circ.circuitMatrix();
 
 			it("Circuit for " + gateName + " from exportQASM should be same as original circuit", function() {
@@ -79,6 +79,38 @@ var checkImportExportQASM = function() {
 	return true;
 };
 
+var checkImportExportQuil = function() {
+	for(var gateName in circuit.basicGates) {
+		var gate = circuit.basicGates[gateName];
+		
+		if(gate.matrix && gate.matrix.length) {
+			var wires = [];
+			for(var i = 0; i < Math.log2(gate.matrix.length); i++){
+				wires.push(i);
+			}
+
+			var params = {};
+			if(gate.params && gate.params.length) {
+				gate.params.map(function(paramName) {
+					params[paramName] = Math.PI / 5;
+				});
+			}
+
+			var circ = new QuantumCircuit();
+
+			circ.appendGate(gateName, wires, { params: params });
+
+			var M1 = circ.circuitMatrix();
+			circ.importQuil(circ.exportQuil());
+			var M2 = circ.circuitMatrix();
+
+			it("Circuit for " + gateName + " from exportQuil should be same as original circuit", function() {
+				assert(Math.round(circ.matrixDiff(M1, M2), 7) == 0);
+			});
+		}
+	}
+	return true;
+};
 
 var circuits = {
 
@@ -245,6 +277,9 @@ describe("Check if import from and export to QASM works properly", function() {
 	checkImportExportQASM();
 });
 
+describe("Check if import from and export to QUIL works properly", function() {
+	checkImportExportQuil();
+});
 
 describe("Run circuits and check output", function() {
 	testCircuits();
