@@ -227,8 +227,8 @@ console.log(quantumRandom());
 | **iswap** | ISWAP |  |  | 2 |  | Swaps the state of two qubits, applying a -i phase to q1 when it is in the 1 state and a -i phase to q2 when it is in the 0 state |
 | **xy** | XY |  |  | 2 | phi | XY gate |
 | **cx** | CNOT | CNOT | CNOT | 2 |  | Controlled NOT (CNOT) gate |
-| **cy** | def cy |  | Controlled Y | 2 |  | Controlled Pauli Y (PI rotation over Y-axis) |
-| **cz** | CZ | CZ | Controlled Z | 2 |  | Controlled Z (CPHASE) gate |
+| **cy** | def cy |  | Controlled Y | 2 |  | Controlled Y gate (controlled rotation over Y-axis by PI) |
+| **cz** | CZ | CZ | Controlled Z | 2 |  | Controlled Z gate (controlled rotation over Z-axis by PI) |
 | **ch** | def ch |  | Controlled H | 2 |  | Controlled Hadamard gate |
 | **csrn** | def csrn |  |  | 2 |  | Controlled square root of NOT |
 | **ms** | def ms | MS |  | 2 | theta | Mølmer-Sørensen gate |
@@ -238,7 +238,7 @@ console.log(quantumRandom());
 | **cr8** | CPHASE(pi/8) | crz(pi/8) | Controlled Rz(pi/8) | 2 |  | Controlled PI/8 rotation over Z-axis |
 | **crx** | def crx |  | Controlled Rx | 2 | theta | Controlled rotation around the X-axis by given angle |
 | **cry** | def cry |  | Controlled Ry | 2 | theta | Controlled rotation around the Y-axis by given angle |
-| **crz** | CPHASE | def crz | Controlled Rz | 2 | phi | Controlled rotation around the Z-axis by given angle |
+| **crz** | CPHASE | def crz | Controlled Rz | 2 | phi | Controlled rotation around the Z-axis by given angle (CPHASE) |
 | **cu1** | CPHASE | def cu1 | Controlled Rz | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
 | **cu2** | def cu2 | def cu2 |  | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
 | **cu3** | def cu3 | def cu3 |  | 2 | theta, phi, lambda | Controlled 3-parameter 2-pulse single qubit gate |
@@ -1331,7 +1331,7 @@ circuit.appendGate("cx", [0, 1]);
 
 ## cy
 
-Controlled Pauli Y (PI rotation over Y-axis)
+Controlled Y gate (controlled rotation over Y-axis by PI)
 
 **Qubits:** 2
 
@@ -1353,7 +1353,7 @@ circuit.appendGate("cy", [0, 1]);
 
 ## cz
 
-Controlled Z (CPHASE) gate
+Controlled Z gate (controlled rotation over Z-axis by PI)
 
 **Qubits:** 2
 
@@ -1609,7 +1609,7 @@ circuit.appendGate("cry", [0, 1], {
 
 ## crz
 
-Controlled rotation around the Z-axis by given angle
+Controlled rotation around the Z-axis by given angle (CPHASE)
 
 **Qubits:** 2
 
