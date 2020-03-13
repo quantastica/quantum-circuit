@@ -1,100 +1,84 @@
 var QuantumCircuit = require("../../lib/quantum-circuit.js");
 
-var circuit = new QuantumCircuit();
+const circuit = new QuantumCircuit();
 
-// circuit.addGate("id", -1, 0);
-circuit.addGate("x", -1, 2);
-circuit.addGate("x", -1, 1);
-circuit.addGate("x", -1, 0);
-// circuit.addGate("y", -1, 0);
-// circuit.addGate("z", -1, 0);
-// circuit.addGate("h", -1, 0);
-// circuit.addGate("srn", -1, 0);
-// circuit.addGate("r2", -1, 0);
-// circuit.addGate("r4", -1, 0);
-// circuit.addGate("r8", -1, 0);
-// circuit.addGate("rx", -1, 0, {
-//     params: {
-//         theta: "pi/2"
-//     }
-// });
-// circuit.addGate("ry", -1, 0, {
-//     params: {
-//         theta: "pi/2"
-//     }
-// });
-// circuit.addGate("rz", -1, 0, {
-//     params: {
-//         phi: "pi/2"
-//     }
-// });
-// circuit.addGate("u1", -1, 0, {
-//     params: {
-//         lambda: "pi/2"
-//     }
-// });
-// circuit.addGate("u2", -1, 0, {
-//     params: {
-//         phi: "pi/2",
-//         lambda: "pi/2"
-//     }
-// });
-// circuit.addGate("u3", -1, 0, {
-//     params: {
-//         theta: "pi/2",
-//         phi: "pi/2",
-//         lambda: "pi/2"
-//     }
-// });
-// circuit.addGate("s", -1, 0);
-// circuit.addGate("t", -1, 0);
-// circuit.addGate("sdg", -1, 0);
-// circuit.addGate("tdg", -1, 0);
-// circuit.addGate("swap", -1, [0, 1]);
-// circuit.addGate("srswap", -1, [0, 1]);
-// circuit.addGate("cx", -1, [0, 1]);
-// circuit.addGate("cz", -1, [0, 1]);
-// circuit.addGate("ms", -1, [0, 1], {
-//     params: {
-//         theta: "pi/2"
-//     }
-// });
-// circuit.addGate("cr2", -1, [0, 1]);
-// circuit.addGate("cr4", -1, [0, 1]);
-// circuit.addGate("cr8", -1, [0, 1]);
-// circuit.addGate("crz", -1, [0, 1], {
-//     params: {
-//         phi: "pi/2"
-//     }
-// });
-// circuit.addGate("cu1", -1, [0, 1], {
-//     params: {
-//         lambda: "pi/2"
-//     }
-// });
-// circuit.addGate("cu2", -1, [0, 1], {
-//     params: {
-//         phi: "pi/2",
-//         lambda: "pi/2"
-//     }
-// });
-// circuit.addGate("cu3", -1, [0, 1], {
-//     params: {
-//         theta: "pi/2",
-//         phi: "pi/2",
-//         lambda: "pi/2"
-//     }
-// });
-// circuit.addGate("cs", -1, [0, 1]);
-// circuit.addGate("ct", -1, [0, 1]);
-// circuit.addGate("csdg", -1, [0, 1]);
-// circuit.addGate("ctdg", -1, [0, 1]);
-circuit.addGate("ccx", -1, [0, 1, 2]);
-// circuit.addGate("cswap", -1, [0, 1, 2]);
-// circuit.addMeasure(1, "c", 3);
-// circuit.addMeasure(0, "c", 2);
+circuit.createCreg("c1", 1);
 
-circuit.run();
+// circuit.appendGate("id", 0, {});
+// circuit.appendGate("x", 0, {});
+// circuit.appendGate("y", 0, {});
+// circuit.appendGate("z", 0, {});
+// circuit.appendGate("h", 0, {});
+// circuit.appendGate("srn", 0, {});
+// circuit.appendGate("r2", 0, {});
+// circuit.appendGate("r4", 0, {});
+// circuit.appendGate("r8", 0, {});
+// circuit.appendGate("rx", 0, {"params":{"theta":"pi/3"}});
+// circuit.appendGate("ry", 0, {"params":{"theta":"pi/3"}});
+// circuit.appendGate("rz", 0, {"params":{"phi":"pi/3"}});
+// circuit.appendGate("u1", 0, {"params":{"lambda":"pi/3"}});
+// circuit.appendGate("u2", 0, {"params":{"phi":"pi/3","lambda":"pi/3"}});
+// circuit.appendGate("u3", 0, {"params":{"theta":"pi/3","phi":"pi/3","lambda":"pi/3"}});
+// circuit.appendGate("s", 0, {});
+// circuit.appendGate("t", 0, {});
+// circuit.appendGate("sdg", 0, {});
+// circuit.appendGate("tdg", 0, {});
+// circuit.appendGate("swap", [0,1], {});
+// circuit.appendGate("srswap", [0,1], {});
+// circuit.appendGate("iswap", [0,1], {});
+// circuit.appendGate("xy", [0,1], {"params":{"phi":"pi/2"}});
+// circuit.appendGate("cx", [0,1], {});
+// circuit.appendGate("cy", [0,1], {});
+// circuit.appendGate("cz", [0,1], {});
+// circuit.appendGate("ch", [0,1], {});
+// circuit.appendGate("csrn", [0,1], { 
+//     condition: { 
+//         creg: "c1",
+//         value: 7
+//     }
+// });
+// circuit.appendGate("ms", [0,1], {"params":{"theta":"pi/3"}});
+// circuit.appendGate("yy", [0,1], {"params":{"theta":"pi/3"}});
+// circuit.appendGate("cr2", [0,1], {});
+// circuit.appendGate("cr4", [0,1], {});
+// circuit.appendGate("cr8", [0,1], {});
+// circuit.appendGate("crx", [0,1], {"params":{"theta":"pi/3"}});
+// circuit.appendGate("cry", [0,1], {"params":{"theta":"pi/3"}});
+// circuit.appendGate("crz", [0,1], {"params":{"phi":"pi/3"}});
+// circuit.appendGate("cu1", [0,1], {"params":{"lambda":"pi/3"}});
+// circuit.appendGate("cu2", [0,1], {"params":{"phi":"pi/3","la`mbda":"pi/3"}});
+// circuit.appendGate("cu3", [0,1], {"params":{"theta":"pi/3","phi":"pi/3","lambda":"pi/3"}});
+// circuit.appendGate("cs", [0,1], {});
+// circuit.appendGate("ct", [0,1], {});
+// circuit.appendGate("csdg", [0,1], {});
+// circuit.appendGate("ctdg", [0,1], {});
+// circuit.appendGate("ccx", [0,1,2], {});
+// circuit.appendGate("cswap", [0,1,2], {});
+circuit.appendGate("csrswap", [0,1,2], {});
+// circuit.appendGate("reset", 0, {});
+circuit.addMeasure(0, "c1", 0);
+
+// circuit.run();
+
+// console.log(circuit.exportQiskit());
+
+// var input = `
+//     OPENQASM 2.0;
+//     include "qelib1.inc";
+//     qreg q[2];
+//     gate sub1 a, b
+//     {
+//         xy a, b;
+//     }
+
+//     sub1 q[0], q[1];
+// `;
+
+// console.log("");
+// console.log("Importing QASM...");
+
+// circuit.importQASM(input);
 
 console.log("");
-console.log(circuit.exportQSharp());
+console.log(circuit.exportCirq());
+// console.log(circuit.exportQASM())
