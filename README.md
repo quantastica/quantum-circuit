@@ -203,41 +203,41 @@ console.log(quantumRandom());
 
 | Name | pyQuil | Cirq | Q# | Qubits | Params | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| **id** | I | Rz(0) | I | 1 |  | Single qubit identity gate |
+| **id** | I | I | I | 1 |  | Single qubit identity gate |
 | **x** | X | X | X | 1 |  | Pauli X (PI rotation over X-axis) aka "NOT" gate |
 | **y** | Y | Y | Y | 1 |  | Pauli Y (PI rotation over Y-axis) |
 | **z** | Z | Z | Z | 1 |  | Pauli Z (PI rotation over Z-axis) |
 | **h** | H | H | H | 1 |  | Hadamard gate |
 | **srn** | def srn | X**(1/2) |  | 1 |  | Square root of NOT |
-| **r2** | S | Rz(pi/2) | Rz(pi/2) | 1 |  | PI/2 rotation over Z-axis aka "Phase PI/2" |
-| **r4** | T | Rz(pi/4) | Rz(pi/4) | 1 |  | PI/4 rotation over Z-axis aka "Phase PI/4" |
-| **r8** | RZ(pi/8) | Rz(pi/2) | Rz(pi/8) | 1 |  | PI/8 rotation over Z-axis aka "Phase PI/8" |
-| **rx** | RX | Rx | Rx | 1 | theta | Rotation around the X-axis by given angle |
-| **ry** | RY | Ry | Ry | 1 | theta | Rotation around the Y-axis by given angle |
-| **rz** | RZ | Rz | Rz | 1 | phi | Rotation around the Z-axis by given angle |
-| **u1** | PHASE | Rz | Rz | 1 | lambda | 1-parameter 0-pulse single qubit gate |
+| **r2** | S | rz(pi/2) | Rz(pi/2) | 1 |  | PI/2 rotation over Z-axis aka "Phase PI/2" |
+| **r4** | T | rz(pi/4) | Rz(pi/4) | 1 |  | PI/4 rotation over Z-axis aka "Phase PI/4" |
+| **r8** | RZ(pi/8) | rz(pi/8) | Rz(pi/8) | 1 |  | PI/8 rotation over Z-axis aka "Phase PI/8" |
+| **rx** | RX | rx | Rx | 1 | theta | Rotation around the X-axis by given angle |
+| **ry** | RY | ry | Ry | 1 | theta | Rotation around the Y-axis by given angle |
+| **rz** | RZ | rz | Rz | 1 | phi | Rotation around the Z-axis by given angle |
+| **u1** | PHASE | rz | Rz | 1 | lambda | 1-parameter 0-pulse single qubit gate |
 | **u2** | def u2 | def u2 |  | 1 | phi, lambda | 2-parameter 1-pulse single qubit gate |
 | **u3** | def u3 | def u3 |  | 1 | theta, phi, lambda | 3-parameter 2-pulse single qubit gate |
 | **s** | S | S | S | 1 |  | PI/2 rotation over Z-axis (synonym for `r2`) |
 | **t** | T | T | T | 1 |  | PI/4 rotation over Z-axis (synonym for `r4`) |
-| **sdg** | RZ(-pi/2) | Rz(-pi/2) | Rz(-pi/2) | 1 |  | (-PI/2) rotation over Z-axis |
-| **tdg** | RZ(-pi/4) | Rz(-pi/4) | Rz(-pi/4) | 1 |  | (-PI/4) rotation over Z-axis |
+| **sdg** | RZ(-pi/2) | rz(-pi/2) | Rz(-pi/2) | 1 |  | (-PI/2) rotation over Z-axis |
+| **tdg** | RZ(-pi/4) | rz(-pi/4) | Rz(-pi/4) | 1 |  | (-PI/4) rotation over Z-axis |
 | **swap** | SWAP | SWAP | SWAP | 2 |  | Swaps the state of two qubits. |
 | **srswap** | def srswap | SWAP**(1/2) |  | 2 |  | Square root of swap |
-| **iswap** | ISWAP |  |  | 2 |  | Swaps the state of two qubits, applying a -i phase to q1 when it is in the 1 state and a -i phase to q2 when it is in the 0 state |
-| **xy** | XY |  |  | 2 | phi | XY gate |
+| **iswap** | ISWAP | ISWAP |  | 2 |  | Swaps the state of two qubits, applying a -i phase to q1 when it is in the 1 state and a -i phase to q2 when it is in the 0 state |
+| **xy** | XY | def xy |  | 2 | phi | XY gate |
 | **cx** | CNOT | CNOT | CNOT | 2 |  | Controlled NOT (CNOT) gate |
-| **cy** | def cy |  | Controlled Y | 2 |  | Controlled Y gate (controlled rotation over Y-axis by PI) |
+| **cy** | def cy | Y | Controlled Y | 2 |  | Controlled Y gate (controlled rotation over Y-axis by PI) |
 | **cz** | CZ | CZ | Controlled Z | 2 |  | Controlled Z gate (controlled rotation over Z-axis by PI) |
-| **ch** | def ch |  | Controlled H | 2 |  | Controlled Hadamard gate |
-| **csrn** | def csrn |  |  | 2 |  | Controlled square root of NOT |
-| **ms** | def ms | MS |  | 2 | theta | Mølmer-Sørensen gate |
-| **yy** | def yy |  |  | 2 | theta | YY gate |
+| **ch** | def ch | H | Controlled H | 2 |  | Controlled Hadamard gate |
+| **csrn** | def csrn | X**(1/2) |  | 2 |  | Controlled square root of NOT |
+| **ms** | def ms | ms |  | 2 | theta | Mølmer-Sørensen gate |
+| **yy** | def yy | def yy |  | 2 | theta | YY gate |
 | **cr2** | CPHASE(pi/2) | crz(pi/2) | Controlled Rz(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis |
 | **cr4** | CPHASE(pi/4) | crz(pi/4) | Controlled Rz(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis |
 | **cr8** | CPHASE(pi/8) | crz(pi/8) | Controlled Rz(pi/8) | 2 |  | Controlled PI/8 rotation over Z-axis |
-| **crx** | def crx |  | Controlled Rx | 2 | theta | Controlled rotation around the X-axis by given angle |
-| **cry** | def cry |  | Controlled Ry | 2 | theta | Controlled rotation around the Y-axis by given angle |
+| **crx** | def crx | def crx | Controlled Rx | 2 | theta | Controlled rotation around the X-axis by given angle |
+| **cry** | def cry | def cry | Controlled Ry | 2 | theta | Controlled rotation around the Y-axis by given angle |
 | **crz** | CPHASE | def crz | Controlled Rz | 2 | phi | Controlled rotation around the Z-axis by given angle (CPHASE) |
 | **cu1** | CPHASE | def cu1 | Controlled Rz | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
 | **cu2** | def cu2 | def cu2 |  | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
@@ -248,7 +248,7 @@ console.log(quantumRandom());
 | **ctdg** | CPHASE(-pi/4) | crz(-pi/4) | Controlled Rz(-pi/4) | 2 |  | Controlled (-PI/4) rotation over Z-axis |
 | **ccx** | CCNOT | CCX | CCNOT | 3 |  | Toffoli aka "CCNOT" gate |
 | **cswap** | CSWAP | CSWAP | Controlled SWAP | 3 |  | Controlled swap aka "Fredkin" gate |
-| **csrswap** | def csrswap |  |  | 3 |  | Controlled square root of swap |
+| **csrswap** | def csrswap | SWAP**(1/2) |  | 3 |  | Controlled square root of swap |
 | **reset** | RESET | reset | Reset | 1 |  | Resets qubit |
 | **measure** | MEASURE | measure | M | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
 
