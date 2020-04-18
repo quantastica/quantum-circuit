@@ -46,6 +46,13 @@
 						</label>
 					</div>
 
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="ensureUnitary" checked>
+							Check if matrix is unitary
+						</label>
+					</div>
+
 					<button class="btn btn-success" type="submit">Transform</button>
 				</form>
 			</div>
@@ -97,9 +104,11 @@
 				}
 
 
-				if(!circuit.isUnitaryMatrix(val.U, 6)) {
-					alert("Gate matrix: must be unitary.\n");
-					return false;
+				if(values.ensureUnitary) {
+					if(!circuit.isUnitaryMatrix(val.U, 6)) {
+						alert("Gate matrix: must be unitary.\n");
+						return false;
+					}
 				}
 
 				var numQubits = Math.ceil(Math.log2(val.U.length));
