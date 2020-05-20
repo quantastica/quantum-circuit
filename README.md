@@ -1,6 +1,8 @@
 # Quantum Circuit Simulator
 
-[quantum-circuit](https://www.npmjs.com/package/quantum-circuit) is open source quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. Circuit can be imported from and exported to [OpenQASM](https://github.com/Qiskit/openqasm). You can export circuit to [pyQuil](http://docs.rigetti.com/en/latest/index.html), [Quil](https://arxiv.org/abs/1608.03355), [Qiskit](https://qiskit.org/documentation/), [Cirq](https://github.com/quantumlib/Cirq), [QSharp](https://docs.microsoft.com/en-us/quantum/language/index?view=qsharp-preview), and [QuEST](https://quest.qtechtheory.org/), so it can be used for conversion from OpenQASM to other languages. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
+[quantum-circuit](https://www.npmjs.com/package/quantum-circuit) is open source quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. 
+
+Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) and [Quil](https://arxiv.org/abs/1608.03355). You can export circuits to [OpenQASM](https://github.com/Qiskit/openqasm), [pyQuil](http://docs.rigetti.com/en/latest/index.html), [Quil](https://arxiv.org/abs/1608.03355), [Qiskit](https://qiskit.org/documentation/), [Cirq](https://github.com/quantumlib/Cirq), [TensorFlow Quantum](https://www.tensorflow.org/quantum), [QSharp](https://docs.microsoft.com/en-us/quantum/language/index?view=qsharp-preview), and [QuEST](https://quest.qtechtheory.org/), so it can be used for conversion between quantum programming languages. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
 ## Live examples
@@ -11,7 +13,7 @@
 
 ### Other live examples
 
-- [qasm2pyquil](https://quantum-circuit.com/qasm2pyquil) QASM to pyQuil/Quil online converter
+- [qconvert](https://quantum-circuit.com/qconvert) Online quantum programming language converter
 
 - [example.html](https://quantum-circuit.com/example.html)
 
@@ -232,20 +234,20 @@ console.log(quantumRandom());
 | **ch** | def ch | H | Controlled H | 2 |  | Controlled Hadamard gate |
 | **csrn** | def csrn | X**(1/2) |  | 2 |  | Controlled square root of NOT |
 | **ms** | def ms | ms |  | 2 | theta | Mølmer-Sørensen gate |
-| **yy** | def yy | def yy |  | 2 | theta | YY gate |
-| **cr2** | CPHASE(pi/2) | crz(pi/2) | Controlled Rz(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis |
-| **cr4** | CPHASE(pi/4) | crz(pi/4) | Controlled Rz(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis |
-| **cr8** | CPHASE(pi/8) | crz(pi/8) | Controlled Rz(pi/8) | 2 |  | Controlled PI/8 rotation over Z-axis |
-| **crx** | def crx | def crx | Controlled Rx | 2 | theta | Controlled rotation around the X-axis by given angle |
-| **cry** | def cry | def cry | Controlled Ry | 2 | theta | Controlled rotation around the Y-axis by given angle |
-| **crz** | CPHASE | def crz | Controlled Rz | 2 | phi | Controlled rotation around the Z-axis by given angle (CPHASE) |
-| **cu1** | CPHASE | def cu1 | Controlled Rz | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
+| **yy** | def yy | YY |  | 2 | theta | YY gate |
+| **cr2** | CPHASE(pi/2) | rz(pi/2) | Controlled Rz(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis |
+| **cr4** | CPHASE(pi/4) | rz(pi/4) | Controlled Rz(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis |
+| **cr8** | CPHASE(pi/8) | rz(pi/8) | Controlled Rz(pi/8) | 2 |  | Controlled PI/8 rotation over Z-axis |
+| **crx** | def crx | rx(theta) | Controlled Rx | 2 | theta | Controlled rotation around the X-axis by given angle |
+| **cry** | def cry | ry(theta) | Controlled Ry | 2 | theta | Controlled rotation around the Y-axis by given angle |
+| **crz** | CPHASE | rz(phi) | Controlled Rz | 2 | phi | Controlled rotation around the Z-axis by given angle (CPHASE) |
+| **cu1** | CPHASE | rz(phi) | Controlled Rz | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
 | **cu2** | def cu2 | def cu2 |  | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
 | **cu3** | def cu3 | def cu3 |  | 2 | theta, phi, lambda | Controlled 3-parameter 2-pulse single qubit gate |
-| **cs** | CPHASE(pi/2) | crz(pi/2) | Controlled Rz(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis (synonym for `cr2`) |
-| **ct** | CPHASE(pi/4) | crz(pi/4) | Controlled Rz(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
-| **csdg** | CPHASE(-pi/2) | crz(-pi/2) | Controlled Rz(-pi/2) | 2 |  | Controlled (-PI/2) rotation over Z-axis |
-| **ctdg** | CPHASE(-pi/4) | crz(-pi/4) | Controlled Rz(-pi/4) | 2 |  | Controlled (-PI/4) rotation over Z-axis |
+| **cs** | CPHASE(pi/2) | rz(pi/2) | Controlled Rz(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis (synonym for `cr2`) |
+| **ct** | CPHASE(pi/4) | rz(pi/4) | Controlled Rz(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
+| **csdg** | CPHASE(-pi/2) | rz(-pi/2) | Controlled Rz(-pi/2) | 2 |  | Controlled (-PI/2) rotation over Z-axis |
+| **ctdg** | CPHASE(-pi/4) | rz(-pi/4) | Controlled Rz(-pi/4) | 2 |  | Controlled (-PI/4) rotation over Z-axis |
 | **ccx** | CCNOT | CCX | CCNOT | 3 |  | Toffoli aka "CCNOT" gate |
 | **cswap** | CSWAP | CSWAP | Controlled SWAP | 3 |  | Controlled swap aka "Fredkin" gate |
 | **csrswap** | def csrswap | SWAP**(1/2) |  | 3 |  | Controlled square root of swap |
