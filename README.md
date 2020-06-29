@@ -1183,7 +1183,7 @@ circuit.appendGate("t", 0);
 [
 
     [1,0],
-    [0,"exp(-1i * pi / 2)"]
+    [0,"exp(-i * pi / 2)"]
 ]
 ```
 
@@ -1203,7 +1203,7 @@ circuit.appendGate("sdg", 0);
 [
 
     [1,0],
-    [0,"exp(-1i * pi / 4)"]
+    [0,"exp(-i * pi / 4)"]
 ]
 ```
 
@@ -1294,8 +1294,8 @@ XY gate
 [
 
     [1,0,0,0],
-    [0,"cos(phi / 2)","1i * sin(phi / 2)",0],
-    [0,"1i * sin(phi / 2)","cos(phi / 2)",0],
+    [0,"cos(phi / 2)","i * sin(phi / 2)",0],
+    [0,"i * sin(phi / 2)","cos(phi / 2)",0],
     [0,0,0,1]
 ]
 ```
@@ -1343,7 +1343,7 @@ Controlled Y gate (controlled rotation over Y-axis by PI)
 
     [1,0,0,0],
     [0,1,0,0],
-    [0,0,0,"-1i"],
+    [0,0,0,"-i"],
     [0,0,"i",0]
 ]
 ```
@@ -1564,8 +1564,8 @@ Controlled rotation around the X-axis by given angle
 
     [1,0,0,0],
     [0,1,0,0],
-    [0,0,"cos(theta / 2)","-1i * sin(theta / 2)"],
-    [0,0,"-1i * sin(theta / 2)","cos(theta / 2)"]
+    [0,0,"cos(theta / 2)","-i * sin(theta / 2)"],
+    [0,0,"-i * sin(theta / 2)","cos(theta / 2)"]
 ]
 ```
 
@@ -1796,7 +1796,7 @@ Controlled (-PI/2) rotation over Z-axis
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"exp(-1i * pi / 2)"]
+    [0,0,0,"exp(-i * pi / 2)"]
 ]
 ```
 
@@ -1818,7 +1818,7 @@ Controlled (-PI/4) rotation over Z-axis
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"exp(-1i * pi / 4)"]
+    [0,0,0,"exp(-i * pi / 4)"]
 ]
 ```
 
