@@ -1625,8 +1625,8 @@ Controlled rotation around the Z-axis by given angle
 [
 
     [1,0,0,0],
-    [0,"cos(phi / 2) - i * sin(phi / 2)",0,0],
-    [0,0,1,0],
+    [0,1,0,0],
+    [0,0,"cos(phi / 2) - i * sin(phi / 2)",0],
     [0,0,0,"cos(phi / 2) + i * sin(phi / 2)"]
 ]
 ```
