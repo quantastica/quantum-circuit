@@ -211,19 +211,19 @@ console.log(quantumRandom());
 | **z** | Z | Z | Z | 1 |  | Pauli Z (PI rotation over Z-axis) |
 | **h** | H | H | H | 1 |  | Hadamard gate |
 | **srn** | def srn | X**(1/2) |  | 1 |  | Square root of NOT |
-| **r2** | S | rz(pi/2) | Rz(pi/2) | 1 |  | PI/2 rotation over Z-axis aka "Phase PI/2" |
-| **r4** | T | rz(pi/4) | Rz(pi/4) | 1 |  | PI/4 rotation over Z-axis aka "Phase PI/4" |
-| **r8** | RZ(pi/8) | rz(pi/8) | Rz(pi/8) | 1 |  | PI/8 rotation over Z-axis aka "Phase PI/8" |
+| **r2** | S | S | S | 1 |  | PI/2 rotation over Z-axis aka "Phase PI/2" |
+| **r4** | T | T | T | 1 |  | PI/4 rotation over Z-axis aka "Phase PI/4" |
+| **r8** | PHASE(pi/8) | u1(pi/8) |  | 1 |  | PI/8 rotation over Z-axis aka "Phase PI/8" |
 | **rx** | RX | rx | Rx | 1 | theta | Rotation around the X-axis by given angle |
 | **ry** | RY | ry | Ry | 1 | theta | Rotation around the Y-axis by given angle |
 | **rz** | RZ | rz | Rz | 1 | phi | Rotation around the Z-axis by given angle |
-| **u1** | PHASE | rz | Rz | 1 | lambda | 1-parameter 0-pulse single qubit gate |
+| **u1** | PHASE | def u1 |  | 1 | lambda | 1-parameter 0-pulse single qubit gate |
 | **u2** | def u2 | def u2 |  | 1 | phi, lambda | 2-parameter 1-pulse single qubit gate |
 | **u3** | def u3 | def u3 |  | 1 | theta, phi, lambda | 3-parameter 2-pulse single qubit gate |
 | **s** | S | S | S | 1 |  | PI/2 rotation over Z-axis (synonym for `r2`) |
 | **t** | T | T | T | 1 |  | PI/4 rotation over Z-axis (synonym for `r4`) |
-| **sdg** | RZ(-pi/2) | rz(-pi/2) | Rz(-pi/2) | 1 |  | (-PI/2) rotation over Z-axis |
-| **tdg** | RZ(-pi/4) | rz(-pi/4) | Rz(-pi/4) | 1 |  | (-PI/4) rotation over Z-axis |
+| **sdg** | PHASE(-pi/2) | u1(-pi/2) |  | 1 |  | (-PI/2) rotation over Z-axis |
+| **tdg** | PHASE(-pi/4) | u1(-pi/4) |  | 1 |  | (-PI/4) rotation over Z-axis |
 | **swap** | SWAP | SWAP | SWAP | 2 |  | Swaps the state of two qubits. |
 | **srswap** | def srswap | SWAP**(1/2) |  | 2 |  | Square root of swap |
 | **iswap** | ISWAP | ISWAP |  | 2 |  | Swaps the state of two qubits, applying a -i phase to q1 when it is in the 1 state and a -i phase to q2 when it is in the 0 state |
@@ -235,19 +235,19 @@ console.log(quantumRandom());
 | **csrn** | def csrn | X**(1/2) |  | 2 |  | Controlled square root of NOT |
 | **ms** | def ms | ms |  | 2 | theta | Mølmer-Sørensen gate |
 | **yy** | def yy | YY |  | 2 | theta | YY gate |
-| **cr2** | CPHASE(pi/2) | rz(pi/2) | Controlled Rz(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis |
-| **cr4** | CPHASE(pi/4) | rz(pi/4) | Controlled Rz(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis |
-| **cr8** | CPHASE(pi/8) | rz(pi/8) | Controlled Rz(pi/8) | 2 |  | Controlled PI/8 rotation over Z-axis |
+| **cr2** | CPHASE(pi/2) | cu1(pi/2) |  | 2 |  | Controlled PI/2 rotation over Z-axis |
+| **cr4** | CPHASE(pi/4) | cu1(pi/4) |  | 2 |  | Controlled PI/4 rotation over Z-axis |
+| **cr8** | CPHASE(pi/8) | cu1(pi/8) |  | 2 |  | Controlled PI/8 rotation over Z-axis |
 | **crx** | def crx | rx(theta) | Controlled Rx | 2 | theta | Controlled rotation around the X-axis by given angle |
 | **cry** | def cry | ry(theta) | Controlled Ry | 2 | theta | Controlled rotation around the Y-axis by given angle |
-| **crz** | CPHASE | rz(phi) | Controlled Rz | 2 | phi | Controlled rotation around the Z-axis by given angle (CPHASE) |
-| **cu1** | CPHASE | rz(phi) | Controlled Rz | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
+| **crz** | def crz | rz(phi) | Controlled Rz | 2 | phi | Controlled rotation around the Z-axis by given angle |
+| **cu1** | CPHASE | def cu1 |  | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
 | **cu2** | def cu2 | def cu2 |  | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
 | **cu3** | def cu3 | def cu3 |  | 2 | theta, phi, lambda | Controlled 3-parameter 2-pulse single qubit gate |
-| **cs** | CPHASE(pi/2) | rz(pi/2) | Controlled Rz(pi/2) | 2 |  | Controlled PI/2 rotation over Z-axis (synonym for `cr2`) |
-| **ct** | CPHASE(pi/4) | rz(pi/4) | Controlled Rz(pi/4) | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
-| **csdg** | CPHASE(-pi/2) | rz(-pi/2) | Controlled Rz(-pi/2) | 2 |  | Controlled (-PI/2) rotation over Z-axis |
-| **ctdg** | CPHASE(-pi/4) | rz(-pi/4) | Controlled Rz(-pi/4) | 2 |  | Controlled (-PI/4) rotation over Z-axis |
+| **cs** | CPHASE(pi/2) | cu1(pi/2) |  | 2 |  | Controlled PI/2 rotation over Z-axis (synonym for `cr2`) |
+| **ct** | CPHASE(pi/4) | cu1(pi/4) |  | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
+| **csdg** | CPHASE(-pi/2) | cu1(-pi/2) |  | 2 |  | Controlled (-PI/2) rotation over Z-axis |
+| **ctdg** | CPHASE(-pi/4) | cu1(-pi/4) |  | 2 |  | Controlled (-PI/4) rotation over Z-axis |
 | **ccx** | CCNOT | CCX | CCNOT | 3 |  | Toffoli aka "CCNOT" gate |
 | **cswap** | CSWAP | CSWAP | Controlled SWAP | 3 |  | Controlled swap aka "Fredkin" gate |
 | **csrswap** | def csrswap | SWAP**(1/2) |  | 3 |  | Controlled square root of swap |
@@ -1025,8 +1025,8 @@ Rotation around the Z-axis by given angle
 ```javascript
 [
 
-    [1,0],
-    [0,"exp(i * phi)"]
+    ["cos(phi / 2) - i * sin(phi / 2)",0],
+    [0,"cos(phi / 2) + i * sin(phi / 2)"]
 ]
 ```
 
@@ -1183,7 +1183,7 @@ circuit.appendGate("t", 0);
 [
 
     [1,0],
-    [0,"exp(-1i * pi / 2)"]
+    [0,"exp(-i * pi / 2)"]
 ]
 ```
 
@@ -1203,7 +1203,7 @@ circuit.appendGate("sdg", 0);
 [
 
     [1,0],
-    [0,"exp(-1i * pi / 4)"]
+    [0,"exp(-i * pi / 4)"]
 ]
 ```
 
@@ -1294,8 +1294,8 @@ XY gate
 [
 
     [1,0,0,0],
-    [0,"cos(phi / 2)","1i * sin(phi / 2)",0],
-    [0,"1i * sin(phi / 2)","cos(phi / 2)",0],
+    [0,"cos(phi / 2)","i * sin(phi / 2)",0],
+    [0,"i * sin(phi / 2)","cos(phi / 2)",0],
     [0,0,0,1]
 ]
 ```
@@ -1343,7 +1343,7 @@ Controlled Y gate (controlled rotation over Y-axis by PI)
 
     [1,0,0,0],
     [0,1,0,0],
-    [0,0,0,"-1i"],
+    [0,0,0,"-i"],
     [0,0,"i",0]
 ]
 ```
@@ -1564,8 +1564,8 @@ Controlled rotation around the X-axis by given angle
 
     [1,0,0,0],
     [0,1,0,0],
-    [0,0,"cos(theta / 2)","-1i * sin(theta / 2)"],
-    [0,0,"-1i * sin(theta / 2)","cos(theta / 2)"]
+    [0,0,"cos(theta / 2)","-i * sin(theta / 2)"],
+    [0,0,"-i * sin(theta / 2)","cos(theta / 2)"]
 ]
 ```
 
@@ -1611,7 +1611,7 @@ circuit.appendGate("cry", [0, 1], {
 
 ## crz
 
-Controlled rotation around the Z-axis by given angle (CPHASE)
+Controlled rotation around the Z-axis by given angle
 
 **Qubits:** 2
 
@@ -1626,8 +1626,8 @@ Controlled rotation around the Z-axis by given angle (CPHASE)
 
     [1,0,0,0],
     [0,1,0,0],
-    [0,0,1,0],
-    [0,0,0,"exp(i * phi)"]
+    [0,0,"cos(phi / 2) - i * sin(phi / 2)",0],
+    [0,0,0,"cos(phi / 2) + i * sin(phi / 2)"]
 ]
 ```
 
@@ -1796,7 +1796,7 @@ Controlled (-PI/2) rotation over Z-axis
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"exp(-1i * pi / 2)"]
+    [0,0,0,"exp(-i * pi / 2)"]
 ]
 ```
 
@@ -1818,7 +1818,7 @@ Controlled (-PI/4) rotation over Z-axis
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"exp(-1i * pi / 4)"]
+    [0,0,0,"exp(-i * pi / 4)"]
 ]
 ```
 
