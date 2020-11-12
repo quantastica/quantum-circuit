@@ -217,9 +217,9 @@ console.log(quantumRandom());
 | **rx** | RX | rx | Rx | 1 | theta | Rotation around the X-axis by given angle |
 | **ry** | RY | ry | Ry | 1 | theta | Rotation around the Y-axis by given angle |
 | **rz** | RZ | rz | Rz | 1 | phi | Rotation around the Z-axis by given angle |
-| **u1** | PHASE | def u1 |  | 1 | lambda | 1-parameter 0-pulse single qubit gate |
-| **u2** | def u2 | def u2 |  | 1 | phi, lambda | 2-parameter 1-pulse single qubit gate |
-| **u3** | def u3 | def u3 |  | 1 | theta, phi, lambda | 3-parameter 2-pulse single qubit gate |
+| **u1** | PHASE | def u1 |  | 1 | lambda | Single-qubit rotation about the Z axis |
+| **u2** | def u2 | def u2 |  | 1 | phi, lambda | Single-qubit rotation about the X+Z axis |
+| **u3** | def u3 | def u3 |  | 1 | theta, phi, lambda | Generic single-qubit rotation gate with 3 Euler angles |
 | **s** | S | S | S | 1 |  | PI/2 rotation over Z-axis (synonym for `r2`) |
 | **t** | T | T | T | 1 |  | PI/4 rotation over Z-axis (synonym for `r4`) |
 | **sdg** | PHASE(-pi/2) | u1(-pi/2) |  | 1 |  | (-PI/2) rotation over Z-axis |
@@ -241,9 +241,9 @@ console.log(quantumRandom());
 | **crx** | def crx | rx(theta) | Controlled Rx | 2 | theta | Controlled rotation around the X-axis by given angle |
 | **cry** | def cry | ry(theta) | Controlled Ry | 2 | theta | Controlled rotation around the Y-axis by given angle |
 | **crz** | def crz | rz(phi) | Controlled Rz | 2 | phi | Controlled rotation around the Z-axis by given angle |
-| **cu1** | CPHASE | def cu1 |  | 2 | lambda | Controlled 1-parameter 0-pulse single qubit gate |
-| **cu2** | def cu2 | def cu2 |  | 2 | phi, lambda | Controlled 2-parameter 1-pulse single qubit gate |
-| **cu3** | def cu3 | def cu3 |  | 2 | theta, phi, lambda | Controlled 3-parameter 2-pulse single qubit gate |
+| **cu1** | CPHASE | def cu1 |  | 2 | lambda | Controlled rotation about the Z axis |
+| **cu2** | def cu2 | def cu2 |  | 2 | phi, lambda | Controlled rotation about the X+Z axis |
+| **cu3** | def cu3 | def cu3 |  | 2 | theta, phi, lambda | Controlled rotation gate with 3 Euler angles |
 | **cs** | CPHASE(pi/2) | cu1(pi/2) |  | 2 |  | Controlled PI/2 rotation over Z-axis (synonym for `cr2`) |
 | **ct** | CPHASE(pi/4) | cu1(pi/4) |  | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
 | **csdg** | CPHASE(-pi/2) | cu1(-pi/2) |  | 2 |  | Controlled (-PI/2) rotation over Z-axis |
@@ -1041,7 +1041,7 @@ circuit.appendGate("rz", 0, {
 
 ## u1
 
-1-parameter 0-pulse single qubit gate
+Single-qubit rotation about the Z axis
 
 **Qubits:** 1
 
@@ -1070,7 +1070,7 @@ circuit.appendGate("u1", 0, {
 
 ## u2
 
-2-parameter 1-pulse single qubit gate
+Single-qubit rotation about the X+Z axis
 
 **Qubits:** 1
 
@@ -1101,7 +1101,7 @@ circuit.appendGate("u2", 0, {
 
 ## u3
 
-3-parameter 2-pulse single qubit gate
+Generic single-qubit rotation gate with 3 Euler angles
 
 **Qubits:** 1
 
@@ -1642,7 +1642,7 @@ circuit.appendGate("crz", [0, 1], {
 
 ## cu1
 
-Controlled 1-parameter 0-pulse single qubit gate
+Controlled rotation about the Z axis
 
 **Qubits:** 2
 
@@ -1673,7 +1673,7 @@ circuit.appendGate("cu1", [0, 1], {
 
 ## cu2
 
-Controlled 2-parameter 1-pulse single qubit gate
+Controlled rotation about the X+Z axis
 
 **Qubits:** 2
 
@@ -1706,7 +1706,7 @@ circuit.appendGate("cu2", [0, 1], {
 
 ## cu3
 
-Controlled 3-parameter 2-pulse single qubit gate
+Controlled rotation gate with 3 Euler angles
 
 **Qubits:** 2
 
