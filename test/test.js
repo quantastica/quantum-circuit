@@ -68,7 +68,7 @@ var checkImportExportQASM = function() {
 			circ.appendGate(gateName, wires, { params: params });
 
 			var M1 = circ.circuitMatrix();
-			circ.importQASM(circ.exportQASM());
+			circ.importQASM(circ.exportToQASM({ compatibilityMode: true }));
 			var M2 = circ.circuitMatrix();
 
 			it("Circuit for " + gateName + " from exportQASM should be same as original circuit", function() {
