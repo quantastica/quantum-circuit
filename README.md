@@ -235,6 +235,7 @@ console.log(quantumRandom());
 | **csrn** | def csrn | X**(1/2) |  | 2 |  | Controlled square root of NOT |
 | **ms** | def ms | ms |  | 2 | theta | Mølmer-Sørensen gate |
 | **yy** | def yy | YY |  | 2 | theta | YY gate |
+| **zz** | def zz |  |  | 2 | theta | Parametrix 2-qubit rotation about ZZ |
 | **cr2** | CPHASE(pi/2) | cu1(pi/2) |  | 2 |  | Controlled PI/2 rotation over Z-axis |
 | **cr4** | CPHASE(pi/4) | cu1(pi/4) |  | 2 |  | Controlled PI/4 rotation over Z-axis |
 | **cr8** | CPHASE(pi/8) | cu1(pi/8) |  | 2 |  | Controlled PI/8 rotation over Z-axis |
@@ -1475,6 +1476,37 @@ YY gate
 **Example:**
 ```javascript
 circuit.appendGate("yy", [0, 1], {
+    params: {
+        theta: "pi/2"
+    }
+});
+```
+
+## zz
+
+Parametrix 2-qubit rotation about ZZ
+
+**Qubits:** 2
+
+**Parameters:**
+
+- theta
+
+
+**Matrix:**
+```javascript
+[
+
+    ["exp(-i * theta / 2)",0,0,0],
+    [0,"exp(i * theta / 2)",0,0],
+    [0,0,"exp(i * theta / 2)",0],
+    [0,0,0,"exp(-i * theta / 2)"]
+]
+```
+
+**Example:**
+```javascript
+circuit.appendGate("zz", [0, 1], {
     params: {
         theta: "pi/2"
     }
