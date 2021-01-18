@@ -211,6 +211,7 @@ console.log(quantumRandom());
 | **z** | Z | Z | Z | 1 |  | Pauli Z (PI rotation over Z-axis) |
 | **h** | H | H | H | 1 |  | Hadamard gate |
 | **srn** | def srn | X**(1/2) |  | 1 |  | Square root of NOT |
+| **srndg** | def srndg | X**(-1/2) |  | 1 |  | Inverse square root of NOT |
 | **r2** | S | S | S | 1 |  | PI/2 rotation over Z-axis aka "Phase PI/2" |
 | **r4** | T | T | T | 1 |  | PI/4 rotation over Z-axis aka "Phase PI/4" |
 | **r8** | PHASE(pi/8) | u1(pi/8) |  | 1 |  | PI/8 rotation over Z-axis aka "Phase PI/8" |
@@ -891,6 +892,26 @@ Square root of NOT
 **Example:**
 ```javascript
 circuit.appendGate("srn", 0);
+```
+
+## srndg
+
+Inverse square root of NOT
+
+**Qubits:** 1
+
+**Matrix:**
+```javascript
+[
+
+    ["0.5-0.5i","0.5+0.5i"],
+    ["0.5+0.5i","0.5-0.5i"]
+]
+```
+
+**Example:**
+```javascript
+circuit.appendGate("srndg", 0);
 ```
 
 ## r2
