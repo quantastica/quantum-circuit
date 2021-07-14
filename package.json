@@ -6,6 +6,7 @@
   "unpkg": "dist/quantum-circuit.min.js",
   "scripts": {
     "test": "mocha",
+    "export-gatedefs": "node ./utils/export_gatedefs.js",
     "browserify-debug": "browserify ./lib/quantum-circuit.js -o ./dist/quantum-circuit.js -d -s QuantumCircuit",
     "browserify-min": "browserify ./lib/quantum-circuit.js -s QuantumCircuit | uglifyjs --source-map -c -b beautify=false,ascii_only=true -o ./dist/quantum-circuit.min.js",
     "make-docs": "node ./utils/generate_readme.js",
