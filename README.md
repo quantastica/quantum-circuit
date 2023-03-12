@@ -225,18 +225,22 @@ console.log(quantumRandom());
 | **t** | T | T | T | 1 |  | PI/4 rotation over Z-axis (synonym for `r4`) |
 | **sdg** | PHASE(-pi/2) | u1(-pi/2) |  | 1 |  | (-PI/2) rotation over Z-axis |
 | **tdg** | PHASE(-pi/4) | u1(-pi/4) |  | 1 |  | (-PI/4) rotation over Z-axis |
-| **swap** | SWAP | SWAP | SWAP | 2 |  | Swaps the state of two qubits. |
-| **srswap** | def srswap | SWAP**(1/2) |  | 2 |  | Square root of swap |
-| **iswap** | ISWAP | ISWAP |  | 2 |  | Swaps the state of two qubits, applying a -i phase to q1 when it is in the 1 state and a -i phase to q2 when it is in the 0 state |
-| **xy** | XY | def xy |  | 2 | phi | XY gate |
+| **gpi** | def gpi | gpi |  | 1 | phi | GPi gate |
+| **gpi2** | def gpi2 | gpi2 |  | 1 | phi | GPi2 gate |
+| **vz** | def vz | vz |  | 1 | theta | VirtualZ gate |
 | **cx** | CNOT | CNOT | CNOT | 2 |  | Controlled NOT (CNOT) gate |
 | **cy** | def cy | Y | Controlled Y | 2 |  | Controlled Y gate (controlled rotation over Y-axis by PI) |
 | **cz** | CZ | CZ | Controlled Z | 2 |  | Controlled Z gate (controlled rotation over Z-axis by PI) |
 | **ch** | def ch | H | Controlled H | 2 |  | Controlled Hadamard gate |
 | **csrn** | def csrn | X**(1/2) |  | 2 |  | Controlled square root of NOT |
-| **ms** | def ms | ms |  | 2 | theta | Mølmer-Sørensen gate |
+| **swap** | SWAP | SWAP | SWAP | 2 |  | Swaps the state of two qubits. |
+| **srswap** | def srswap | SWAP**(1/2) |  | 2 |  | Square root of swap |
+| **iswap** | ISWAP | ISWAP |  | 2 |  | Swaps the state of two qubits, applying a -i phase to q1 when it is in the 1 state and a -i phase to q2 when it is in the 0 state |
+| **xx** | def xx | xx |  | 2 | theta | XX gate |
 | **yy** | def yy | YY |  | 2 | theta | YY gate |
 | **zz** | def zz |  |  | 2 | theta | Parametric 2-qubit rotation about ZZ |
+| **xy** | XY | def xy |  | 2 | phi | XY gate |
+| **ms** | def ms | ms |  | 2 | phi0, phi1 | Mølmer-Sørensen gate |
 | **cr2** | CPHASE(pi/2) | cu1(pi/2) |  | 2 |  | Controlled PI/2 rotation over Z-axis |
 | **cr4** | CPHASE(pi/4) | cu1(pi/4) |  | 2 |  | Controlled PI/4 rotation over Z-axis |
 | **cr8** | CPHASE(pi/8) | cu1(pi/8) |  | 2 |  | Controlled PI/8 rotation over Z-axis |
@@ -1719,77 +1723,11 @@ circuit.appendGate("sdg", 0);
 circuit.appendGate("tdg", 0);
 ```
 
-## swap
+## gpi
 
-Swaps the state of two qubits.
+GPi gate
 
-**Qubits:** 2
-
-**Matrix:**
-```javascript
-[
-
-    [1,0,0,0],
-    [0,0,1,0],
-    [0,1,0,0],
-    [0,0,0,1]
-]
-```
-
-**Example:**
-```javascript
-circuit.appendGate("swap", [0, 1]);
-```
-
-## srswap
-
-Square root of swap
-
-**Qubits:** 2
-
-**Matrix:**
-```javascript
-[
-
-    [1,0,0,0],
-    [0,"0.5 * (1 + i)","0.5 * (1 - i)",0],
-    [0,"0.5 * (1 - i)","0.5 * (1 + i)",0],
-    [0,0,0,1]
-]
-```
-
-**Example:**
-```javascript
-circuit.appendGate("srswap", [0, 1]);
-```
-
-## iswap
-
-Swaps the state of two qubits, applying a -i phase to q1 when it is in the 1 state and a -i phase to q2 when it is in the 0 state
-
-**Qubits:** 2
-
-**Matrix:**
-```javascript
-[
-
-    [1,0,0,0],
-    [0,0,"0+i",0],
-    [0,"0+i",0,0],
-    [0,0,0,1]
-]
-```
-
-**Example:**
-```javascript
-circuit.appendGate("iswap", [0, 1]);
-```
-
-## xy
-
-XY gate
-
-**Qubits:** 2
+**Qubits:** 1
 
 **Parameters:**
 
@@ -1800,18 +1738,74 @@ XY gate
 ```javascript
 [
 
-    [1,0,0,0],
-    [0,"cos(phi / 2)","i * sin(phi / 2)",0],
-    [0,"i * sin(phi / 2)","cos(phi / 2)",0],
-    [0,0,0,1]
+    [0,"exp(-i*phi)"],
+    ["exp(i*phi)",0]
 ]
 ```
 
 **Example:**
 ```javascript
-circuit.appendGate("xy", [0, 1], {
+circuit.appendGate("gpi", 0, {
     params: {
         phi: "pi/2"
+    }
+});
+```
+
+## gpi2
+
+GPi2 gate
+
+**Qubits:** 1
+
+**Parameters:**
+
+- phi
+
+
+**Matrix:**
+```javascript
+[
+
+    ["1/sqrt(2)","(-i*exp(-i*phi))/sqrt(2)"],
+    ["(-i*exp(i*phi))/sqrt(2)","1/sqrt(2)"]
+]
+```
+
+**Example:**
+```javascript
+circuit.appendGate("gpi2", 0, {
+    params: {
+        phi: "pi/2"
+    }
+});
+```
+
+## vz
+
+VirtualZ gate
+
+**Qubits:** 1
+
+**Parameters:**
+
+- theta
+
+
+**Matrix:**
+```javascript
+[
+
+    ["exp(-i*theta/2)",0],
+    [0,"exp(i*theta/2)"]
+]
+```
+
+**Example:**
+```javascript
+circuit.appendGate("vz", 0, {
+    params: {
+        theta: "pi/2"
     }
 });
 ```
@@ -1926,9 +1920,75 @@ Controlled square root of NOT
 circuit.appendGate("csrn", [0, 1]);
 ```
 
-## ms
+## swap
 
-Mølmer-Sørensen gate
+Swaps the state of two qubits.
+
+**Qubits:** 2
+
+**Matrix:**
+```javascript
+[
+
+    [1,0,0,0],
+    [0,0,1,0],
+    [0,1,0,0],
+    [0,0,0,1]
+]
+```
+
+**Example:**
+```javascript
+circuit.appendGate("swap", [0, 1]);
+```
+
+## srswap
+
+Square root of swap
+
+**Qubits:** 2
+
+**Matrix:**
+```javascript
+[
+
+    [1,0,0,0],
+    [0,"0.5 * (1 + i)","0.5 * (1 - i)",0],
+    [0,"0.5 * (1 - i)","0.5 * (1 + i)",0],
+    [0,0,0,1]
+]
+```
+
+**Example:**
+```javascript
+circuit.appendGate("srswap", [0, 1]);
+```
+
+## iswap
+
+Swaps the state of two qubits, applying a -i phase to q1 when it is in the 1 state and a -i phase to q2 when it is in the 0 state
+
+**Qubits:** 2
+
+**Matrix:**
+```javascript
+[
+
+    [1,0,0,0],
+    [0,0,"0+i",0],
+    [0,"0+i",0,0],
+    [0,0,0,1]
+]
+```
+
+**Example:**
+```javascript
+circuit.appendGate("iswap", [0, 1]);
+```
+
+## xx
+
+XX gate
 
 **Qubits:** 2
 
@@ -1950,7 +2010,7 @@ Mølmer-Sørensen gate
 
 **Example:**
 ```javascript
-circuit.appendGate("ms", [0, 1], {
+circuit.appendGate("xx", [0, 1], {
     params: {
         theta: "pi/2"
     }
@@ -2015,6 +2075,70 @@ Parametric 2-qubit rotation about ZZ
 circuit.appendGate("zz", [0, 1], {
     params: {
         theta: "pi/2"
+    }
+});
+```
+
+## xy
+
+XY gate
+
+**Qubits:** 2
+
+**Parameters:**
+
+- phi
+
+
+**Matrix:**
+```javascript
+[
+
+    [1,0,0,0],
+    [0,"cos(phi / 2)","i * sin(phi / 2)",0],
+    [0,"i * sin(phi / 2)","cos(phi / 2)",0],
+    [0,0,0,1]
+]
+```
+
+**Example:**
+```javascript
+circuit.appendGate("xy", [0, 1], {
+    params: {
+        phi: "pi/2"
+    }
+});
+```
+
+## ms
+
+Mølmer-Sørensen gate
+
+**Qubits:** 2
+
+**Parameters:**
+
+- phi0
+- phi1
+
+
+**Matrix:**
+```javascript
+[
+
+    ["1/sqrt(2)",0,0,"(-i*exp(-i*(phi0+phi1)))/sqrt(2)"],
+    [0,"1/sqrt(2)","(-i*exp(-i*(phi0-phi1)))/sqrt(2)",0],
+    [0,"(-i*exp(i*(phi0-phi1)))/sqrt(2)","1/sqrt(2)",0],
+    ["(-i*exp(i*(phi0+phi1)))/sqrt(2)",0,0,"1/sqrt(2)"]
+]
+```
+
+**Example:**
+```javascript
+circuit.appendGate("ms", [0, 1], {
+    params: {
+        phi0: "pi/2",
+        phi1: "pi/2"
     }
 });
 ```
