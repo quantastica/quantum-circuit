@@ -2,7 +2,7 @@
 
 [quantum-circuit](https://www.npmjs.com/package/quantum-circuit) is open source quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. 
 
-Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) and [Quil](https://arxiv.org/abs/1608.03355). You can export circuits to [OpenQASM](https://github.com/Qiskit/openqasm), [pyQuil](http://docs.rigetti.com/en/latest/index.html), [Quil](https://arxiv.org/abs/1608.03355), [Qiskit](https://qiskit.org/documentation/), [Cirq](https://github.com/quantumlib/Cirq), [TensorFlow Quantum](https://www.tensorflow.org/quantum), [QSharp](https://docs.microsoft.com/en-us/quantum/language/index?view=qsharp-preview), and [QuEST](https://quest.qtechtheory.org/), so it can be used for conversion between quantum programming languages. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
+Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm), [Quil](https://arxiv.org/abs/1608.03355) and [IONQ](https://docs.ionq.com/). You can export circuits to [OpenQASM](https://github.com/Qiskit/openqasm), [pyQuil](http://docs.rigetti.com/en/latest/index.html), [Quil](https://arxiv.org/abs/1608.03355), [Qiskit](https://qiskit.org/documentation/), [Cirq](https://github.com/quantumlib/Cirq), [TensorFlow Quantum](https://www.tensorflow.org/quantum), [QSharp](https://docs.microsoft.com/en-us/quantum/language/index?view=qsharp-preview), and [QuEST](https://quest.qtechtheory.org/), so it can be used for conversion between quantum programming languages. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
 ## Live examples
@@ -203,62 +203,62 @@ console.log(quantumRandom());
 
 ## Implemented gates
 
-| Name | pyQuil | Cirq | Q# | Qubits | Params | Description |
-| --- | --- | --- | --- | --- | --- | --- |
-| **id** | I | I | I | 1 |  | Single qubit identity gate |
-| **x** | X | X | X | 1 |  | Pauli X (PI rotation over X-axis) aka "NOT" gate |
-| **y** | Y | Y | Y | 1 |  | Pauli Y (PI rotation over Y-axis) |
-| **z** | Z | Z | Z | 1 |  | Pauli Z (PI rotation over Z-axis) |
-| **h** | H | H | H | 1 |  | Hadamard gate |
-| **srn** | def srn | X**(1/2) |  | 1 |  | Square root of NOT |
-| **srndg** | def srndg | X**(-1/2) |  | 1 |  | Inverse square root of NOT |
-| **r2** | S | S | S | 1 |  | PI/2 rotation over Z-axis aka "Phase PI/2" |
-| **r4** | T | T | T | 1 |  | PI/4 rotation over Z-axis aka "Phase PI/4" |
-| **r8** | PHASE(pi/8) | u1(pi/8) |  | 1 |  | PI/8 rotation over Z-axis aka "Phase PI/8" |
-| **rx** | RX | rx | Rx | 1 | theta | Rotation around the X-axis by given angle |
-| **ry** | RY | ry | Ry | 1 | theta | Rotation around the Y-axis by given angle |
-| **rz** | RZ | rz | Rz | 1 | phi | Rotation around the Z-axis by given angle |
-| **u1** | PHASE | def u1 |  | 1 | lambda | Single-qubit rotation about the Z axis |
-| **u2** | def u2 | def u2 |  | 1 | phi, lambda | Single-qubit rotation about the X+Z axis |
-| **u3** | def u3 | def u3 |  | 1 | theta, phi, lambda | Generic single-qubit rotation gate with 3 Euler angles |
-| **s** | S | S | S | 1 |  | PI/2 rotation over Z-axis (synonym for `r2`) |
-| **t** | T | T | T | 1 |  | PI/4 rotation over Z-axis (synonym for `r4`) |
-| **sdg** | PHASE(-pi/2) | u1(-pi/2) |  | 1 |  | (-PI/2) rotation over Z-axis |
-| **tdg** | PHASE(-pi/4) | u1(-pi/4) |  | 1 |  | (-PI/4) rotation over Z-axis |
-| **gpi** | def gpi | gpi |  | 1 | phi | GPi gate |
-| **gpi2** | def gpi2 | gpi2 |  | 1 | phi | GPi2 gate |
-| **vz** | def vz | vz |  | 1 | theta | VirtualZ gate |
-| **cx** | CNOT | CNOT | CNOT | 2 |  | Controlled NOT (CNOT) gate |
-| **cy** | def cy | Y | Controlled Y | 2 |  | Controlled Y gate (controlled rotation over Y-axis by PI) |
-| **cz** | CZ | CZ | Controlled Z | 2 |  | Controlled Z gate (controlled rotation over Z-axis by PI) |
-| **ch** | def ch | H | Controlled H | 2 |  | Controlled Hadamard gate |
-| **csrn** | def csrn | X**(1/2) |  | 2 |  | Controlled square root of NOT |
-| **swap** | SWAP | SWAP | SWAP | 2 |  | Swaps the state of two qubits. |
-| **srswap** | def srswap | SWAP**(1/2) |  | 2 |  | Square root of swap |
-| **iswap** | ISWAP | ISWAP |  | 2 |  | Swaps the state of two qubits, applying a -i phase to q1 when it is in the 1 state and a -i phase to q2 when it is in the 0 state |
-| **xx** | def xx | xx |  | 2 | theta | XX gate |
-| **yy** | def yy | YY |  | 2 | theta | YY gate |
-| **zz** | def zz |  |  | 2 | theta | Parametric 2-qubit rotation about ZZ |
-| **xy** | XY | def xy |  | 2 | phi | XY gate |
-| **ms** | def ms | ms |  | 2 | phi0, phi1 | Mølmer-Sørensen gate |
-| **cr2** | CPHASE(pi/2) | cu1(pi/2) |  | 2 |  | Controlled PI/2 rotation over Z-axis |
-| **cr4** | CPHASE(pi/4) | cu1(pi/4) |  | 2 |  | Controlled PI/4 rotation over Z-axis |
-| **cr8** | CPHASE(pi/8) | cu1(pi/8) |  | 2 |  | Controlled PI/8 rotation over Z-axis |
-| **crx** | def crx | rx(theta) | Controlled Rx | 2 | theta | Controlled rotation around the X-axis by given angle |
-| **cry** | def cry | ry(theta) | Controlled Ry | 2 | theta | Controlled rotation around the Y-axis by given angle |
-| **crz** | def crz | rz(phi) | Controlled Rz | 2 | phi | Controlled rotation around the Z-axis by given angle |
-| **cu1** | CPHASE | def cu1 |  | 2 | lambda | Controlled rotation about the Z axis |
-| **cu2** | def cu2 | def cu2 |  | 2 | phi, lambda | Controlled rotation about the X+Z axis |
-| **cu3** | def cu3 | def cu3 |  | 2 | theta, phi, lambda | Controlled rotation gate with 3 Euler angles |
-| **cs** | CPHASE(pi/2) | cu1(pi/2) |  | 2 |  | Controlled PI/2 rotation over Z-axis (synonym for `cr2`) |
-| **ct** | CPHASE(pi/4) | cu1(pi/4) |  | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
-| **csdg** | CPHASE(-pi/2) | cu1(-pi/2) |  | 2 |  | Controlled (-PI/2) rotation over Z-axis |
-| **ctdg** | CPHASE(-pi/4) | cu1(-pi/4) |  | 2 |  | Controlled (-PI/4) rotation over Z-axis |
-| **ccx** | CCNOT | CCX | CCNOT | 3 |  | Toffoli aka "CCNOT" gate |
-| **cswap** | CSWAP | CSWAP | Controlled SWAP | 3 |  | Controlled swap aka "Fredkin" gate |
-| **csrswap** | def csrswap | SWAP**(1/2) |  | 3 |  | Controlled square root of swap |
-| **reset** | RESET | reset | Reset | 1 |  | Resets qubit |
-| **measure** | MEASURE | measure | M | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
+| Name | pyQuil | Cirq | Q# | IONQ | Qubits | Params | Description |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **id** | I | I | I |  | 1 |  | Single qubit identity gate |
+| **x** | X | X | X | x | 1 |  | Pauli X (PI rotation over X-axis) aka "NOT" gate |
+| **y** | Y | Y | Y | y | 1 |  | Pauli Y (PI rotation over Y-axis) |
+| **z** | Z | Z | Z | z | 1 |  | Pauli Z (PI rotation over Z-axis) |
+| **h** | H | H | H | h | 1 |  | Hadamard gate |
+| **srn** | def srn | X**(1/2) |  | v | 1 |  | Square root of NOT |
+| **srndg** | def srndg | X**(-1/2) |  | vi | 1 |  | Inverse square root of NOT |
+| **r2** | S | S | S |  | 1 |  | PI/2 rotation over Z-axis aka "Phase PI/2" |
+| **r4** | T | T | T |  | 1 |  | PI/4 rotation over Z-axis aka "Phase PI/4" |
+| **r8** | PHASE(pi/8) | u1(pi/8) |  |  | 1 |  | PI/8 rotation over Z-axis aka "Phase PI/8" |
+| **rx** | RX | rx | Rx | rx | 1 | theta | Rotation around the X-axis by given angle |
+| **ry** | RY | ry | Ry | ry | 1 | theta | Rotation around the Y-axis by given angle |
+| **rz** | RZ | rz | Rz | rz | 1 | phi | Rotation around the Z-axis by given angle |
+| **u1** | PHASE | def u1 |  |  | 1 | lambda | Single-qubit rotation about the Z axis |
+| **u2** | def u2 | def u2 |  |  | 1 | phi, lambda | Single-qubit rotation about the X+Z axis |
+| **u3** | def u3 | def u3 |  |  | 1 | theta, phi, lambda | Generic single-qubit rotation gate with 3 Euler angles |
+| **s** | S | S | S | s | 1 |  | PI/2 rotation over Z-axis (synonym for `r2`) |
+| **t** | T | T | T | t | 1 |  | PI/4 rotation over Z-axis (synonym for `r4`) |
+| **sdg** | PHASE(-pi/2) | u1(-pi/2) |  | si | 1 |  | (-PI/2) rotation over Z-axis |
+| **tdg** | PHASE(-pi/4) | u1(-pi/4) |  | ti | 1 |  | (-PI/4) rotation over Z-axis |
+| **gpi** | def gpi | gpi |  | gpi | 1 | phi | GPi gate |
+| **gpi2** | def gpi2 | gpi2 |  | gpi2 | 1 | phi | GPi2 gate |
+| **vz** | def vz | vz |  | vz | 1 | theta | VirtualZ gate |
+| **cx** | CNOT | CNOT | CNOT | cnot | 2 |  | Controlled NOT (CNOT) gate |
+| **cy** | def cy | Y | Controlled Y |  | 2 |  | Controlled Y gate (controlled rotation over Y-axis by PI) |
+| **cz** | CZ | CZ | Controlled Z |  | 2 |  | Controlled Z gate (controlled rotation over Z-axis by PI) |
+| **ch** | def ch | H | Controlled H |  | 2 |  | Controlled Hadamard gate |
+| **csrn** | def csrn | X**(1/2) |  |  | 2 |  | Controlled square root of NOT |
+| **swap** | SWAP | SWAP | SWAP | swap | 2 |  | Swaps the state of two qubits. |
+| **srswap** | def srswap | SWAP**(1/2) |  |  | 2 |  | Square root of swap |
+| **iswap** | ISWAP | ISWAP |  |  | 2 |  | Swaps the state of two qubits, applying a -i phase to q1 when it is in the 1 state and a -i phase to q2 when it is in the 0 state |
+| **xx** | def xx | xx |  | xx | 2 | theta | XX gate |
+| **yy** | def yy | YY |  | yy | 2 | theta | YY gate |
+| **zz** | def zz |  |  | zz | 2 | theta | Parametric 2-qubit rotation about ZZ |
+| **xy** | XY | def xy |  |  | 2 | phi | XY gate |
+| **ms** | def ms | ms |  | ms | 2 | phi0, phi1 | Mølmer-Sørensen gate |
+| **cr2** | CPHASE(pi/2) | cu1(pi/2) |  |  | 2 |  | Controlled PI/2 rotation over Z-axis |
+| **cr4** | CPHASE(pi/4) | cu1(pi/4) |  |  | 2 |  | Controlled PI/4 rotation over Z-axis |
+| **cr8** | CPHASE(pi/8) | cu1(pi/8) |  |  | 2 |  | Controlled PI/8 rotation over Z-axis |
+| **crx** | def crx | rx(theta) | Controlled Rx |  | 2 | theta | Controlled rotation around the X-axis by given angle |
+| **cry** | def cry | ry(theta) | Controlled Ry |  | 2 | theta | Controlled rotation around the Y-axis by given angle |
+| **crz** | def crz | rz(phi) | Controlled Rz |  | 2 | phi | Controlled rotation around the Z-axis by given angle |
+| **cu1** | CPHASE | def cu1 |  |  | 2 | lambda | Controlled rotation about the Z axis |
+| **cu2** | def cu2 | def cu2 |  |  | 2 | phi, lambda | Controlled rotation about the X+Z axis |
+| **cu3** | def cu3 | def cu3 |  |  | 2 | theta, phi, lambda | Controlled rotation gate with 3 Euler angles |
+| **cs** | CPHASE(pi/2) | cu1(pi/2) |  |  | 2 |  | Controlled PI/2 rotation over Z-axis (synonym for `cr2`) |
+| **ct** | CPHASE(pi/4) | cu1(pi/4) |  |  | 2 |  | Controlled PI/4 rotation over Z-axis (synonym for `cr4`) |
+| **csdg** | CPHASE(-pi/2) | cu1(-pi/2) |  |  | 2 |  | Controlled (-PI/2) rotation over Z-axis |
+| **ctdg** | CPHASE(-pi/4) | cu1(-pi/4) |  |  | 2 |  | Controlled (-PI/4) rotation over Z-axis |
+| **ccx** | CCNOT | CCX | CCNOT |  | 3 |  | Toffoli aka "CCNOT" gate |
+| **cswap** | CSWAP | CSWAP | Controlled SWAP |  | 3 |  | Controlled swap aka "Fredkin" gate |
+| **csrswap** | def csrswap | SWAP**(1/2) |  |  | 3 |  | Controlled square root of swap |
+| **reset** | RESET | reset | Reset |  | 1 |  | Resets qubit |
+| **measure** | MEASURE | measure | M |  | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
 
 
 *For more details see [gate reference](#gates)*
@@ -492,6 +492,113 @@ var obj = circuit.save(true);
 circuit.load(obj);
 ```
 
+# Import circuit
+
+## Import from QASM
+
+Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) with following limitations:
+
+- `import` directive is ignored (but most of gates defined in `qelib1.inc` are supported) **TODO**
+
+- `barrier` is ignored. **TODO**
+
+- `reset` is ignored. **TODO**
+
+
+To import circuit from OpenQASM use `importQASM(input, errorCallback)` method:
+
+Example:
+```javascript
+circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\ncx q[0],q[1];\n", function(errors) {
+    console.log(errors);
+});
+```
+
+- `input` is string containing QASM source code.
+
+- `errorCallback` (optional) callback will be called after parsing with one argument: array containing errors or empty array on success. If no callback is provided, function will throw error if input contains errors.
+
+
+## Import from QUIL
+
+Circuit can be imported from [Quil](https://arxiv.org/abs/1608.03355):
+
+
+To import circuit from QUIL use `importQuil(quil, errorCallback, options, qubitNames, renamedGates, lineOffset)` method:
+
+Example:
+```javascript
+circuit.importQuil("H 0\nCNOT 0 1\n", function(errors) {
+    console.log(errors);
+});
+```
+
+- `quil` is string containing QUIL source code.
+
+- `errorCallback` (optional) callback will be called after parsing with one argument: array containing errors or empty array on success. If no callback is provided, function will throw error if input contains errors.
+
+- `options` (optional) function will be called after parsing with array containing syntax errors.
+
+- `qubitNames` (optional) names to be given to the qubits.
+
+- `renamedGates` (optional) custom names given to basic commands
+
+- `lineOffset` (optional) no. of spaces before a new line
+
+
+## Import from Qobj
+
+Circuit can be imported from [Qobj](https://qiskit.org/documentation/apidoc/qobj.html):
+
+To import circuit from OpenQASM use `importQobj(qobj, errorCallback)` method:
+
+Example:
+```javascript
+circuit.importQobj({"qobj_id":"qobj_WlLkcGHxihyqWGrKEZ","type":"QASM","schema_version":"1.0","experiments":[{"header":{"memory_slots":0,"n_qubits":2,"qreg_sizes":[["q",2]],"qubit_labels":[["q",0],["q",1]],"creg_sizes":[],"clbit_labels":[],"name":"circuit0","description":"text_exp"},"config":{"n_qubits":2,"memory_slots":0},"instructions":[{"name":"x","qubits":[0,1]}]}],"header":{"description":"test_circ"},"config":{"shots":1,"memory_slots":0}}, function(errors) {
+    console.log(errors);
+});
+```
+
+- `qobj` is Qobj JSON (`"type": "QASM"`).
+
+- `errorCallback` (optional) callback will be called after parsing with one argument: array containing errors or empty array on success. If no callback is provided, function will throw error if input contains errors.
+
+
+## Import from IONQ json
+
+Circuit can be imported from [IONQ json](https://docs.ionq.com/#tag/quantum_programs):
+
+
+To import circuit from IONQ json use `importIonq(data, errorCallback)` method:
+
+Example:
+```javascript
+var ionqCircuit = {
+  "qubits": 2,
+  "circuit": [
+    {
+      "gate": "h",
+      "target": 0
+    },
+    {
+      "gate": "cnot",
+      "target": 1,
+      "control": 0
+    }
+  ]
+};
+
+circuit.importIonq(ionqCircuit, function(errors) {
+    console.log(errors);
+});
+```
+
+- `data` is IONQ JSON object.
+
+- `errorCallback` (optional) callback will be called after parsing with one argument: array containing errors or empty array on success. If no callback is provided, function will throw error if input contains errors.
+
+
+
 # Export circuit
 
 ## Export to JavaScript
@@ -625,30 +732,6 @@ var qasm = circuit.exportQASM("Comment to insert at the beginning.\nCan be multi
 - `insideSubmodule` - when `true` adds extra indent for alignment
 
 
-## Import from QASM
-
-Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) with following limitations:
-
-- `import` directive is ignored (but most of gates defined in `qelib1.inc` are supported) **TODO**
-
-- `barrier` is ignored. **TODO**
-
-- `reset` is ignored. **TODO**
-
-
-To import circuit from OpenQASM use `importQASM(input, errorCallback)` method:
-
-Example:
-```javascript
-circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\ncx q[0],q[1];\n", function(errors) {
-    console.log(errors);
-});
-```
-
-- `input` is string containing QASM source code.
-
-- `errorCallback` (optional) function will be called after parsing with array containing syntax errors.
-
 
 ## Export to python (pyQuil)
 
@@ -744,33 +827,6 @@ var quil = circuit.exportQuil("Comment to insert at the beginning.\nCan be multi
 - `exportAsGateName` - name of the custom gate containing the Quil circuit.
 
 - `versionStr` - Quil version. Can be `"1.0"` or `"2.0"` or empty string. Exports to latest supported version when empty string is provided. Remember - it is a string.
-
-
-## Import from QUIL
-
-Circuit can be imported from [Quil](https://arxiv.org/abs/1608.03355):
-
-
-To import circuit from OpenQASM use `importQuil(quil, errorCallback, options, qubitNames, renamedGates, lineOffset)` method:
-
-Example:
-```javascript
-circuit.importQuil("H 0\nCNOT 0 1\n", function(errors) {
-    console.log(errors);
-});
-```
-
-- `quil` is string containing QUIL source code.
-
-- `errorCallback` (optional) function will be called after parsing with array containing syntax errors.
-
-- `options` (optional) function will be called after parsing with array containing syntax errors.
-
-- `qubitNames` (optional) names to be given to the qubits.
-
-- `renamedGates` (optional) custom names given to basic commands
-
-- `lineOffset` (optional) no. of spaces before a new line
 
 
 ## Export to python (Cirq)
@@ -954,23 +1010,6 @@ var qobj = circuit.exportQobj("new_circuit", false);
 
 - `circuitReplacement` - when `true` exports only gates in the circuit
 
-
-## Import from Qobj
-
-Circuit can be imported from [Qobj](https://qiskit.org/documentation/apidoc/qobj.html):
-
-To import circuit from OpenQASM use `importQobj(qobj, errorCallback)` method:
-
-Example:
-```javascript
-circuit.importQobj({"qobj_id":"qobj_WlLkcGHxihyqWGrKEZ","type":"QASM","schema_version":"1.0","experiments":[{"header":{"memory_slots":0,"n_qubits":2,"qreg_sizes":[["q",2]],"qubit_labels":[["q",0],["q",1]],"creg_sizes":[],"clbit_labels":[],"name":"circuit0","description":"text_exp"},"config":{"n_qubits":2,"memory_slots":0},"instructions":[{"name":"x","qubits":[0,1]}]}],"header":{"description":"test_circ"},"config":{"shots":1,"memory_slots":0}}, function(errors) {
-    console.log(errors);
-});
-```
-
-- `qobj` is string containing Qobj source code.
-
-- `errorCallback` (optional) function will be called after parsing with array containing syntax errors.
 
 ## Export to python (Tensorflow Quantum)
 

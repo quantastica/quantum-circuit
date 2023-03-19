@@ -2,7 +2,7 @@
 
 [quantum-circuit](https://www.npmjs.com/package/quantum-circuit) is open source quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. 
 
-Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) and [Quil](https://arxiv.org/abs/1608.03355). You can export circuits to [OpenQASM](https://github.com/Qiskit/openqasm), [pyQuil](http://docs.rigetti.com/en/latest/index.html), [Quil](https://arxiv.org/abs/1608.03355), [Qiskit](https://qiskit.org/documentation/), [Cirq](https://github.com/quantumlib/Cirq), [TensorFlow Quantum](https://www.tensorflow.org/quantum), [QSharp](https://docs.microsoft.com/en-us/quantum/language/index?view=qsharp-preview), and [QuEST](https://quest.qtechtheory.org/), so it can be used for conversion between quantum programming languages. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
+Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm), [Quil](https://arxiv.org/abs/1608.03355) and [IONQ](https://docs.ionq.com/). You can export circuits to [OpenQASM](https://github.com/Qiskit/openqasm), [pyQuil](http://docs.rigetti.com/en/latest/index.html), [Quil](https://arxiv.org/abs/1608.03355), [Qiskit](https://qiskit.org/documentation/), [Cirq](https://github.com/quantumlib/Cirq), [TensorFlow Quantum](https://www.tensorflow.org/quantum), [QSharp](https://docs.microsoft.com/en-us/quantum/language/index?view=qsharp-preview), and [QuEST](https://quest.qtechtheory.org/), so it can be used for conversion between quantum programming languages. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
 ## Live examples
@@ -436,6 +436,113 @@ var obj = circuit.save(true);
 circuit.load(obj);
 ```
 
+# Import circuit
+
+## Import from QASM
+
+Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) with following limitations:
+
+- `import` directive is ignored (but most of gates defined in `qelib1.inc` are supported) **TODO**
+
+- `barrier` is ignored. **TODO**
+
+- `reset` is ignored. **TODO**
+
+
+To import circuit from OpenQASM use `importQASM(input, errorCallback)` method:
+
+Example:
+```javascript
+circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\ncx q[0],q[1];\n", function(errors) {
+    console.log(errors);
+});
+```
+
+- `input` is string containing QASM source code.
+
+- `errorCallback` (optional) callback will be called after parsing with one argument: array containing errors or empty array on success. If no callback is provided, function will throw error if input contains errors.
+
+
+## Import from QUIL
+
+Circuit can be imported from [Quil](https://arxiv.org/abs/1608.03355):
+
+
+To import circuit from QUIL use `importQuil(quil, errorCallback, options, qubitNames, renamedGates, lineOffset)` method:
+
+Example:
+```javascript
+circuit.importQuil("H 0\nCNOT 0 1\n", function(errors) {
+    console.log(errors);
+});
+```
+
+- `quil` is string containing QUIL source code.
+
+- `errorCallback` (optional) callback will be called after parsing with one argument: array containing errors or empty array on success. If no callback is provided, function will throw error if input contains errors.
+
+- `options` (optional) function will be called after parsing with array containing syntax errors.
+
+- `qubitNames` (optional) names to be given to the qubits.
+
+- `renamedGates` (optional) custom names given to basic commands
+
+- `lineOffset` (optional) no. of spaces before a new line
+
+
+## Import from Qobj
+
+Circuit can be imported from [Qobj](https://qiskit.org/documentation/apidoc/qobj.html):
+
+To import circuit from OpenQASM use `importQobj(qobj, errorCallback)` method:
+
+Example:
+```javascript
+circuit.importQobj({"qobj_id":"qobj_WlLkcGHxihyqWGrKEZ","type":"QASM","schema_version":"1.0","experiments":[{"header":{"memory_slots":0,"n_qubits":2,"qreg_sizes":[["q",2]],"qubit_labels":[["q",0],["q",1]],"creg_sizes":[],"clbit_labels":[],"name":"circuit0","description":"text_exp"},"config":{"n_qubits":2,"memory_slots":0},"instructions":[{"name":"x","qubits":[0,1]}]}],"header":{"description":"test_circ"},"config":{"shots":1,"memory_slots":0}}, function(errors) {
+    console.log(errors);
+});
+```
+
+- `qobj` is Qobj JSON (`"type": "QASM"`).
+
+- `errorCallback` (optional) callback will be called after parsing with one argument: array containing errors or empty array on success. If no callback is provided, function will throw error if input contains errors.
+
+
+## Import from IONQ json
+
+Circuit can be imported from [IONQ json](https://docs.ionq.com/#tag/quantum_programs):
+
+
+To import circuit from IONQ json use `importIonq(data, errorCallback)` method:
+
+Example:
+```javascript
+var ionqCircuit = {
+  "qubits": 2,
+  "circuit": [
+    {
+      "gate": "h",
+      "target": 0
+    },
+    {
+      "gate": "cnot",
+      "target": 1,
+      "control": 0
+    }
+  ]
+};
+
+circuit.importIonq(ionqCircuit, function(errors) {
+    console.log(errors);
+});
+```
+
+- `data` is IONQ JSON object.
+
+- `errorCallback` (optional) callback will be called after parsing with one argument: array containing errors or empty array on success. If no callback is provided, function will throw error if input contains errors.
+
+
+
 # Export circuit
 
 ## Export to JavaScript
@@ -569,30 +676,6 @@ var qasm = circuit.exportQASM("Comment to insert at the beginning.\nCan be multi
 - `insideSubmodule` - when `true` adds extra indent for alignment
 
 
-## Import from QASM
-
-Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) with following limitations:
-
-- `import` directive is ignored (but most of gates defined in `qelib1.inc` are supported) **TODO**
-
-- `barrier` is ignored. **TODO**
-
-- `reset` is ignored. **TODO**
-
-
-To import circuit from OpenQASM use `importQASM(input, errorCallback)` method:
-
-Example:
-```javascript
-circuit.importQASM("OPENQASM 2.0;\nimport \"qelib1.inc\";\nqreg q[2];\nh q[0];\ncx q[0],q[1];\n", function(errors) {
-    console.log(errors);
-});
-```
-
-- `input` is string containing QASM source code.
-
-- `errorCallback` (optional) function will be called after parsing with array containing syntax errors.
-
 
 ## Export to python (pyQuil)
 
@@ -688,33 +771,6 @@ var quil = circuit.exportQuil("Comment to insert at the beginning.\nCan be multi
 - `exportAsGateName` - name of the custom gate containing the Quil circuit.
 
 - `versionStr` - Quil version. Can be `"1.0"` or `"2.0"` or empty string. Exports to latest supported version when empty string is provided. Remember - it is a string.
-
-
-## Import from QUIL
-
-Circuit can be imported from [Quil](https://arxiv.org/abs/1608.03355):
-
-
-To import circuit from OpenQASM use `importQuil(quil, errorCallback, options, qubitNames, renamedGates, lineOffset)` method:
-
-Example:
-```javascript
-circuit.importQuil("H 0\nCNOT 0 1\n", function(errors) {
-    console.log(errors);
-});
-```
-
-- `quil` is string containing QUIL source code.
-
-- `errorCallback` (optional) function will be called after parsing with array containing syntax errors.
-
-- `options` (optional) function will be called after parsing with array containing syntax errors.
-
-- `qubitNames` (optional) names to be given to the qubits.
-
-- `renamedGates` (optional) custom names given to basic commands
-
-- `lineOffset` (optional) no. of spaces before a new line
 
 
 ## Export to python (Cirq)
@@ -898,23 +954,6 @@ var qobj = circuit.exportQobj("new_circuit", false);
 
 - `circuitReplacement` - when `true` exports only gates in the circuit
 
-
-## Import from Qobj
-
-Circuit can be imported from [Qobj](https://qiskit.org/documentation/apidoc/qobj.html):
-
-To import circuit from OpenQASM use `importQobj(qobj, errorCallback)` method:
-
-Example:
-```javascript
-circuit.importQobj({"qobj_id":"qobj_WlLkcGHxihyqWGrKEZ","type":"QASM","schema_version":"1.0","experiments":[{"header":{"memory_slots":0,"n_qubits":2,"qreg_sizes":[["q",2]],"qubit_labels":[["q",0],["q",1]],"creg_sizes":[],"clbit_labels":[],"name":"circuit0","description":"text_exp"},"config":{"n_qubits":2,"memory_slots":0},"instructions":[{"name":"x","qubits":[0,1]}]}],"header":{"description":"test_circ"},"config":{"shots":1,"memory_slots":0}}, function(errors) {
-    console.log(errors);
-});
-```
-
-- `qobj` is string containing Qobj source code.
-
-- `errorCallback` (optional) function will be called after parsing with array containing syntax errors.
 
 ## Export to python (Tensorflow Quantum)
 

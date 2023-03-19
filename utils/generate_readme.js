@@ -52,14 +52,15 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 
 	var gateIndex = "";
 	var gateRef = "";
-	gateIndex += "| Name | pyQuil | Cirq | Q# | Qubits | Params | Description |\n";
-	gateIndex += "| --- | --- | --- | --- | --- | --- | --- |\n";
+	gateIndex += "| Name | pyQuil | Cirq | Q# | IONQ | Qubits | Params | Description |\n";
+	gateIndex += "| --- | --- | --- | --- | --- | --- | --- | --- |\n";
 	for(var gateName in circ.basicGates) {
 		var gateDef = circ.basicGates[gateName];
 		var numQubits = Math.log2(gateDef.matrix && gateDef.matrix.length ? gateDef.matrix.length : 2);
 		var pyquilDef = (gateDef.exportInfo ? (gateDef.exportInfo.pyquil || gateDef.exportInfo.quil) : null) || null;
 		var cirqDef = (gateDef.exportInfo ? gateDef.exportInfo.cirq : null) || null;
 		var qsharpDef = (gateDef.exportInfo ? gateDef.exportInfo.qsharp : null) || null;
+		var ionqDef = (gateDef.exportInfo ? gateDef.exportInfo.ionq : null) || null;
 		var params = gateDef.params || [];
 		var paramList = "";
 		if(gateDef.params && gateDef.params.length) {
@@ -140,10 +141,33 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 			}
 		}
 
+		var ionqName = ionqDef ? (ionqDef.array ? "def " + (ionqDef.name || "") : (ionqDef.name ? ionqDef.name : (ionqDef.names ? ionqDef.names[0] : ""))) : "";
+		if(ionqDef && ionqDef.replacement) {
+			var gdef = circ.basicGates[ionqDef.replacement.name] || null;
+			if(gdef) {
+				var pdef = (gdef.exportInfo ? gdef.exportInfo.ionq : null) || null;
+				if(pdef) {
+					ionqName = pdef.name || "";
+					if(ionqDef.replacement.params) {
+						ionqName += "(";
+						var pcount = 0;
+						for(var pname in ionqDef.replacement.params) {
+							if(pcount) {
+								ionqName += ", ";
+							}
+							ionqName += ionqDef.replacement.params[pname];
+						}
+						ionqName += ")";
+					}					
+				}
+			}
+		}
+
 		gateIndex += "| **" + gateName + "**";
 		gateIndex += " | " + pyquilName;
 		gateIndex += " | " + cirqName;
 		gateIndex += " | " + qsharpName;
+		gateIndex += " | " + ionqName;
 		gateIndex += " | " + numQubits;
 		gateIndex += " | " + paramList;
 		gateIndex += " | " + (gateDef.description || "");
