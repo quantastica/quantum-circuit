@@ -7,10 +7,10 @@
   "scripts": {
     "test": "mocha",
     "export-gatedefs": "node ./utils/export_gatedefs.js",
-    "browserify-debug": "browserify ./lib/quantum-circuit.js -o ./dist/quantum-circuit.js -d -s QuantumCircuit",
-    "browserify-min": "browserify ./lib/quantum-circuit.js -s QuantumCircuit | uglifyjs --source-map -c -b beautify=false,ascii_only=true -o ./dist/quantum-circuit.min.js",
     "make-docs": "node ./utils/generate_readme.js",
-    "build": "npm run browserify-debug && npm run browserify-min && npm run make-docs",
+    "dev": "vite",
+    "build": "vite build && esbuild ./dist/quantum-circuit.js --minify --outfile=dist/quantum-circuit.min.js --allow-overwrite && npm run make-docs",
+    "preview": "vite preview",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -42,9 +42,9 @@
     "mathjs": "^6.0.3"
   },
   "devDependencies": {
-    "browserify": "^16.5.1",
+    "@rollup/plugin-terser": "^0.4.4",
     "mocha": "^6.2.3",
-    "uglify-js": "^3.10.0",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "vite": "^5.3.1"
   }
 }
