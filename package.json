@@ -13,7 +13,7 @@
     "build": "vite build && esbuild ./dist/quantum-circuit.js --minify --outfile=dist/quantum-circuit.min.js --allow-overwrite && npm run make-docs",
     "preview": "vite preview",
     "prepublish": "npm run build",
-    "prettier": "prettier --write \"**/*.js\" --use-tabs=true"
+    "prettier": "prettier --write \"**/*.js\" --use-tabs=true --tab-width=1"
   },
   "repository": {
     "type": "git",
