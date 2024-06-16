@@ -1,8 +1,10 @@
-var fs = require("fs");
-var path = require("path");
-var url = require("url");
+import fs from "fs";
+import path from "path";
 
-var QuantumCircuit = require("../lib/quantum-circuit.js");
+import { fileURLToPath } from 'url';
+import {QuantumCircuit} from "../lib/quantum-circuit.js";
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __dirname = path.dirname(__filename); // get the name of the directory
 
 var escapeRegExp = function(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -92,7 +94,7 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 							pyquilName += pyquilDef.replacement.params[pname];
 						}
 						pyquilName += ")";
-					}					
+					}
 				}
 			}
 		}
@@ -114,7 +116,7 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 							cirqName += cirqDef.replacement.params[pname];
 						}
 						cirqName += ")";
-					}					
+					}
 				}
 			}
 		}
@@ -158,7 +160,7 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 							ionqName += ionqDef.replacement.params[pname];
 						}
 						ionqName += ")";
-					}					
+					}
 				}
 			}
 		}
@@ -252,7 +254,7 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 			gateRef += "circuit.addMeasure(0, \"c\", 3);\n";
 			gateRef += "```\n"
 		}
-		
+
 		gateRef += "\n";
 		// ---
 	}
@@ -269,6 +271,6 @@ fs.readFile( path.join(__dirname, "README_TEMPLATE.md"), function (err, data) {
 			throw err;
 			return;
 		}
-		console.log("README.md is written.");			
+		console.log("README.md is written.");
 	});
 });

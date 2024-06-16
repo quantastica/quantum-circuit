@@ -1,7 +1,7 @@
 export default{
     build: {
         outDir: './dist/',
-        target: ['es2015'],
+        target: ['esnext'],
         lib: {
             entry: 'lib/quantum-circuit.js',
             formats: ['es'],

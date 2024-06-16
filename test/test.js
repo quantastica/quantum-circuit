@@ -7,10 +7,10 @@
  * the LICENSE.txt file in the root directory of this source tree.
  */
 
-var QuantumCircuit = require("../lib/quantum-circuit.js");
-var math = require("mathjs");
+import * as math from 'mathjs'
 
-var assert = require("assert");
+import assert from "assert";
+import {QuantumCircuit} from "../lib/quantum-circuit.js";
 
 var circuit = new QuantumCircuit();
 
@@ -33,7 +33,8 @@ var checkBasicGates = function() {
 			var matrix = JSON.parse(JSON.stringify(gate.matrix));
 			matrix.map(function(row, rowIndex) {
 				row.map(function(value, colIndex) {
-					matrix[rowIndex][colIndex] = math.evaluate(value, params);
+					const evaluatedValue = math.evaluate(String(value), params)
+					matrix[rowIndex][colIndex] = evaluatedValue;
 				});
 			});
 
@@ -48,8 +49,6 @@ var checkBasicGates = function() {
 var checkImportExportQASM = function() {
 	for(var gateName in circuit.basicGates) {
 		var gate = circuit.basicGates[gateName];
-
-		
 		if(gate.matrix && gate.matrix.length) {
 			var wires = [];
 			for(var i = 0; i < Math.log2(gate.matrix.length); i++){
@@ -82,7 +81,7 @@ var checkImportExportQASM = function() {
 var checkImportExportQuil = function() {
 	for(var gateName in circuit.basicGates) {
 		var gate = circuit.basicGates[gateName];
-		
+
 		if(gate.matrix && gate.matrix.length) {
 			var wires = [];
 			for(var i = 0; i < Math.log2(gate.matrix.length); i++){
