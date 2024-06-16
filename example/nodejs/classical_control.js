@@ -4,11 +4,11 @@ var circ = new QuantumCircuit();
 
 circ.addGate("h", -1, 0);
 circ.addMeasure(0, "c", 0);
-circ.addGate("x", -1, 1, { 
-    condition: { 
-        creg: "c",
-        value: 1
-    }
+circ.addGate("x", -1, 1, {
+	condition: {
+		creg: "c",
+		value: 1,
+	},
 });
 
 circ.run();

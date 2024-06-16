@@ -1,6 +1,6 @@
 {
   "name": "quantum-circuit",
-  "version": "0.9.222",
+  "version": "1.0",
   "description": "Quantum Circuit Simulator",
   "main": "lib/quantum-circuit.js",
   "unpkg": "dist/quantum-circuit.min.js",
@@ -12,7 +12,8 @@
     "dev": "vite",
     "build": "vite build && esbuild ./dist/quantum-circuit.js --minify --outfile=dist/quantum-circuit.min.js --allow-overwrite && npm run make-docs",
     "preview": "vite preview",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "prettier": "prettier --write \"./lib/**/*.js\" --use-tabs=true --tab-width=1"
   },
   "repository": {
     "type": "git",
@@ -44,6 +45,7 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
+    "prettier": "^3.3.2",
     "url": "^0.11.0",
     "vite": "^5.3.1"
   }

@@ -4,8 +4,7 @@ var input = "";
 input += "// Name of Experiment: pea_3*pi/8 v3\n";
 
 input += "OPENQASM 2.0;\n";
-input += "include \"qelib1.inc\";\n";
-
+input += 'include "qelib1.inc";\n';
 
 input += "qreg q[5];\n";
 input += "creg c[4];\n";
@@ -81,4 +80,3 @@ console.log(circuit.probabilities());
 console.log("");
 console.log("Measured:");
 console.log(circuit.measureAll());
-

@@ -31,8 +31,8 @@ circuit.createCreg("c1", 1);
 // circuit.appendGate("cy", [0,1], {});
 // circuit.appendGate("cz", [0,1], {});
 // circuit.appendGate("ch", [0,1], {});
-// circuit.appendGate("csrn", [0,1], { 
-//     condition: { 
+// circuit.appendGate("csrn", [0,1], {
+//     condition: {
 //         creg: "c1",
 //         value: 7
 //     }
@@ -54,7 +54,7 @@ circuit.createCreg("c1", 1);
 // circuit.appendGate("ctdg", [0,1], {});
 // circuit.appendGate("ccx", [0,1,2], {});
 // circuit.appendGate("cswap", [0,1,2], {});
-circuit.appendGate("csrswap", [0,1,2], {});
+circuit.appendGate("csrswap", [0, 1, 2], {});
 // circuit.appendGate("reset", 0, {});
 circuit.addMeasure(0, "c1", 0);
 
