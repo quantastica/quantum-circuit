@@ -5,19 +5,19 @@ input += "// quantum ripple-carry adder\n";
 input += "// 8-bit adder made out of 2 4-bit adders from adder.qasm\n";
 input += "// Cuccaro et al, quant-ph/0410184\n";
 input += "OPENQASM 2.0;\n";
-input += "include \"qelib1.inc\";\n";
+input += 'include "qelib1.inc";\n';
 
 input += "gate majority a,b,c\n";
 input += "{\n";
-input += "  cx c,b;\n"; 
-input += "  cx c,a;\n"; 
-input += "  ccx a,b,c;\n"; 
+input += "  cx c,b;\n";
+input += "  cx c,a;\n";
+input += "  ccx a,b,c;\n";
 input += "}\n";
 input += "gate unmaj a,b,c\n";
 input += "{\n";
 input += "  ccx a,b,c;\n";
-input += "  cx c,a;\n"; 
-input += "  cx a,b;\n"; 
+input += "  cx c,a;\n";
+input += "  cx a,b;\n";
 input += "}\n";
 
 input += "// add a to b, storing result in b\n";
@@ -77,7 +77,13 @@ console.log("Answer:", answer, " (" + answer.toString(2) + ")");
 
 console.log("");
 console.log("Qubits: " + adder.numQubits);
-console.log("Gates: " + adder.numGates(false) + " (" + adder.numGates(true) + " decomposed)");
+console.log(
+	"Gates: " +
+		adder.numGates(false) +
+		" (" +
+		adder.numGates(true) +
+		" decomposed)",
+);
 console.log("Time: " + adder.stats.duration + " ms");
 
 console.log("");
@@ -88,7 +94,6 @@ console.log("");
 console.log("Angles:");
 console.log(adder.angles());
 
-
 console.log("");
 console.log("Probabilities:");
 console.log(adder.probabilities());
@@ -96,4 +101,3 @@ console.log(adder.probabilities());
 console.log("");
 console.log("Measured:");
 console.log(adder.measureAll());
-

@@ -3,7 +3,7 @@ const QuantumCircuit = require("../../lib/quantum-circuit.js");
 var input = "";
 
 input += "OPENQASM 2.0;";
-input += "include \"qelib1.inc\";";
+input += 'include "qelib1.inc";';
 input += "qreg q[20];";
 input += "h q[0];";
 input += "cu1 (pi/2) q[1], q[0];";

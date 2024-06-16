@@ -3,7 +3,7 @@ const QuantumCircuit = require("../../lib/quantum-circuit.js");
 var input = "";
 input += "// quantum ripple-carry adder from Cuccaro et al, quant-ph/0410184\n";
 input += "OPENQASM 2.0;\n";
-input += "include \"qelib1.inc\";\n";
+input += 'include "qelib1.inc";\n';
 
 input += "gate majority a,b,c\n";
 input += "{\n";
@@ -69,7 +69,6 @@ adder.run();
 
 console.log("");
 console.log("Answer:", adder.getCregValue("ans"));
-
 
 console.log("");
 console.log("Final amplitudes:");

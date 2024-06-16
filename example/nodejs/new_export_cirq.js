@@ -12,37 +12,37 @@ circuit.addGate("r2", -1, 0);
 circuit.addGate("r4", -1, 0);
 circuit.addGate("r8", -1, 0);
 circuit.addGate("rx", -1, 0, {
-    params: {
-        theta: "pi/2"
-    }
+	params: {
+		theta: "pi/2",
+	},
 });
 circuit.addGate("ry", -1, 0, {
-    params: {
-        theta: "pi/2"
-    }
+	params: {
+		theta: "pi/2",
+	},
 });
 circuit.addGate("rz", -1, 0, {
-    params: {
-        phi: "pi/2"
-    }
+	params: {
+		phi: "pi/2",
+	},
 });
 circuit.addGate("u1", -1, 0, {
-    params: {
-        lambda: "pi/2"
-    }
+	params: {
+		lambda: "pi/2",
+	},
 });
 circuit.addGate("u2", -1, 0, {
-    params: {
-        phi: "pi/2",
-        lambda: "pi/2"
-    }
+	params: {
+		phi: "pi/2",
+		lambda: "pi/2",
+	},
 });
 circuit.addGate("u3", -1, 0, {
-    params: {
-        theta: "pi/2",
-        phi: "pi/2",
-        lambda: "pi/2"
-    }
+	params: {
+		theta: "pi/2",
+		phi: "pi/2",
+		lambda: "pi/2",
+	},
 });
 circuit.addGate("s", -1, 0);
 circuit.addGate("t", -1, 0);
@@ -53,35 +53,35 @@ circuit.addGate("srswap", -1, [0, 1]);
 circuit.addGate("cx", -1, [0, 1]);
 circuit.addGate("cz", -1, [0, 1]);
 circuit.addGate("ms", -1, [0, 1], {
-    params: {
-        theta: "pi/2"
-    }
+	params: {
+		theta: "pi/2",
+	},
 });
 circuit.addGate("cr2", -1, [0, 1]);
 circuit.addGate("cr4", -1, [0, 1]);
 circuit.addGate("cr8", -1, [0, 1]);
 circuit.addGate("crz", -1, [0, 1], {
-    params: {
-        phi: "pi/2"
-    }
+	params: {
+		phi: "pi/2",
+	},
 });
 circuit.addGate("cu1", -1, [0, 1], {
-    params: {
-        lambda: "pi/2"
-    }
+	params: {
+		lambda: "pi/2",
+	},
 });
 circuit.addGate("cu2", -1, [0, 1], {
-    params: {
-        phi: "pi/2",
-        lambda: "pi/2"
-    }
+	params: {
+		phi: "pi/2",
+		lambda: "pi/2",
+	},
 });
 circuit.addGate("cu3", -1, [0, 1], {
-    params: {
-        theta: "pi/2",
-        phi: "pi/2",
-        lambda: "pi/2"
-    }
+	params: {
+		theta: "pi/2",
+		phi: "pi/2",
+		lambda: "pi/2",
+	},
 });
 circuit.addGate("cs", -1, [0, 1]);
 circuit.addGate("ct", -1, [0, 1]);

@@ -4,7 +4,7 @@ var input = "";
 input += "// Name of Experiment: W-state v1\n";
 
 input += "OPENQASM 2.0;\n";
-input += "include \"qelib1.inc\";\n";
+input += 'include "qelib1.inc";\n';
 
 input += "qreg q[3];\n";
 input += "creg c[3];\n";
