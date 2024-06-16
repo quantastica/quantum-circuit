@@ -4,7 +4,7 @@ var input = "";
 
 input += "// quantum Fourier transform\n";
 input += "OPENQASM 2.0;\n";
-input += "include \"qelib1.inc\";\n";
+input += 'include "qelib1.inc";\n';
 input += "qreg q[4];\n";
 input += "creg c[4];\n";
 input += "x q[0]; \n";
@@ -21,8 +21,6 @@ input += "cu1(pi/4) q[3],q[1];\n";
 input += "cu1(pi/2) q[3],q[2];\n";
 input += "h q[3];\n";
 input += "measure q -> c;\n";
-
-
 
 var qft = new QuantumCircuit();
 

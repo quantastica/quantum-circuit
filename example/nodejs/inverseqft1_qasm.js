@@ -4,7 +4,7 @@ var input = "";
 
 input += "// QFT and measure, version 1";
 input += "OPENQASM 2.0;\n";
-input += "include \"qelib1.inc\";\n";
+input += 'include "qelib1.inc";\n';
 input += "qreg q[4];\n";
 input += "creg c[4];\n";
 input += "h q;\n";
