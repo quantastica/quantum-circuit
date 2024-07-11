@@ -1693,7 +1693,7 @@ PI/2 rotation over Z-axis (synonym for `r2`)
 [
 
     [1,0],
-    [0,"exp(i * pi / 2)"]
+    [0,"i"]
 ]
 ```
 
@@ -1733,7 +1733,7 @@ circuit.appendGate("t", 0);
 [
 
     [1,0],
-    [0,"exp(-i * pi / 2)"]
+    [0,"-i"]
 ]
 ```
 
@@ -2453,7 +2453,7 @@ Controlled PI/2 rotation over Z-axis (synonym for `cr2`)
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"exp(i * pi / 2)"]
+    [0,0,0,"i"]
 ]
 ```
 
@@ -2497,7 +2497,7 @@ Controlled (-PI/2) rotation over Z-axis
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"exp(-i * pi / 2)"]
+    [0,0,0,"-i"]
 ]
 ```
 
