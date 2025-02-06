@@ -297,7 +297,7 @@ console.log(quantumRandom());
 | **cswap** | CSWAP | CSWAP | Controlled SWAP |  | 3 |  | Controlled swap aka "Fredkin" gate |
 | **csrswap** | def csrswap | SWAP**(1/2) |  |  | 3 |  | Controlled square root of swap |
 | **reset** | RESET | reset | Reset |  | 1 |  | Resets qubit |
-| **measure** | MEASURE | measure | M |  | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
+| **measure** | MEASURE | measure | M |  | 1 |  | Measures qubit and stores outcome (0 or 1) into classical register |
 
 
 *For more details see [gate reference](#gates)*
@@ -2434,7 +2434,7 @@ circuit.appendGate("reset", 0);
 
 ## measure
 
-Measures qubit and stores chance (0 or 1) into classical bit
+Measures qubit and stores outcome (0 or 1) into classical register
 
 **Qubits:** 1
 
