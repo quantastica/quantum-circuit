@@ -2,7 +2,7 @@
 
 [quantum-circuit](https://www.npmjs.com/package/quantum-circuit) is open source quantum circuit simulator implemented in javascript. Smoothly runs 20+ qubit simulations in browser or at server (node.js). You can use it in your javascript program to run quantum simulations. 
 
-Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm), [Quil](https://arxiv.org/abs/1608.03355) and [IONQ](https://docs.ionq.com/). You can export circuits to [OpenQASM](https://github.com/Qiskit/openqasm), [pyQuil](http://docs.rigetti.com/en/latest/index.html), [Quil](https://arxiv.org/abs/1608.03355), [Qiskit](https://qiskit.org/documentation/), [Cirq](https://github.com/quantumlib/Cirq), [TensorFlow Quantum](https://www.tensorflow.org/quantum), [QSharp](https://docs.microsoft.com/en-us/quantum/language/index?view=qsharp-preview), and [QuEST](https://quest.qtechtheory.org/), so it can be used for conversion between quantum programming languages. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
+Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm), [Quil](https://arxiv.org/abs/1608.03355) and [IONQ](https://docs.ionq.com/). You can export circuits to [OpenQASM](https://github.com/Qiskit/openqasm), [pyQuil](http://docs.rigetti.com/en/latest/index.html), [Quil](https://arxiv.org/abs/1608.03355), [Qiskit](https://qiskit.org/documentation/), [Cirq](https://github.com/quantumlib/Cirq), [TensorFlow Quantum](https://www.tensorflow.org/quantum), [QSharp](https://docs.microsoft.com/en-us/quantum/language/index?view=qsharp-preview), and [CudaQ](https://nvidia.github.io/cuda-quantum/latest/index.html), so it can be used for conversion between quantum programming languages. Circuit drawing can be exported to [SVG](https://www.w3.org/Graphics/SVG/) vector image.
 
 
 ## Live examples
@@ -100,30 +100,49 @@ var circuit = new QuantumCircuit(3);
 
 ## Add single-qubit gates
 
+Call `appendGate` method passing gate name and qubit (wire) index:
+
+```javascript
+circuit.appendGate(gateName, wire, options);
+```
+
+For example, to add Hadamard gate to a first qubit (wire 0) type:
+
+```javascript
+circuit.appendGate("h", 0);
+```
+
+For parametrized gates, provide `options` object with `params`:
+
+```javascript
+circuit.appendGate("ry", 0, { "params": { "theta":"pi/2" } });
+```
+
+**For more control on gate placement use `addGate` and specify a column as well:**
+
 Call `addGate` method passing gate name, column index and qubit (wire) index:
 
 ```javascript
 circuit.addGate(gateName, column, wire);
 ```
 
-For example, to add Hadamard gate as a first gate (column 0) at second qubit (wire 1) type:
+For example, to add Hadamard to a second column (column 1) at first qubit (wire 0) type:
 
 ```javascript
-circuit.addGate("h", 0, 1);
+circuit.addGate("h", 1, 0);
 ```
 
 Result is:
 
 ```
-                  
-         Column 0 
-                  
-Wire 0 -----------
-                  
-          |---|   
-Wire 1 ---| H |---
-          |---|   
-                  
+                                
+         Column 0    Column 1   
+                               
+                     |-----|   
+Wire 0 --------------|  H  |---
+                     |-----|   
+                               
+                               
 ```
 
 *Note: if `column` is negative integer then gate will be added to the end of the wire*
@@ -131,13 +150,33 @@ Wire 1 ---| H |---
 
 ## Add multi-qubit gates
 
+Call `appendGate` method passing gate name and array of qubit indexes (wires):
+
+```javascript
+circuit.appendGate(gateName, arrayOfWires);
+```
+
+Example:
+```javascript
+circuit.appendGate("cx", [0, 1]);
+```
+
+For parametrized gates, provide `options` object with `params`:
+
+```javascript
+circuit.appendGate("cry", [0, 1], { "params": { "theta":"pi/2" } });
+```
+
+**For more control on gate placement use `addGate` and specify a column as well:**
+
+
 Call `addGate` method passing gate name, column index and array of connected qubits (wires):
 
 ```javascript
 circuit.addGate(gateName, column, arrayOfWires);
 ```
 
-For example, to add CNOT as a second gate (column 1) controlled by second qubit (wire 1) at third qubit as target (wire 2) do:
+For example, to add CNOT to a second column (column 1) controlled by second qubit (wire 1) at third qubit as target (wire 2) do:
 
 ```javascript
 circuit.addGate("cx", 1, [1, 2]);
@@ -179,7 +218,7 @@ var quantumRandom = function() {
         //
         // add Hadamard gate to the end (-1) of i-th wire
         //
-        circuit.addGate("h", -1, i);
+        circuit.appendGate("h", i);
 
         //
         // add measurement gate to i-th qubit which will store result 
@@ -498,11 +537,9 @@ circuit.load(obj);
 
 Circuit can be imported from [OpenQASM](https://github.com/Qiskit/openqasm) with following limitations:
 
-- `import` directive is ignored (but most of gates defined in `qelib1.inc` are supported) **TODO**
+- `import` directive is ignored (but gates defined in `qelib1.inc` are supported) **TODO**
 
 - `barrier` is ignored. **TODO**
-
-- `reset` is ignored. **TODO**
 
 
 To import circuit from OpenQASM use `importQASM(input, errorCallback)` method:
@@ -598,7 +635,6 @@ circuit.importIonq(ionqCircuit, function(errors) {
 - `errorCallback` (optional) callback will be called after parsing with one argument: array containing errors or empty array on success. If no callback is provided, function will throw error if input contains errors.
 
 
-
 # Export circuit
 
 ## Export to JavaScript
@@ -617,7 +653,7 @@ var js = circuit.exportJavaScript("Comment to insert at the beginning.\nCan be m
 - `asJupyter` - when this argument is `true` jupyter notebook (set to use `ijavascript` kernel) will be returned.
 
 
-## Export to python (Qiskit)
+## Export to Qiskit (python)
 
 Circuit can be exported to [Qiskit](https://qiskit.org/documentation/) with following limitation:
 
@@ -649,41 +685,12 @@ var qiskit = circuit.exportToQiskit({comment:"Comment to insert at the beginning
 
     - `hybrid` - when `true` exports user defined cost function along with circuit for hybrid Quantum-Classical Algorithms
 
-- `insideSubmodule` - when `true` adds extra indent for alignment
+- `insideSubmodule` - used internally (when `true` adds extra indent for alignment)
 
-- `exportAsGateName` - name of the custom gate containing the Qiskit circuit.
+- `exportAsGateName` - used internally (name of the custom gate containing the Qiskit circuit)
 
-- `circuitReplacement` - when `true` exports only gates in the circuit
+- `circuitReplacement` - used internally (when `true` exports only gates in the circuit)
 
-##### (Deprecated. Please use `exportToQiskit()` instead)
-To export circuit to Qiskit you can also use `exportQiskit(comment, decompose, exportAsGateName, versionStr, providerName, backendName, asJupyter, shots, circuitReplacement, insideSubmodule, hybrid)`
-
-Example:
-```javascript
-var qiskit = circuit.exportQiskit("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, null);
-```
-
-- `comment` - comment to insert at the beginning of the file.
-
-- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
-
-- `versionStr` - Qiskit version. Can be `"0.7"`. Exports to latest supported version when empty string is provided. Remember - it is a string.
-
-- `providerName` - name of the Qiskit backend simulator provider.
-
-- `backendName` - name of the Qiskit backend simulator.
-
-- `asJupyter` - when this argument is `true` jupyter notebook will be returned.
-
-- `shots` - no. of trials.
-
-- `hybrid` - when `true` exports user defined cost function along with circuit for hybrid Quantum-Classical Algorithms
-
-- `insideSubmodule` - when `true` adds extra indent for alignment
-
-- `exportAsGateName` - name of the custom gate containing the Qiskit circuit.
-
-- `circuitReplacement` - when `true` exports only gates in the circuit
 
 ## Export to QASM
 
@@ -711,29 +718,9 @@ var qasm = circuit.exportToQASM({comment:"Comment to insert at the beginning.\nC
 
 - `circuitReplacement` - when `true` exports only gates in the circuit
 
-##### (Deprecated. Please use `exportToQASM()` instead)
-To export circuit to OpenQASM you can also use `exportQASM(comment, decompose, exportAsGateName, circuitReplacement, compatibilityMode, insideSubmodule)` method:
-
-Example:
-```javascript
-var qasm = circuit.exportQASM("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false);
-```
-
-- `comment` - comment to insert at the beginning of the file.
-
-- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
-
-- `exportAsGateName` - name of the custom gate containing the Qiskit circuit.
-
-- `circuitReplacement` - when `true` exports only gates in the circuit
-
-- `compatibilityMode` - if set to `true` exports the circuit in compatible mode
-
-- `insideSubmodule` - when `true` adds extra indent for alignment
 
 
-
-## Export to python (pyQuil)
+## Export to pyQuil (python)
 
 Circuit can be exported to [pyQuil](http://docs.rigetti.com/en/latest/index.html)
 
@@ -763,33 +750,6 @@ var qasm = circuit.exportToPyquil({comment:"Comment to insert at the beginning.\
 
 - `exportAsGateName` - name of the custom gate containing the Pyquil circuit.
 
-##### (Deprecated. Please use `exportToPyquil()` instead)
-To export circuit to Pyquil you can also use `exportPyquil(comment, decompose, exportAsGateName, versionStr, lattice, asQVM, asJupyter, shots, hybrid)` method:
-
-Example:
-```javascript
-var pyquil = circuit.exportPyquil("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, "2.1", "", false);
-```
-
-- `comment` - comment to insert at the beginning of the file.
-
-- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
-
-- `exportAsGateName` - name of the custom gate containing the Pyquil circuit.
-
-- `versionStr` - pyQuil version. Can be `"1.9"`, `"2.0"` or `"2.1"`. Exports to latest supported version when empty string is provided. Remember - it is a string.
-
-- `lattice` - You can optionally pass then name of the lattice.
-
-- `asQVM` - If this argument is `true` (and if `lattice` is specified) then produced code will run on QVM mimicking running on QPU. Otherwise, produced code will run on QPU.
-
-- `asJupyter` - when this argument is `true` jupyter notebook will be returned.
-
-- `shots` - no. of trials.
-
-- `hybrid` - when `true` exports user defined cost function along with circuit for hybrid Quantum-Classical Algorithms
-
-
 
 ## Export to Quil
 
@@ -812,24 +772,8 @@ var quil = circuit.exportToQuil({comment:"Comment to insert at the beginning.\nC
 - `exportAsGateName` - name of the custom gate containing the Pyquil circuit.
 
 
-##### (Deprecated. Please use `exportToQuil()` instead)
-To export circuit to Quil you can also use `exportQuil(comment, decompose, exportAsGateName, versionStr)` method:
 
-Example:
-```javascript
-var quil = circuit.exportQuil("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, "2.0");
-```
-
-- `comment` - comment to insert at the beginning of the file.
-
-- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines (DEFCIRCUIT).
-
-- `exportAsGateName` - name of the custom gate containing the Quil circuit.
-
-- `versionStr` - Quil version. Can be `"1.0"` or `"2.0"` or empty string. Exports to latest supported version when empty string is provided. Remember - it is a string.
-
-
-## Export to python (Cirq)
+## Export to Cirq (python)
 
 Circuit can be exported to [Cirq](https://github.com/quantumlib/Cirq) with following limitation:
 
@@ -859,28 +803,6 @@ var cirq = circuit.exportToCirq({comment:"Comment to insert at the beginning.\nC
 
 - `exportAsGateName` - name of the custom gate containing the Cirq circuit.
 
-##### (Deprecated. Please use `exportToCirq()` instead)
-To export circuit to Cirq you can also use `exportCirq(comment, decompose, exportAsGateName, versionStr, asJupyter, shots, exportTfq)` method:
-
-Example:
-```javascript
-var cirq = circuit.exportCirq("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, null, false, null, false);
-```
-
-- `comment` - comment to insert at the beginning of the file.
-
-- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
-
-- `exportAsGateName` - name of the custom gate containing the Cirq circuit.
-
-- `versionStr` - Cirq version. Can be `"0.5"` or empty string. Exports to latest supported version when empty string is provided. Remember - it is a string.
-
-- `asJupyter` - when this argument is `true` jupyter notebook will be returned.
-
-- `shots` - no. of trials.
-
-- `exportTfq` - if set to `true` the export function will export circuit to Tensorflow Quantum.
-
 
 ## Export to C/C++ (QuEST)
 
@@ -903,22 +825,6 @@ var quest = circuit.exportToQuEST("Comment to insert at the beginning.\nCan be m
 
 - `definedFunc` - list of gates that must be present in the defined function
 
-##### (Deprecated. Please use `exportToQuEST()` instead)
-
-To export circuit to QuEST you can also use `exportQuEST(comment, decompose, exportAsGateName, definedFunc)` method:
-
-Example:
-```javascript
-var quest = circuit.exportQuEST("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, null);
-```
-
-- `comment` - comment to insert at the beginning of the file.
-
-- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
-
-- `exportAsGateName` - name of the custom gate containing the QuEST circuit.
-
-- `definedFunc` - list of gates that must be present in the defined function
 
 
 ## Export to Q# (QSharp)
@@ -949,31 +855,6 @@ var qsharp = circuit.exportQSharp("Comment to insert at the beginning.\nCan be m
 - `exportAsGateName` - name of the custom gate containing the QSharp circuit.
 
 
-##### (Deprecated. Please use `exportToQSharp()` instead)
-
-
-To export circuit to Q# use `exportQSharp(comment, decompose, exportAsGateName, versionStr, asJupyter, circuitName, indentDepth)` method:
-
-Example:
-```javascript
-var qsharp = circuit.exportQSharp("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, null, false, null);
-```
-
-- `comment` - comment to insert at the beginning of the file.
-
-- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
-
-- `exportAsGateName` - name of the custom gate containing the QSharp circuit.
-
-- `versionStr` - QSharp version. Can be `"0.1"` or empty string. Exports to latest supported version when empty string is provided. Remember - it is a string.
-
-- `asJupyter` - when this argument is `true` jupyter notebook (set to use qsharp kernel) will be returned.
-
-- `circuitName` - Name of the circuit that is being exported to QSharp. By default set to `"Circuit"`
-
-- `indentDepth` - The no. of tabs to be put before a Python line of code.
-
-
 ## Export to Qobj
 
 Circuit can be exported to [Qobj](https://qiskit.org/documentation/apidoc/qobj.html):
@@ -994,24 +875,8 @@ var qobj = circuit.exportToQobj({circuitName:"new_circuit"}, false);
 
 - `circuitReplacement` - when `true` exports only gates in the circuit
 
-##### (Deprecated. Please use `exportToQobj()` instead)
-To export circuit to Qobj you can also use `exportQobj(circuitName, experimentName, numShots, circuitReplacement)`
 
-Example:
-```javascript
-var qobj = circuit.exportQobj("new_circuit", false);
-```
-
-- `circuitName` - name of the circuit that is being exported to Qobj
-
-- `experimentName` - name of the experiment that describes the number of memory slots, qubits, qubit names, classical bit names etc. 
-
-- `numShots` - no. of trials.
-
-- `circuitReplacement` - when `true` exports only gates in the circuit
-
-
-## Export to python (Tensorflow Quantum)
+## Export to TensorFlow Quantum (python)
 
 Circuit can be exported to [Tensorflow Quantum](https://www.tensorflow.org/quantum):
 
@@ -1035,27 +900,8 @@ var tfq = circuit.exportToTFQ({comment:"Comment to insert at the beginning.\nCan
 
 - `exportAsGateName` - name of the custom gate containing the TFQ circuit.
 
-##### (Deprecated. Please use `exportToTFQ()` instead)
-To export circuit to TFQ you can also use `exportTFQ(comment, decompose, exportAsGateName, versionStr, asJupyter, shots)`
 
-Example:
-```javascript
-var tfq = circuit.exportTFQ("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, null);
-```
-
-- `comment` - comment to insert at the beginning of the file.
-
-- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
-
-- `exportAsGateName` - name of the custom gate containing the TFQ circuit.
-
-- `versionStr` - TFQ version. Exports to latest supported version when empty string is provided. Remember - it is a string.
-
-- `asJupyter` - when this argument is `true` jupyter notebook will be returned.
-
-- `shots` - no. of trials.
-
-## Export to python (Braket)
+## Export to Braket (python)
 
 Circuit can be exported to [Braket](https://docs.aws.amazon.com/braket/):
 
@@ -1083,32 +929,8 @@ var braket = circuit.exportToBraket({comment:"Comment to insert at the beginning
 
 - `exportAsGateName` - name of the custom gate containing the Braket circuit.
 
-##### (Deprecated. Please use `exportToBraket()` instead)
-To export circuit to Braket you can also use `exportBraket(comment, decompose, exportAsGateName, versionStr, asJupyter, shots, hybrid, indentDepth)`
 
-Example:
-```javascript
-var braket = circuit.exportBraket("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, null);
-```
-
-- `comment` - comment to insert at the beginning of the file.
-
-- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
-
-- `exportAsGateName` - name of the custom gate containing the Braket circuit.
-
-- `versionStr` - Braket version. Exports to latest supported version when empty string is provided. Remember - it is a string.
-
-- `asJupyter` - when this argument is `true` jupyter notebook will be returned.
-
-- `shots` - no. of trials.
-
-- `indentDepth` - The no. of tabs to be put before a Python line of code.
-
-- `hybrid` - when `true` exports user defined cost function along with circuit for hybrid Quantum-Classical Algorithms
-
-
-## Export to python (pyAQASM)
+## Export to pyAQASM (python)
 
 Circuit can be exported to [pyAQASM](https://myqlm.github.io/):
 
@@ -1132,27 +954,8 @@ var pyAqasm = circuit.exportToPyAQASM({comment:"Comment to insert at the beginni
 
 - `exportAsGateName` - name of the custom gate containing the pyAQASM circuit.
 
-##### (Deprecated. Please use `exportToPyAQASM()` instead)
-To export circuit to pyAQASM you can also use `exportPyAQASM(comment, decompose, exportAsGateName, asJupyter, shots, hybrid)`
 
-Example:
-```javascript
-var pyAqasm = circuit.exportPyAQASM("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, null);
-```
-
-- `comment` - comment to insert at the beginning of the file.
-
-- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
-
-- `exportAsGateName` - name of the custom gate containing the pyAQASM circuit.
-
-- `asJupyter` - when this argument is `true` jupyter notebook will be returned.
-
-- `shots` - no. of trials.
-
-- `hybrid` - when `true` exports user defined cost function along with circuit for hybrid Quantum-Classical Algorithms
-
-## Export to python (AQASM)
+## Export to AQASM
 
 Circuit can be exported to [AQASM](https://myqlm.github.io/aqasm.html):
 
@@ -1180,29 +983,41 @@ var aqasm = circuit.exportToAQASM({comment:"Comment to insert at the beginning.\
 
 - `indentDepth` - The no. of tabs to be put before a Python line of code.
 
-##### (Deprecated. Please use `exportToAQASM()` instead)
-To export circuit to pyAQASM you can also use `exportAQASM(comment, decompose, isExportPyAQASM, exportAsGateName, asJupyter, shots, hybrid, indentDepth)`
+
+
+## Export to CudaQ (python)
+
+Circuit can be exported to [CudaQ](https://nvidia.github.io/cuda-quantum/latest/index.html)
+
+To export circuit to CudaQ use `exportToCudaQ(options, exportAsGateName, circuitReplacement, insideSubmodule)` method :
 
 Example:
 ```javascript
-var aqasm = circuit.exportAQASM("Comment to insert at the beginning.\nCan be multi-line comment as this one.", false, null, null);
+var cudaq = circuit.exportToCudaQ({comment:"Comment to insert at the beginning.\nCan be multi-line comment as this one."}, false, null, null);
 ```
 
-- `comment` - comment to insert at the beginning of the file.
+- `options` - consists of parameters for circuit export as follows:
 
-- `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
+    - `comment` - comment to insert at the beginning of the file.
 
-- `isExportPyAQASM` - if `true`, this function will be used to export to pyAQASM instead of AQASM.
+    - `decompose` - if set to `true` and circuit contains user defined gates then it will be decomposed to basic gates and then exported. If set to `false` then user defined gates will exported as subroutines.
 
-- `exportAsGateName` - name of the custom gate containing the AQASM circuit.
+    - `backendName` - name of the CudaQ backend.
 
-- `asJupyter` - when this argument is `true` jupyter notebook will be returned.
+    - `asJupyter` - when this argument is `true` jupyter notebook will be returned.
 
-- `shots` - no. of trials.
+    - `shots` - number of shots (if code is sampling).
 
-- `hybrid` - when `true` exports user defined cost function along with circuit for hybrid Quantum-Classical Algorithms
+    - `hybrid` - when `true` exports user defined cost function along with circuit for hybrid Quantum-Classical Algorithms
 
-- `indentDepth` - The no. of tabs to be put before a Python line of code.
+- `insideSubmodule` - used internally (when `true` adds extra indent for alignment)
+
+- `exportAsGateName` - used internally (name of the custom gate containing the CudaQ circuit)
+
+- `circuitReplacement` - used internally (when `true` exports only gates in the circuit)
+
+
+
 
 ## Export to SVG
 

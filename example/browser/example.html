@@ -319,14 +319,19 @@
 				Log(circuit.exportQuil(""));
 				Log("");
 
+				Log("Qiskit:");
+				Log("-------");
+				Log(circuit.exportToQiskit());
+				Log("");
+
 				Log("pyQuil:");
 				Log("-------");
 				Log(circuit.exportPyquil(""));
 				Log("");
 
-				Log("QuEST:");
+				Log("CudaQ:");
 				Log("-------");
-				Log(circuit.exportQuEST("", null, null, []));
+				Log(circuit.exportToCudaQ());
 				Log("");
 
 				Log("SVG:");
