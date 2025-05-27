@@ -58,5 +58,10 @@ console.log("Probabilities:");
 console.log(qft.probabilities());
 
 console.log("");
-console.log("Measured:");
+console.log("Measured (single-shot)");
 console.log(qft.measureAll());
+
+console.log("");
+console.log("Counts (1000 shots)");
+console.log(qft.measureAllMultishot(1000));
+

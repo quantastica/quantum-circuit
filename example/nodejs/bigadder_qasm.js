@@ -94,6 +94,10 @@ console.log("Probabilities:");
 console.log(adder.probabilities());
 
 console.log("");
-console.log("Measured:");
+console.log("Measured (single-shot)");
 console.log(adder.measureAll());
+
+console.log("");
+console.log("Counts (1000 shots)");
+console.log(adder.measureAllMultishot(1000));
 

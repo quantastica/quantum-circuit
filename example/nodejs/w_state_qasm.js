@@ -58,5 +58,10 @@ console.log("Probabilities:");
 console.log(circuit.probabilities());
 
 console.log("");
-console.log("Measured:");
+console.log("Measured (single-shot)");
 console.log(circuit.measureAll());
+
+console.log("");
+console.log("Counts (1000 shots)");
+console.log(circuit.measureAllMultishot(1000));
+
