@@ -1,6 +1,6 @@
 {
   "name": "quantum-circuit",
-  "version": "0.9.239",
+  "version": "0.9.240",
   "description": "Quantum Circuit Simulator",
   "main": "lib/quantum-circuit.js",
   "unpkg": "dist/quantum-circuit.min.js",
