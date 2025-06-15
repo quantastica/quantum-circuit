@@ -298,6 +298,7 @@ console.log(quantumRandom());
 | **csrswap** | def csrswap | SWAP**(1/2) |  |  | 3 |  | Controlled square root of swap |
 | **reset** | RESET | reset | Reset |  | 1 |  | Resets qubit |
 | **measure** | MEASURE | measure | M |  | 1 |  | Measures qubit and stores outcome (0 or 1) into classical register |
+| **barrier** | FENCE |  |  |  | 1 |  | Barrier |
 
 
 *For more details see [gate reference](#gates)*
@@ -2451,6 +2452,17 @@ circuit.appendGate("measure", 0, {
 **Or:**
 ```javascript
 circuit.addMeasure(0, "c", 3);
+```
+
+## barrier
+
+Barrier
+
+**Qubits:** 1
+
+**Example:**
+```javascript
+circuit.appendGate("barrier", 0);
 ```
 
 
