@@ -14,6 +14,7 @@ var assert = require("assert");
 
 var circuit = new QuantumCircuit();
 
+
 var checkBasicGates = function() {
 	for(var gateName in circuit.basicGates) {
 		var gate = circuit.basicGates[gateName];
@@ -114,13 +115,46 @@ var checkImportExportQuil = function() {
 
 var circuits = {
 
+	"Empty": {
+		circuit: [
+		],
+		state: [
+			[1, 0],
+			[0, 0]
+		],
+		angles: [
+			{
+				"theta": 0,
+				"phi": 0,
+				"thetaDeg": 0,
+				"phiDeg": 0,
+				"radius": 1,
+				"x": 0,
+				"y": 0,
+				"z": 1
+			}
+		]
+	},
+
 	"X": {
 		circuit: [
 			["x",  0, 0]
 		],
 		state: [
-		[0, 0],
-		[1, 0]
+			[0, 0],
+			[1, 0]
+		],
+		angles: [
+			{
+				"theta": 3.14159265359,
+				"phi": 0,
+				"thetaDeg": 180,
+				"phiDeg": 0,
+				"radius": 1,
+				"x": 0,
+				"y": 0,
+				"z": -1
+			}
 		]
 	},
 
@@ -131,6 +165,18 @@ var circuits = {
 		state: [
 			[0, 0],
 			[0, 1]
+		],
+		angles: [
+			{
+				"theta": 3.14159265359,
+				"phi": 0,
+				"thetaDeg": 180,
+				"phiDeg": 0,
+				"radius": 1,
+				"x": 0,
+				"y": 0,
+				"z": -1
+			}
 		]
 	},
 
@@ -141,6 +187,18 @@ var circuits = {
 		state: [
 			[1, 0],
 			[0, 0]
+		],
+		angles: [
+			{
+				"theta": 0,
+				"phi": 0,
+				"thetaDeg": 0,
+				"phiDeg": 0,
+				"radius": 1,
+				"x": 0,
+				"y": 0,
+				"z": 1
+			}
 		]
 	},
 
@@ -151,6 +209,18 @@ var circuits = {
 		state: [
 			[0.70710678, 0],
 			[0.70710678, 0]
+		],
+		angles: [
+			{
+				"theta": 1.570796326795,
+				"phi": 0,
+				"thetaDeg": 90,
+				"phiDeg": 0,
+				"radius": 1,
+				"x": 1,
+				"y": 0,
+				"z": 0
+			}
 		]
 	},
 
@@ -161,6 +231,18 @@ var circuits = {
 		state: [
 			[0.5, 0.5],
 			[0.5, -0.5]
+		],
+		angles: [
+			{
+				"theta": 1.570796326795,
+				"phi": -1.570796326795,
+				"thetaDeg": 90,
+				"phiDeg": -90,
+				"radius": 1,
+				"x": 0,
+				"y": -1,
+				"z": 0
+			}
 		]
 	},
 
@@ -172,6 +254,18 @@ var circuits = {
 		state: [
 			[0, 0],
 			[0, 1]
+		],
+		angles: [
+			{
+				"theta": 3.14159265359,
+				"phi": 0,
+				"thetaDeg": 180,
+				"phiDeg": 0,
+				"radius": 1,
+				"x": 0,
+				"y": 0,
+				"z": -1
+			}
 		]
 	},
 
@@ -179,9 +273,22 @@ var circuits = {
 		circuit: [
 			["x",   0, 0],
 			["r4",  1, 0]
-		], state: [
+		],
+		state: [
 			[0, 0],
 			[0.70710678, 0.70710678]
+		],
+		angles: [
+			{
+				"theta": 3.14159265359,
+				"phi": 0,
+				"thetaDeg": 180,
+				"phiDeg": 0,
+				"radius": 1,
+				"x": 0,
+				"y": 0,
+				"z": -1
+			}
 		]
 	},
 
@@ -189,9 +296,45 @@ var circuits = {
 		circuit: [
 			["x",   0, 0],
 			["r8",  1, 0]
-		], state: [
+		],
+		state: [
 			[0, 0],
 			[0.92387953, 0.38268343]
+		],
+		angles: [
+			{
+				"theta": 3.14159265359,
+				"phi": 0,
+				"thetaDeg": 180,
+				"phiDeg": 0,
+				"radius": 1,
+				"x": 0,
+				"y": 0,
+				"z": -1
+			}
+		]
+	},
+
+	"H-R8": {
+		circuit: [
+			["h",   0, 0],
+			["r8",  1, 0]
+		],
+		state: [
+			[ 0.70710678118655, 0 ],
+			[ 0.65328148243819, 0.2705980500731 ]
+		],
+		angles: [
+			{
+				"theta": 1.570796326795,
+				"phi": 0.392699081699,
+				"thetaDeg": 90,
+				"phiDeg": 22.5,
+				"radius": 1,
+				"x": 0.923879532511,
+				"y": 0.382683432365,
+				"z": 0
+			}
 		]
 	},
 
@@ -205,14 +348,75 @@ var circuits = {
 			[0,          0],
 			[0,          0],
 			[0.70710678, 0]
+		],
+		angles: [
+			{
+				"theta": 1.570796326795,
+				"phi": 0,
+				"thetaDeg": 90,
+				"phiDeg": 0,
+				"radius": 0,
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			{
+				"theta": 1.570796326795,
+				"phi": 0,
+				"thetaDeg": 90,
+				"phiDeg": 0,
+				"radius": 0,
+				"x": 0,
+				"y": 0,
+				"z": 0
+			}
+		]
+	},
+
+	"Issue_97": {
+		circuit: [
+			["h", 0, 0],
+			["h", 0, 1],
+			["s", 1, 0],
+			["t", 1, 1],
+			["cx", 2, [0, 1]],
+			["srn", 3, 0]
+		],
+		state: [
+			[ 0.25, 0.60355339059327 ],
+			[ -0.10355339059327, -0.25 ],
+			[ 0.25, 0.60355339059327 ],
+			[ 0.10355339059327, 0.25 ]
+		],
+		angles: [
+			{
+				"theta": 0,
+				"phi": 0,
+				"thetaDeg": 0,
+				"phiDeg": 0,
+				"radius": 0.7071068,
+				"x": 0,
+				"y": 0,
+				"z": 0.707106781187
+			},
+			{
+				"theta": 1.570796326795,
+				"phi": 0,
+				"thetaDeg": 90,
+				"phiDeg": 0,
+				"radius": 0.7071068,
+				"x": 0.707106781187,
+				"y": 0,
+				"z": 0
+			}
 		]
 	}
 };
 
-var testCircuit = function(name, gates, expectedState) {
+var testCircuit = function(name, gates, expectedState, expectedAngles) {
 	circuit.clear();
 
-	if(!gates || !gates.length) {
+	if(!Array.isArray(gates)) {
 		console.log("Invalid input");
 		return false;
 	}
@@ -250,7 +454,19 @@ var testCircuit = function(name, gates, expectedState) {
 				bin = "0" + bin;
 			}
 
-			console.log("|" + bin + "> Expected: " + formatComplex2(expected[0], expected[1]) + " Got: " + formatComplex(state));
+			console.log("|" + bin + "> Expected: " + circuit.formatComplex(expected[0], expected[1]) + " Got: " + circuit.formatComplex(state));
+		}
+	}
+
+	var angles = circuit.angles();
+	for(var wire = 0; wire < circuit.numQubits; wire++) {
+		if(angles[wire].theta != expectedAngles[wire].theta) {
+			console.log("Invalid angle \"theta\" at qubit " + wire + ". Expected: " + expectedAngles[wire].theta + " Got: " + angles[wire].theta);
+			return false;
+		}
+		if(angles[wire].phi != expectedAngles[wire].phi) {
+			console.log("Invalid angle \"phi\" at qubit " + wire + ". Expected: " + expectedAngles[wire].phi + " Got: " + angles[wire].phi);
+			return false;
 		}
 	}
 
@@ -259,11 +475,12 @@ var testCircuit = function(name, gates, expectedState) {
 
 var testCircuits = function() {
 	for(var name in circuits) {
-		var circ = circuits[name];
-
-		it("\"" + name + "\" output state should be correct", function() {
-			assert(testCircuit(name, circ.circuit, circ.state));
-		});
+		(function(name) {
+			const circ = circuits[name];
+			it("\"" + name + "\" output state and bloch sphere angles should be correct", function() {
+				assert(testCircuit(name, circ.circuit, circ.state, circ.angles));
+			});
+		})(name);
 	}
 	return true;
 };
