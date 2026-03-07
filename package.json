@@ -2,9 +2,16 @@
   "name": "quantum-circuit",
   "version": "1.0",
   "description": "Quantum Circuit Simulator",
-  "main": "lib/quantum-circuit.js",
+  "main": "dist/quantum-circuit.cjs",
+  "module": "dist/quantum-circuit.js",
   "unpkg": "dist/quantum-circuit.min.js",
   "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/quantum-circuit.js",
+      "require": "./dist/quantum-circuit.cjs"
+    }
+  },
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "export-gatedefs": "node ./utils/export_gatedefs.js",

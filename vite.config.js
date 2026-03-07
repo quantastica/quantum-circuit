@@ -4,10 +4,11 @@ export default {
 		target: ["esnext"],
 		lib: {
 			entry: "lib/quantum-circuit.js",
-			formats: ["es"],
+			formats: ["es", "cjs"],
 			fileName: (format) =>
 				({
-					es: `quantum-circuit.js`,
+					es: "quantum-circuit.js",
+					cjs: "quantum-circuit.cjs",
 				})[format],
 		},
 		rollupOptions: {

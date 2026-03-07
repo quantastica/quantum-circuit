@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Quantum Circuit Simulator Example</title>
+    </head>
+
+    <body>
+        <script type="text/javascript" src="dist\quantum-circuit.js"></script>
+
+        <script type="text/javascript">
+            let qasm = `
+OPENQASM 2.0;
+include "qelib1.inc";
+qreg q[3];
+creg c[3];
+gate qft2 a, b, c
+{
+  h b;
+  cu1 (pi/2) a, b;
+  h a;
+  swap a, b;
+  h c;
+}
+
+qft2 q[0], q[1], q[2];
+id q[0];
+x q[0];
+y q[0];
+z q[0];
+h q[0];
+srn q[0];
+srndg q[0];
+r2 q[0];
+r4 q[0];
+r8 q[0];
+rx (pi/4) q[0];
+ry (pi/4) q[0];
+rz (pi/4) q[0];
+u1 (pi/4) q[0];
+u2 (pi,pi/4) q[0];
+u3 (pi,pi/2,pi/4) q[0];
+s q[0];
+t q[0];
+sdg q[0];
+tdg q[0];
+gpi (pi/4) q[0];
+gpi2 (pi/4) q[0];
+vz (pi/4) q[0];
+
+
+cx q[0], q[1];
+cy q[0], q[1];
+cz q[0], q[1];
+ch q[0], q[1];
+csrn q[0], q[1];
+swap q[0], q[1];
+srswap q[0], q[1];
+iswap q[0], q[1];
+xx (pi/4) q[0], q[1];
+yy (pi/4) q[0], q[1];
+zz (pi/4) q[0], q[1];
+xy (pi/4) q[0], q[1];
+cr2 q[0], q[1];
+cr4 q[0], q[1];
+cr8 q[0], q[1];
+crx (pi/4) q[0], q[1];
+cry (pi/4) q[0], q[1];
+crz (pi/4) q[0], q[1];
+cu1 (pi/4) q[0], q[1];
+cu2 (pi,pi/4) q[0], q[1];
+cu3 (pi,pi/2,pi/4) q[0], q[1];
+s q[0], q[1];
+t q[0], q[1];
+sdg q[0], q[1];
+tdg q[0], q[1];
+cswap q[0], q[1], q[2];
+ccx q[0], q[1], q[2];
+reset q[1];
+mz q[0];
+
+
+
+
+// col (0)
+;
+
+
+
+
+
+
+`
+            let qc = new QuantumCircuit()
+            qc.importQASM(qasm, function(errors){})
+            let code= qc.exportToCudaQ()
+
+            console.log(code)
+            
+        </script>
+    </body>
+</html>

@@ -258,7 +258,8 @@ console.log(quantumRandom());
 | **cswap** | CSWAP | CSWAP | Controlled SWAP |  | 3 |  | Controlled swap aka "Fredkin" gate |
 | **csrswap** | def csrswap | SWAP**(1/2) |  |  | 3 |  | Controlled square root of swap |
 | **reset** | RESET | reset | Reset |  | 1 |  | Resets qubit |
-| **measure** | MEASURE | measure | M |  | 1 |  | Measures qubit and stores chance (0 or 1) into classical bit |
+| **measure** | MEASURE | measure | M |  | 1 |  | Measures qubit and stores outcome (0 or 1) into classical register |
+| **barrier** | FENCE |  |  |  | 1 |  | Barrier |
 
 
 *For more details see [gate reference](#gates)*
@@ -1693,7 +1694,7 @@ PI/2 rotation over Z-axis (synonym for `r2`)
 [
 
     [1,0],
-    [0,"exp(i * pi / 2)"]
+    [0,"i"]
 ]
 ```
 
@@ -1733,7 +1734,7 @@ circuit.appendGate("t", 0);
 [
 
     [1,0],
-    [0,"exp(-i * pi / 2)"]
+    [0,"-i"]
 ]
 ```
 
@@ -2453,7 +2454,7 @@ Controlled PI/2 rotation over Z-axis (synonym for `cr2`)
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"exp(i * pi / 2)"]
+    [0,0,0,"i"]
 ]
 ```
 
@@ -2497,7 +2498,7 @@ Controlled (-PI/2) rotation over Z-axis
     [1,0,0,0],
     [0,1,0,0],
     [0,0,1,0],
-    [0,0,0,"exp(-i * pi / 2)"]
+    [0,0,0,"-i"]
 ]
 ```
 
@@ -2619,7 +2620,7 @@ circuit.appendGate("reset", 0);
 
 ## measure
 
-Measures qubit and stores chance (0 or 1) into classical bit
+Measures qubit and stores outcome (0 or 1) into classical register
 
 **Qubits:** 1
 
@@ -2636,6 +2637,17 @@ circuit.appendGate("measure", 0, {
 **Or:**
 ```javascript
 circuit.addMeasure(0, "c", 3);
+```
+
+## barrier
+
+Barrier
+
+**Qubits:** 1
+
+**Example:**
+```javascript
+circuit.appendGate("barrier", 0);
 ```
 
 
